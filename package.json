@@ -10,8 +10,10 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^6.12.5",
+    "@clerk/themes": "^2.2.21",
     "@prisma/client": "^6.5.0",
     "axios": "^1.8.3",
+    "date-fns": "^4.1.0",
     "mongoose": "^8.12.1",
     "next": "15.2.2",
     "next-auth": "^4.24.11",

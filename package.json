@@ -12,13 +12,21 @@
     "@clerk/nextjs": "^6.12.5",
     "@clerk/themes": "^2.2.21",
     "@prisma/client": "^6.5.0",
+    "@radix-ui/react-slot": "^1.1.2",
     "axios": "^1.8.3",
+    "class-variance-authority": "^0.7.1",
+    "cloudinary": "^2.6.0",
+    "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
+    "lucide-react": "^0.483.0",
     "mongoose": "^8.12.1",
     "next": "15.2.2",
     "next-auth": "^4.24.11",
+    "next-images": "^1.8.5",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "tailwind-merge": "^3.0.2",
+    "tw-animate-css": "^1.2.4"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

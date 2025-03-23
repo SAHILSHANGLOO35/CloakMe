@@ -1,5 +1,3 @@
-
-// // app/page.tsx
 import { currentUser } from "@clerk/nextjs/server";
 import { db } from "@/lib/db";
 import { PostForm } from "./components/PostForm";

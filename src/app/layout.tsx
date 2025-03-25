@@ -22,7 +22,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-    title: "CloakMe",
+    title: "Cloak Me",
     description: "Created by Sahil Shangloo AKA doubleSdotdev",
 };
 

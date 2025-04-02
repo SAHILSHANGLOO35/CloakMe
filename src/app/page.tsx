@@ -4,7 +4,7 @@ import Image from "next/image";
 import harryPotterImage from "../../public/harrypotter.png";
 import harryPotterImage2 from "../../public/Dumbledore.png";
 
-import React from "react";
+import React, { useState } from "react"; // Import useState
 import {
     Shield,
     Image as Imageicon,
@@ -17,9 +17,24 @@ import {
     Globe2,
     Eye,
     Share2,
+    Loader2, // Import Loader2 icon for loading animation
 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 function App() {
+    const router = useRouter();
+    const [isLoading, setIsLoading] = useState(false); // Add loading state
+
+    // Handle navigation with loading state
+    const handleNavigation = () => {
+        setIsLoading(true);
+        router.push('/post-feed');
+
+        // Optional: If you want to reset loading state after a timeout
+        // in case navigation takes too long or fails
+        // setTimeout(() => setIsLoading(false), 3000);
+    };
+
     return (
         <main className="min-h-screen bg-black/50 text-white relative overflow-x-hidden">
             {/* Animated Background */}
@@ -48,17 +63,31 @@ function App() {
                                 identity stays hidden.
                             </p>
                             <div className="flex justify-center md:justify-start">
-                                <button className="w-full md:w-80 px-4 flex items-center justify-center py-3 md:py-4 text-base md:text-lg font-semibold bg-gradient-to-r from-purple-600 to-pink-600 rounded-full shadow-lg hover:bg-gradient-to-l hover:from-purple-400 hover:to-pink-600 transition-all duration-300 shadow-purple-500/10 cursor-pointer hover:opacity-80">
-                                    <span className="flex-1 text-center">
-                                        Go to feed
-                                    </span>{" "}
-                                    <span>
-                                        <ArrowRight className="ml-auto" />
+                                <button
+                                    className="w-full md:w-80 px-4 flex items-center justify-center py-3 md:py-4 text-base md:text-lg font-semibold bg-gradient-to-r from-purple-600 to-pink-600 rounded-full shadow-lg hover:bg-gradient-to-l hover:from-purple-400 hover:to-pink-600 transition-all duration-300 shadow-purple-500/10 cursor-pointer hover:opacity-80 disabled:opacity-70 disabled:cursor-not-allowed"
+                                    onClick={handleNavigation}
+                                    disabled={isLoading}
+                                >
+                                    <span className="flex-1 text-center flex items-center justify-center">
+                                        {isLoading ? (
+                                            <>
+                                                <Loader2 className="animate-spin mr-2" size={20} />
+                                                Loading...
+                                            </>
+                                        ) : (
+                                            "Go to feed"
+                                        )}
                                     </span>
+                                    {!isLoading && (
+                                        <span>
+                                            <ArrowRight className="ml-auto" />
+                                        </span>
+                                    )}
                                 </button>
                             </div>
                         </div>
 
+                        {/* Rest of the code remains the same */}
                         {/* Right Column - Image */}
                         <div className="relative w-full flex justify-center md:block">
                             <div className="relative w-[300px] h-[300px] md:w-[600px] md:h-[600px]">

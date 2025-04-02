@@ -6,10 +6,9 @@ import {
     UserButton,
 } from "@clerk/nextjs";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import { AuthSync } from "./components/AuthSync";
+import './globals.css';
+import { AuthSync } from "../components/AuthSync";
 import { dark } from "@clerk/themes";
-import Link from "next/link";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",

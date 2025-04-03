@@ -8,17 +8,19 @@ datasource db {
 }
 
 model User {
-  id        String    @id @default(uuid())
-  clerkId   String    @unique
-  username  String    @unique
-  posts     Post[]
-  likes     Like[]
-  comments  Comment[]
-  followers Follow[]  @relation("following")
-  following Follow[]  @relation("follower")
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  id          String    @id @default(uuid())
+  clerkId     String    @unique
+  phoneNumber String    @unique
+  username    String    @unique
+  posts       Post[]
+  likes       Like[]
+  comments    Comment[]
+  followers   Follow[]  @relation("following")
+  following   Follow[]  @relation("follower")
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 }
+
 
 model Post {
   id        String    @id @default(uuid())

@@ -1,6 +1,7 @@
 import { currentUser } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
+import { generateRandomUsername } from "@/lib/generateUsername";
 
 export async function GET(request: Request) {
     try {
@@ -18,17 +19,13 @@ export async function GET(request: Request) {
         });
 
         if (!dbUser) {
-            const username =
-                user.username ||
-                `${user.firstName?.toLowerCase() || ""}${
-                    user.lastName?.toLowerCase() || ""
-                }` ||
-                `user_${user.id.substring(0, 6)}`;
+            const username = generateRandomUsername();
 
             dbUser = await db.user.create({
                 data: {
                     clerkId: user.id,
-                    username: username,
+                    username,
+                    phoneNumber: user.phoneNumbers?.[0]?.phoneNumber
                 },
             });
 

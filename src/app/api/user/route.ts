@@ -6,6 +6,7 @@ import { generateRandomUsername } from "@/lib/generateUsername";
 export async function GET(request: Request) {
     try {
         const user = await currentUser();
+        // console.log(user);
 
         if (!user) {
             return NextResponse.json(

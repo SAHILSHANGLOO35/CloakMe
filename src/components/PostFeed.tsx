@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { formatDistanceToNow } from "date-fns";
+import { Heart, MessageCircle } from "lucide-react";
+import Comments from "./Comments";
 
 type Post = {
     id: string;
@@ -14,17 +16,58 @@ type Post = {
         username: string;
         id: string;
     };
+    likes: number;
+    comments?: number; // Adding comments count property
 };
 
 export function PostFeed() {
     const [posts, setPosts] = useState<Post[]>([]);
+    const [likedPosts, setLikedPosts] = useState<string[]>([]);
+    const [likesMap, setLikesMap] = useState<{ [postId: string]: number }>({});
+    const [commentsMap, setCommentsMap] = useState<{ [postId: string]: number }>({});
+
     const [loading, setLoading] = useState(true);
+
+    const toggleLike = async (postId: string) => {
+        const alreadyLiked = likedPosts.includes(postId);
+
+        try {
+            await axios.post(`/api/posts/${postId}/like`, {
+                like: !alreadyLiked
+            });
+
+            setLikesMap((prevLikes) => ({
+                ...prevLikes,
+                [postId]: alreadyLiked ? prevLikes[postId] - 1 : prevLikes[postId] + 1,
+            }));
+
+            setLikedPosts((prev) =>
+                alreadyLiked ? prev.filter((id) => id !== postId) : [...prev, postId]
+            );
+        } catch (error) {
+            console.error("Failed to like/unlike post: ", error);
+        }
+    };
 
     useEffect(() => {
         const fetchPosts = async () => {
             try {
                 const response = await axios.get("/api/posts");
                 setPosts(response.data.posts);
+
+                const initialLikes = response.data.posts.reduce((acc: { [postId: string]: number }, post: Post) => {
+                    acc[post.id] = post.likes;
+                    return acc;
+                }, {});
+
+                // Initialize comments count for each post (assuming they come from API or set to 0)
+                const initialComments = response.data.posts.reduce((acc: { [postId: string]: number }, post: Post) => {
+                    acc[post.id] = post.comments || 0;
+                    return acc;
+                }, {});
+
+                setLikesMap(initialLikes);
+                setCommentsMap(initialComments);
             } catch (error) {
                 console.error("Error fetching posts:", error);
             } finally {
@@ -90,15 +133,25 @@ export function PostFeed() {
                         />
                     )}
 
-                    <div className="flex gap-4 text-gray-400 text-sm mt-2">
-                        <button className="flex items-center gap-1 hover:text-gray-200">
-                            <span>👍</span> Like
+                    <div className="flex flex-row items-center gap-4 text-gray-400 text-sm mt-2">
+                        <button
+                            onClick={() => toggleLike(post.id)}
+                            className={`flex cursor-pointer items-center gap-1 ${likedPosts.includes(post.id) ? '' : 'text-gray-400 hover:text-gray-200'}`}
+                        >
+                            <div className="flex flex-row items-center justify-center border w-12 h-6 gap-1 rounded-3xl">
+                                <Heart size={12} fill={likedPosts.includes(post.id) ? 'red' : 'none'} />
+                                <span className="text-xs">
+                                    {(likesMap[post.id] ?? post.likes ?? 0) || 0}
+                                </span>
+                            </div>
                         </button>
                         <button className="flex items-center gap-1 hover:text-gray-200">
-                            <span>💬</span> Comment
-                        </button>
-                        <button className="flex items-center gap-1 hover:text-gray-200">
-                            <span>🔄</span> Share
+                            <div className="flex flex-row cursor-pointer items-center justify-center border w-12 h-6 gap-1 rounded-3xl">
+                                <MessageCircle size={12} />
+                                <span className="text-xs">
+                                    {commentsMap[post.id] || 0}
+                                </span>
+                            </div>
                         </button>
                     </div>
                 </div>

@@ -17,7 +17,7 @@ type Post = {
         id: string;
     };
     likes: number;
-    comments?: number; // Adding comments count property
+    comments?: number;
 };
 
 export function PostFeed() {
@@ -25,7 +25,6 @@ export function PostFeed() {
     const [likedPosts, setLikedPosts] = useState<string[]>([]);
     const [likesMap, setLikesMap] = useState<{ [postId: string]: number }>({});
     const [commentsMap, setCommentsMap] = useState<{ [postId: string]: number }>({});
-
     const [loading, setLoading] = useState(true);
 
     const toggleLike = async (postId: string) => {
@@ -60,7 +59,6 @@ export function PostFeed() {
                     return acc;
                 }, {});
 
-                // Initialize comments count for each post (assuming they come from API or set to 0)
                 const initialComments = response.data.posts.reduce((acc: { [postId: string]: number }, post: Post) => {
                     acc[post.id] = post.comments || 0;
                     return acc;
@@ -78,84 +76,89 @@ export function PostFeed() {
         fetchPosts();
     }, []);
 
-    // Container class that's consistent across all states
-    const containerClass = "max-w-3xl mx-auto px-4 py-6";
+    const containerClass = "max-w-3xl mx-auto px-4 border-l border-r border-white/25 flex top-0";
 
     if (loading) {
         return (
-            <div className={`${containerClass} flex justify-center items-center text-center h-64`}>
-                <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-primary text-center items-center justify-center"></div>
+            <div className={containerClass}>
+                <div className="flex justify-center items-center text-center h-64 py-6">
+                    <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-primary" />
+                </div>
             </div>
         );
     }
 
     if (posts.length === 0) {
         return (
-            <div className={`${containerClass} flex justify-center items-center text-center h-64 text-gray-400`} style={{ fontFamily: '"BR Firma", sans-serif', fontSize: "18px" }}>
-                Fetching Posts...
+            <div className={containerClass}>
+                <div className="flex justify-center items-center text-center h-64 py-6 text-gray-400" style={{ fontFamily: '"BR Firma", sans-serif', fontSize: "18px" }}>
+                    Fetching Posts...
+                </div>
             </div>
         );
     }
 
     return (
-        <div className={`${containerClass} space-y-4`}>
-            {posts.map((post) => (
-                <div key={post.id} className="bg-gray-800 p-4 rounded-lg">
-                    <div className="flex items-center mb-2">
-                        <div className="bg-primary h-10 w-10 rounded-full flex items-center justify-center text-white font-bold">
-                            {post.user.username[0].toUpperCase()}
+        <div className={`${containerClass}`}>
+            <div className="space-y-4">
+                {posts.map((post) => (
+                    <div key={post.id} className="bg-gray-800 p-4 rounded-lg">
+                        <div className="flex items-center mb-2">
+                            <div className="bg-primary h-10 w-10 rounded-full flex items-center justify-center text-white font-bold">
+                                {post.user.username[0].toUpperCase()}
+                            </div>
+                            <div className="ml-3">
+                                <p className="font-medium">{post.user.username}</p>
+                                <p className="text-xs text-gray-400">
+                                    {formatDistanceToNow(new Date(post.createdAt), {
+                                        addSuffix: true,
+                                    })}
+                                </p>
+                            </div>
                         </div>
-                        <div className="ml-3">
-                            <p className="font-medium">{post.user.username}</p>
-                            <p className="text-xs text-gray-400">
-                                {formatDistanceToNow(new Date(post.createdAt), {
-                                    addSuffix: true,
-                                })}
-                            </p>
+
+                        {post.content && <p className="mb-3">{post.content}</p>}
+
+                        {post.imageUrl && (
+                            <img
+                                src={post.imageUrl}
+                                alt="Post image"
+                                className="w-full rounded-md mb-3"
+                            />
+                        )}
+
+                        {post.gifUrl && (
+                            <img
+                                src={post.gifUrl}
+                                alt="Post GIF"
+                                className="w-full rounded-md mb-3"
+                            />
+                        )}
+
+                        <div className="flex flex-row items-center gap-4 text-gray-400 text-sm mt-2">
+                            <button
+                                onClick={() => toggleLike(post.id)}
+                                className={`flex cursor-pointer items-center gap-1 ${likedPosts.includes(post.id) ? '' : 'text-gray-400 hover:text-gray-200'}`}
+                            >
+                                <div className="flex flex-row items-center justify-center border w-12 h-6 gap-1 rounded-3xl">
+                                    <Heart size={12} fill={likedPosts.includes(post.id) ? 'red' : 'none'} />
+                                    <span className="text-xs">
+                                        {(likesMap[post.id] ?? post.likes ?? 0) || 0}
+                                    </span>
+                                </div>
+                            </button>
+                            <button className="flex items-center gap-1 hover:text-gray-200">
+                                <div className="flex flex-row cursor-pointer items-center justify-center border w-12 h-6 gap-1 rounded-3xl">
+                                    <MessageCircle size={12} />
+                                    <span className="text-xs">
+                                        {commentsMap[post.id] || 0}
+                                    </span>
+                                </div>
+                            </button>
                         </div>
                     </div>
-
-                    {post.content && <p className="mb-3">{post.content}</p>}
-
-                    {post.imageUrl && (
-                        <img
-                            src={post.imageUrl}
-                            alt="Post image"
-                            className="w-full rounded-md mb-3"
-                        />
-                    )}
-
-                    {post.gifUrl && (
-                        <img
-                            src={post.gifUrl}
-                            alt="Post GIF"
-                            className="w-full rounded-md mb-3"
-                        />
-                    )}
-
-                    <div className="flex flex-row items-center gap-4 text-gray-400 text-sm mt-2">
-                        <button
-                            onClick={() => toggleLike(post.id)}
-                            className={`flex cursor-pointer items-center gap-1 ${likedPosts.includes(post.id) ? '' : 'text-gray-400 hover:text-gray-200'}`}
-                        >
-                            <div className="flex flex-row items-center justify-center border w-12 h-6 gap-1 rounded-3xl">
-                                <Heart size={12} fill={likedPosts.includes(post.id) ? 'red' : 'none'} />
-                                <span className="text-xs">
-                                    {(likesMap[post.id] ?? post.likes ?? 0) || 0}
-                                </span>
-                            </div>
-                        </button>
-                        <button className="flex items-center gap-1 hover:text-gray-200">
-                            <div className="flex flex-row cursor-pointer items-center justify-center border w-12 h-6 gap-1 rounded-3xl">
-                                <MessageCircle size={12} />
-                                <span className="text-xs">
-                                    {commentsMap[post.id] || 0}
-                                </span>
-                            </div>
-                        </button>
-                    </div>
-                </div>
-            ))}
+                ))}
+            </div>
         </div>
     );
 }

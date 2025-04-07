@@ -111,11 +111,11 @@ export function PostForm() {
     };
 
     return (
-        <>
+        <div className="border-l border-r border-white/25 h-48">
             <div style={{ fontFamily: '"BR Firma", sans-serif', fontSize: '20px' }} className="pt-4 pl-4 mb-4">
                 Home
             </div>
-            <div className="border-b border-white/25" />
+            <div className="border-b border-l border-r border-white/25" />
             <div className="bg-transparent outline-none mb-6 border-b border-white/25">
                 <form onSubmit={handleSubmit}>
                     <textarea
@@ -272,6 +272,6 @@ export function PostForm() {
                     </div>
                 )}
             </div>
-        </>
+        </div>
     );
 }

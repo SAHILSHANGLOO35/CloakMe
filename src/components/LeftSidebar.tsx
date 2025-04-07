@@ -4,7 +4,7 @@ import { Home, User, PenSquare, Info, Bell } from 'lucide-react';
 
 function LeftSidebar() {
   return (
-    <div className="w-64 fixed inset-y-0 left-40 p-4 border-r border-r-white/25 text-white flex flex-col">
+    <div className="w-64 fixed inset-y-0 left-40 p-4 text-white flex flex-col">
 
       {/* Navigation Links */}
       <nav className="flex flex-col space-y-1 mt-12">

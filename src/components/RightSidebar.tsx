@@ -9,7 +9,7 @@ function RightSidebar() {
   const router = useRouter();
 
   return (
-    <div className="w-80 fixed right-0 h-screen p-4 border-l border-l-white/25 text-white flex flex-col mr-40">
+    <div className="w-80 fixed right-0 h-screen p-4 text-white flex flex-col mr-40">
       {/* Search Bar */}
       <div className="mb-6 mt-8">
         <div className="relative">

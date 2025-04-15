@@ -76,6 +76,12 @@ export async function GET(request: Request) {
                         id: true,
                     },
                 },
+                _count: {
+                    select: {
+                        comments: true,
+                        likes: true,
+                    }
+                },
             },
             orderBy: {
                 createdAt: "desc",

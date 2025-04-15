@@ -109,7 +109,7 @@ export function PostForm() {
             loadTrendingGifs();
         }
     };
-
+    
     return (
         <div className="border-l border-r border-white/25 h-48">
             <div style={{ fontFamily: '"BR Firma", sans-serif', fontSize: '20px' }} className="pt-4 pl-4 mb-4">

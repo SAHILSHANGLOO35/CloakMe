@@ -28,7 +28,7 @@ function App() {
     // Handle navigation with loading state
     const handleNavigation = () => {
         setIsLoading(true);
-        router.push('/post-feed');
+        router.push('/posts');
 
         // Optional: If you want to reset loading state after a timeout
         // in case navigation takes too long or fails
@@ -43,7 +43,7 @@ function App() {
             </div>
 
             <div className="text-4xl md:text-8xl flex items-center justify-center font-bold pt-8 text-center bg-gradient-to-r from-white to-gray-400/90 text-transparent bg-clip-text">
-                CLOAK ME !
+                CLOAK ME
             </div>
 
             {/* Hero Section */}

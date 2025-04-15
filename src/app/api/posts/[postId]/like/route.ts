@@ -41,7 +41,7 @@ export async function POST(
             );
         }
 
-        const postId = params.postId;
+        const postId = await params.postId;
 
         const post = await db.post.findUnique({
             where: {

@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { formatDistanceToNow } from "date-fns";
 import { Heart, MessageCircle } from "lucide-react";
-import Comments from "./Comments";
+import Link from "next/link";
+import { useParams } from "next/navigation";
 
 type Post = {
     id: string;
@@ -27,26 +28,26 @@ export function PostFeed() {
     const [commentsMap, setCommentsMap] = useState<{ [postId: string]: number }>({});
     const [loading, setLoading] = useState(true);
 
-    const toggleLike = async (postId: string) => {
-        const alreadyLiked = likedPosts.includes(postId);
+    // const toggleLike = async (postId: string) => {
+    //     const alreadyLiked = likedPosts.includes(postId);
 
-        try {
-            await axios.post(`/api/posts/${postId}/like`, {
-                like: !alreadyLiked
-            });
+    //     try {
+    //         await axios.post(`/api/posts/${postId}/like`, {
+    //             like: !alreadyLiked
+    //         });
 
-            setLikesMap((prevLikes) => ({
-                ...prevLikes,
-                [postId]: alreadyLiked ? prevLikes[postId] - 1 : prevLikes[postId] + 1,
-            }));
+    //         setLikesMap((prevLikes) => ({
+    //             ...prevLikes,
+    //             [postId]: alreadyLiked ? prevLikes[postId] - 1 : prevLikes[postId] + 1,
+    //         }));
 
-            setLikedPosts((prev) =>
-                alreadyLiked ? prev.filter((id) => id !== postId) : [...prev, postId]
-            );
-        } catch (error) {
-            console.error("Failed to like/unlike post: ", error);
-        }
-    };
+    //         setLikedPosts((prev) =>
+    //             alreadyLiked ? prev.filter((id) => id !== postId) : [...prev, postId]
+    //         );
+    //     } catch (error) {
+    //         console.error("Failed to like/unlike post: ", error);
+    //     }
+    // };
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -60,7 +61,8 @@ export function PostFeed() {
                 }, {});
 
                 const initialComments = response.data.posts.reduce((acc: { [postId: string]: number }, post: Post) => {
-                    acc[post.id] = post.comments || 0;
+                    // @ts-ignore
+                    acc[post.id] = post._count?.comments || 0;
                     return acc;
                 }, {});
 
@@ -76,13 +78,13 @@ export function PostFeed() {
         fetchPosts();
     }, []);
 
-    const containerClass = "max-w-3xl mx-auto px-4 border-l border-r border-white/25 flex top-0";
+    const containerClass = "max-w-3xl mx-auto px-4 border-l h-screen border-r border-white/25 flex top-0";
 
     if (loading) {
         return (
             <div className={containerClass}>
                 <div className="flex justify-center items-center text-center h-64 py-6">
-                    <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-primary" />
+                    <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 flex items-center justify-center border-primary"/>
                 </div>
             </div>
         );
@@ -137,7 +139,7 @@ export function PostFeed() {
 
                         <div className="flex flex-row items-center gap-4 text-gray-400 text-sm mt-2">
                             <button
-                                onClick={() => toggleLike(post.id)}
+                                // onClick={() => toggleLike(post.id)}
                                 className={`flex cursor-pointer items-center gap-1 ${likedPosts.includes(post.id) ? '' : 'text-gray-400 hover:text-gray-200'}`}
                             >
                                 <div className="flex flex-row items-center justify-center border w-12 h-6 gap-1 rounded-3xl">
@@ -148,12 +150,14 @@ export function PostFeed() {
                                 </div>
                             </button>
                             <button className="flex items-center gap-1 hover:text-gray-200">
-                                <div className="flex flex-row cursor-pointer items-center justify-center border w-12 h-6 gap-1 rounded-3xl">
-                                    <MessageCircle size={12} />
-                                    <span className="text-xs">
-                                        {commentsMap[post.id] || 0}
-                                    </span>
-                                </div>
+                                <Link href={`/posts/${post.id}`}>
+                                    <div className="flex flex-row cursor-pointer items-center justify-center border w-12 h-6 gap-1 rounded-3xl">
+                                        <MessageCircle size={12} />
+                                        <span className="text-xs">
+                                            {commentsMap[post.id] || 0}
+                                        </span>
+                                    </div>
+                                </Link>
                             </button>
                         </div>
                     </div>

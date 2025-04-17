@@ -5,7 +5,6 @@ import axios from "axios";
 import { formatDistanceToNow } from "date-fns";
 import { Heart, MessageCircle } from "lucide-react";
 import Link from "next/link";
-import { useParams } from "next/navigation";
 
 type Post = {
     id: string;
@@ -78,7 +77,7 @@ export function PostFeed() {
         fetchPosts();
     }, []);
 
-    const containerClass = "max-w-3xl mx-auto px-4 border-l h-screen border-r border-white/25 flex top-0";
+    const containerClass = "max-w-3xl mx-auto px-4 border-l h-screen border-r border-white/25 flex top-0 overflow-y-auto scrollbar-hide";
 
     if (loading) {
         return (

@@ -2,6 +2,7 @@ import { PostFeed } from "@/components/PostFeed";
 import LeftSidebar from "@/components/LeftSidebar";
 import RightSidebar from "@/components/RightSidebar";
 import { PostForm } from "@/components/PostForm";
+import ProfilePage from "../profile/page";
 
 export default function Home() {
     return (
@@ -10,6 +11,7 @@ export default function Home() {
                 <LeftSidebar />
             </div>
             <div className="w-2/4 px-4 mt-0 top-0">
+                {/* <ProfilePage /> */}
                 <PostForm />
                 <PostFeed />
             </div>

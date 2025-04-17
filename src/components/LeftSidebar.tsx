@@ -1,8 +1,22 @@
 "use client"
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Home, User, PenSquare, Info, Bell } from 'lucide-react';
+import { db } from '@/lib/db';
+import axios from 'axios';
 
 function LeftSidebar() {
+  const [username, setUsername] = useState("Anonymous");
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const response = await axios.get(`api/user`);
+      console.log("Username in leftsidebar is: ", response);
+      setUsername(response.data.user.username || "Anonymous");
+    }
+
+    fetchUser();
+  }, []);
+
   return (
     <div className="w-64 fixed inset-y-0 left-40 p-4 text-white flex flex-col">
 
@@ -27,17 +41,27 @@ function LeftSidebar() {
       <div className="flex-grow" />
 
       {/* User Profile Section */}
-      <div className="mt-4 p-4 rounded-full hover:bg-neutral-900 cursor-pointer">
-        <div className="flex items-center">
-          <div className="w-10 h-10 bg-neutral-800 rounded-full flex items-center justify-center">
-            <User size={20} />
+      <div className="mt-4 px-2 py-2 w-full rounded-full hover:bg-neutral-900 cursor-pointer transition-colors">
+        <div className="flex items-center gap-2">
+          {/* Perfect circular icon */}
+          <div className="flex-none w-9 h-9 bg-neutral-800 rounded-full flex items-center justify-center">
+            <User size={18} className="text-white" />
           </div>
-          <div className="ml-3">
-            <p className="" style={{ fontFamily: '"BR Firma", sans-serif', fontSize: "18px" }}>Anonymous</p>
-            <p className="text-gray-400 text-sm" style={{ fontFamily: '"BR Firma", sans-serif', fontSize: "14px" }}>@hidden_user</p>
-          </div>
+
+          {/* Username */}
+          <p
+            className="text-white leading-none"
+            style={{ fontFamily: '"BR Firma", sans-serif', fontSize: "15px" }}
+          >
+            {username}
+          </p>
         </div>
       </div>
+
+
+
+
+
     </div>
   );
 }

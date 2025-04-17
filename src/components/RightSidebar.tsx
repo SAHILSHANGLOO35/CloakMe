@@ -68,12 +68,12 @@ function RightSidebar() {
           </div>
 
           <div className="h-[300px] w-[250px] flex items-center justify-center rounded-xl overflow-hidden border border-white/25">
-            <Image
+            {/* <Image
               src={gpay}
               alt="GPay QR Scanner"
               className="w-full h-full object-cover rounded-xl"
               unoptimized
-            />
+            /> */}
           </div>
 
         </div>

@@ -6,7 +6,6 @@ import { generateRandomUsername } from "@/lib/generateUsername";
 export async function GET(request: Request) {
     try {
         const user = await currentUser();
-        // console.log(user);
 
         if (!user) {
             return NextResponse.json(
@@ -29,10 +28,6 @@ export async function GET(request: Request) {
                     phoneNumber: user.phoneNumbers?.[0]?.phoneNumber
                 },
             });
-
-            console.log("Created new user in database:", dbUser);
-        } else {
-            console.log("Found existing user in database:", dbUser);
         }
 
         return NextResponse.json({ user: dbUser });

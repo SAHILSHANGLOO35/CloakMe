@@ -42,52 +42,54 @@ export default async function PostPage({ params }: { params: { postId: string } 
           <div className="border-b border-l border-r border-white/25" />
 
           {/* Post Content */}
-          <div className="p-4">
-            <div className="bg-gray-800 p-4 rounded-lg mb-4">
-              <div className="flex items-center mb-2">
-                <div className="bg-primary h-10 w-10 rounded-full flex items-center justify-center text-white font-bold">
-                  {post.user.username[0].toUpperCase()}
+          <div className="h-screen">
+            <div className="p-4">
+              <div className="bg-gray-800 p-4 rounded-lg mb-4">
+                <div className="flex items-center mb-2">
+                  <div className="bg-primary h-10 w-10 rounded-full flex items-center justify-center text-white font-bold border border-b border-white/25">
+                    {post.user.username[0].toUpperCase()}
+                  </div>
+                  <div className="ml-3">
+                    <p className="font-medium">{post.user.username}</p>
+                    <p className="text-xs text-gray-400">
+                      {formatDistanceToNow(new Date(post.createdAt), {
+                        addSuffix: true,
+                      })}
+                    </p>
+                  </div>
                 </div>
-                <div className="ml-3">
-                  <p className="font-medium">{post.user.username}</p>
-                  <p className="text-xs text-gray-400">
-                    {formatDistanceToNow(new Date(post.createdAt), {
-                      addSuffix: true,
-                    })}
-                  </p>
-                </div>
+
+                {post.content && <p className="mb-3">{post.content}</p>}
+
+                {post.imageUrl && (
+                  <img
+                    src={post.imageUrl}
+                    alt="Post image"
+                    className="w-full rounded-md mb-3"
+                  />
+                )}
+
+                {post.gifUrl && (
+                  <img
+                    src={post.gifUrl}
+                    alt="Post GIF"
+                    className="w-full rounded-md mb-3"
+                  />
+                )}
               </div>
-
-              {post.content && <p className="mb-3">{post.content}</p>}
-
-              {post.imageUrl && (
-                <img
-                  src={post.imageUrl}
-                  alt="Post image"
-                  className="w-full rounded-md mb-3"
-                />
-              )}
-
-              {post.gifUrl && (
-                <img
-                  src={post.gifUrl}
-                  alt="Post GIF"
-                  className="w-full rounded-md mb-3"
-                />
-              )}
             </div>
-            
+
             {/* Comment Form */}
             <div className="mb-6">
               <CommentForm postId={post.id} />
             </div>
-            
+
             {/* Comments Display */}
-            <div>
+            <div className="px-4">
               <h3 className="text-lg font-medium mb-3" style={{ fontFamily: '"BR Firma", sans-serif' }}>
                 Comments
               </h3>
-              
+
               {comments.length === 0 ? (
                 <div className="text-center text-gray-400 py-4" style={{ fontFamily: '"BR Firma", sans-serif' }}>
                   No comments yet. Be the first to comment!

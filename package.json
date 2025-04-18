@@ -24,7 +24,7 @@
     "framer-motion": "^12.6.3",
     "lucide-react": "^0.483.0",
     "mongoose": "^8.12.1",
-    "next": "15.2.2",
+    "next": "^15.2.3",
     "next-auth": "^4.24.11",
     "next-images": "^1.8.5",
     "react": "^19.0.0",
@@ -44,7 +44,7 @@
     "eslint": "^9",
     "eslint-config-next": "15.2.2",
     "postcss": "^8.5.3",
-    "prisma": "^6.5.0",
+    "prisma": "^6.6.0",
     "tailwindcss": "^4.0.17",
     "typescript": "^5"
   }

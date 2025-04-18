@@ -1,18 +1,32 @@
 "use client"
 import React, { useEffect, useState } from 'react';
 import { Home, User, PenSquare, Info, Bell } from 'lucide-react';
-import { db } from '@/lib/db';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
+import { SignedIn, SignedOut } from '@clerk/nextjs';
 
 function LeftSidebar() {
   const [username, setUsername] = useState("Anonymous");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchUser = async () => {
-      const response = await axios.get(`api/user`);
-      console.log("Username in leftsidebar is: ", response);
-      setUsername(response.data.user.username || "Anonymous");
-    }
+      try {
+        const response = await axios.get(`/api/user`);
+        if (response.data.user && response.data.user.username) {
+          setUsername(response.data.user.username);
+          setIsLoggedIn(true);
+        } else {
+          setUsername("Anonymous");
+          setIsLoggedIn(false);
+        }
+      } catch (error) {
+        console.log("User not authenticated:", error);
+        setUsername("Anonymous");
+        setIsLoggedIn(false);
+      }
+    };
 
     fetchUser();
   }, []);
@@ -22,7 +36,11 @@ function LeftSidebar() {
 
       {/* Navigation Links */}
       <nav className="flex flex-col space-y-1 mt-12">
-        <NavItem icon={<Home size={26} />} label="Home" />
+        <div onClick={() => {
+          router.push('/posts');
+        }}>
+          <NavItem icon={<Home size={26} />} label="Home" />
+        </div>
         <NavItem icon={<Bell size={26} />} label="Notifications" />
         <NavItem icon={<User size={26} />} label="Profile" />
         <NavItem icon={<Info size={26} />} label="About Us" />
@@ -45,7 +63,14 @@ function LeftSidebar() {
         <div className="flex items-center gap-2">
           {/* Perfect circular icon */}
           <div className="flex-none w-9 h-9 bg-neutral-800 rounded-full flex items-center justify-center">
-            <User size={18} className="text-white" />
+            <SignedIn>
+              <div className='font-semibold' style={{ fontFamily: '"BR Firma", sans-serif', fontSize: "20px" }}>
+                {username[0]?.toUpperCase()}
+              </div>
+            </SignedIn>
+            <SignedOut>
+              <User size={18} className="text-white" />
+            </SignedOut>
           </div>
 
           {/* Username */}
@@ -57,11 +82,6 @@ function LeftSidebar() {
           </p>
         </div>
       </div>
-
-
-
-
-
     </div>
   );
 }

@@ -105,7 +105,7 @@ export function PostFeed() {
                 {posts.map((post) => (
                     <div key={post.id} className="bg-gray-800 p-4 rounded-lg">
                         <div className="flex items-center mb-2">
-                            <div className="bg-primary h-10 w-10 rounded-full flex items-center justify-center text-white font-bold">
+                            <div className="bg-primary border border-white/25 h-10 w-10 rounded-full flex items-center justify-center text-white font-bold">
                                 {post.user.username[0].toUpperCase()}
                             </div>
                             <div className="ml-3">

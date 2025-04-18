@@ -5,8 +5,8 @@ import { Loader2 } from "lucide-react";
 import React, { useState } from "react";
 
 interface CommentFormProps {
-  postId: string;
-  onCommentAdded?: () => void;
+    postId: string;
+    onCommentAdded?: () => void;
 }
 
 export function CommentForm({ postId, onCommentAdded }: CommentFormProps) {
@@ -25,7 +25,7 @@ export function CommentForm({ postId, onCommentAdded }: CommentFormProps) {
                 content: comment.trim(),
             });
             setComment("");
-            
+
             // Notify parent component that a comment was added
             if (onCommentAdded) {
                 onCommentAdded();
@@ -42,7 +42,7 @@ export function CommentForm({ postId, onCommentAdded }: CommentFormProps) {
             <div className="border-b border-l border-r border-white/25" />
             <form onSubmit={handleSubmit}>
                 <textarea
-                    className="w-full h-14 pl-4 pt-4 bg-transparent focus:outline-none focus:ring-primary text-white placeholder:text-gray-400 resize-none"
+                    className="w-full border-white/25 h-14 pl-4 pt-4 bg-transparent focus:outline-none focus:ring-primary text-white placeholder:text-gray-400 resize-none"
                     style={{
                         fontFamily: '"BR Firma", sans-serif',
                         fontSize: comment.length > 0 ? '16px' : '20px',

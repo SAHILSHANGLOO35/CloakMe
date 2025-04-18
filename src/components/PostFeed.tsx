@@ -77,13 +77,14 @@ export function PostFeed() {
         fetchPosts();
     }, []);
 
-    const containerClass = "max-w-3xl mx-auto px-4 border-l h-screen border-r border-white/25 flex top-0 overflow-y-auto scrollbar-hide";
+    const containerClass = "max-w-3xl mx-auto border-l h-screen border-r border-white/25 flex top-0 overflow-y-auto scrollbar-hide";
+
 
     if (loading) {
         return (
             <div className={containerClass}>
                 <div className="flex justify-center items-center text-center h-64 py-6">
-                    <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 flex items-center justify-center border-primary"/>
+                    <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 flex items-center justify-center border-primary" />
                 </div>
             </div>
         );
@@ -101,9 +102,9 @@ export function PostFeed() {
 
     return (
         <div className={`${containerClass}`}>
-            <div className="space-y-4">
+            <div className="space-y-4 w-full flex flex-col">
                 {posts.map((post) => (
-                    <div key={post.id} className="bg-gray-800 p-4 rounded-lg">
+                    <div key={post.id} className="bg-transparent py-3 px-4 border-b border-white/25">
                         <div className="flex items-center mb-2">
                             <div className="bg-primary border border-white/25 h-10 w-10 rounded-full flex items-center justify-center text-white font-bold">
                                 {post.user.username[0].toUpperCase()}

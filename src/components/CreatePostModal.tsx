@@ -7,7 +7,7 @@ import giphyIcon from "../../public/giphy-svgrepo-com.svg";
 import Image from "next/image";
 
 interface PostModal {
-    isOpen: () => void
+    isOpen: boolean
     onClose: () => void
 }
 

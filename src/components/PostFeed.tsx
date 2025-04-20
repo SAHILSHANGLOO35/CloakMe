@@ -83,8 +83,8 @@ export function PostFeed() {
     if (loading) {
         return (
             <div className={containerClass}>
-                <div className="flex justify-center items-center text-center h-64 py-6">
-                    <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 flex items-center justify-center border-primary" />
+                <div className="flex justify-center items-center w-full h-full">
+                    <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-primary" />
                 </div>
             </div>
         );
@@ -104,7 +104,7 @@ export function PostFeed() {
         <div className={`${containerClass}`}>
             <div className="space-y-4 w-full flex flex-col">
                 {posts.map((post) => (
-                    <div key={post.id} className="bg-transparent py-3 px-4 border-b border-white/25">
+                    <div key={post.id} className="bg-transparent py-3 px-4 border-b border-white/25" style={{ fontFamily: '"BR Firma", sans-serif'}}>
                         <div className="flex items-center mb-2">
                             <div className="bg-primary border border-white/25 h-10 w-10 rounded-full flex items-center justify-center text-white font-bold">
                                 {post.user.username[0].toUpperCase()}

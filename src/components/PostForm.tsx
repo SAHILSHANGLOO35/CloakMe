@@ -116,7 +116,7 @@ export function PostForm() {
                 Home
             </div>
             <div className="border-b border-l border-r border-white/25" />
-            <div className="bg-transparent outline-none mb-4 border-b border-white/25">
+            <div className="bg-transparent outline-none mb-4">
                 <form onSubmit={handleSubmit}>
                     <textarea
                         className="w-full h-14 pl-4 pt-4 bg-transparent focus:outline-none focus:ring-primary text-white placeholder:text-[20px] resize-none"
@@ -128,13 +128,12 @@ export function PostForm() {
                         value={content}
                         onChange={(e) => setContent(e.target.value)}
                         rows={3}
-                    />
-
+                    /> 
 
                     {isUploading && (
                         <div className="flex justify-center items-center py-4">
                             <Loader2 className="h-8 w-8 animate-spin text-primary" />
-                            <span className="ml-2">Uploading image...</span>
+                            <span className="flex items-center">Uploading image...</span>
                         </div>
                     )}
 
@@ -194,7 +193,7 @@ export function PostForm() {
                             <button
                                 type="button"
                                 onClick={handleGifPickerToggle}
-                                className="w-9 h-9 flex items-center justify-center hover:bg-neutral-800 rounded-full cursor-pointer"
+                                className="w-9 h-9 flex items-center justify-center hover:bg-neutral-800 rounded-full cursor-pointer z-40"
                             >
                                 <Image
                                     src={giphyIcon}
@@ -223,12 +222,12 @@ export function PostForm() {
                 </form>
 
                 {isGifPickerOpen && (
-                    <div className="mt-3 p-3 bg-gray-900 rounded-md">
+                    <div className="absolute z-50 mt-3 p-3 bg-gray-900 rounded-md">
                         <div className="flex mb-2">
                             <input
                                 type="text"
                                 placeholder="Search GIFs..."
-                                className="flex-1 p-2 bg-gray-800 border border-gray-700 rounded-l-md"
+                                className="flex-1 outline-none p-2 bg-gray-800 border border-gray-700 rounded-l-md"
                                 value={gifSearchQuery}
                                 onChange={(e) => setGifSearchQuery(e.target.value)}
                                 onKeyPress={(e) =>
@@ -237,8 +236,8 @@ export function PostForm() {
                             />
                             <button
                                 onClick={handleGifSearch}
-                                className="p-2 bg-primary rounded-r-md hover:bg-primary/80"
-                                disabled={isSearchingGifs}
+                                className="p-2 bg-primary rounded-r-md hover:bg-primary/80 cursor-pointer disabled:opacity-50"
+                                disabled={isSearchingGifs || gifSearchQuery.trim() === ""}
                             >
                                 Search
                             </button>
@@ -272,6 +271,8 @@ export function PostForm() {
                     </div>
                 )}
             </div>
+            <div className="border-b border-white/25" /> 
         </div>
+        
     );
 }

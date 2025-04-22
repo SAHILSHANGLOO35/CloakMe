@@ -8,6 +8,9 @@ cloudinary.config({
 
 export const uploadImage = async (file: string): Promise<string> => {
     try {
+        // If the base64 string doesn't start with data:image, add it
+        const imageData = file.startsWith('data:') ? file : `data:image/jpeg;base64,${file}`;
+
         const result = await cloudinary.uploader.upload(file, {
             folder: "cloakme",
             resource_type: "auto",
@@ -16,6 +19,7 @@ export const uploadImage = async (file: string): Promise<string> => {
         return result.secure_url;
     } catch (error) {
         console.error("Error uploading to Cloudinary:", error);
-        throw new Error("Failed to upload image");
+        // @ts-ignore
+        throw new Error(`Failed to upload image, ${error.message}`);
     }
 };

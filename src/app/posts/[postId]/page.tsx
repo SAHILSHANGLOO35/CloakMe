@@ -65,7 +65,7 @@ export default async function PostPage({ params }: { params: { postId: string } 
                   <img
                     src={post.imageUrl}
                     alt="Post image"
-                    className="w-full rounded-md mb-3"
+                    className="w-96 h-96 rounded-md mb-3 mx-auto"
                   />
                 )}
 

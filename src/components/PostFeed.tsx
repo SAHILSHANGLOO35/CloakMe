@@ -67,6 +67,7 @@ export function PostFeed() {
 
                 setLikesMap(initialLikes);
                 setCommentsMap(initialComments);
+                fetchPosts();
             } catch (error) {
                 console.error("Error fetching posts:", error);
             } finally {
@@ -93,7 +94,7 @@ export function PostFeed() {
     if (posts.length === 0) {
         return (
             <div className={containerClass}>
-                <div className="flex justify-center items-center text-center h-64 py-6 text-gray-400" style={{ fontFamily: '"BR Firma", sans-serif', fontSize: "18px" }}>
+                <div className="flex justify-center items-center text-center w-full h-full text-gray-400" style={{ fontFamily: '"BR Firma", sans-serif', fontSize: "18px" }}>
                     Fetching Posts...
                 </div>
             </div>
@@ -119,13 +120,13 @@ export function PostFeed() {
                             </div>
                         </div>
 
-                        {post.content && <p className="mb-3">{post.content}</p>}
+                        {post.content && <p className="mb-3 whitespace-pre-wrap">{post.content}</p>}
 
                         {post.imageUrl && (
                             <img
                                 src={post.imageUrl}
                                 alt="Post image"
-                                className="w-full rounded-md mb-3"
+                                className="w-96 h-96 rounded-md mb-3 mx-auto"
                             />
                         )}
 
@@ -133,7 +134,7 @@ export function PostFeed() {
                             <img
                                 src={post.gifUrl}
                                 alt="Post GIF"
-                                className="w-full rounded-md mb-3"
+                                className="w-full rounded-md mb-3 mx-auto"
                             />
                         )}
 

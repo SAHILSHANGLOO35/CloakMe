@@ -13,6 +13,11 @@ export function CommentForm({ postId, onCommentAdded }: CommentFormProps) {
     const [comment, setComment] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
 
+    const fetchComments = async () => {
+        const response = await axios.get(`/api/posts/${postId}/comments`);
+        setComment(response.data.comments);
+    }
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
@@ -30,6 +35,7 @@ export function CommentForm({ postId, onCommentAdded }: CommentFormProps) {
             if (onCommentAdded) {
                 onCommentAdded();
             }
+            fetchComments();
         } catch (error) {
             console.error("Failed to add comment:", error);
         } finally {

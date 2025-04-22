@@ -97,7 +97,7 @@ export default async function ProfilePage() {
                   <img
                     src={post.imageUrl}
                     alt="Post image"
-                    className="w-full rounded-md mb-3"
+                    className="w-96 h-96 mx-auto rounded-md mb-3"
                   />
                 )}
 

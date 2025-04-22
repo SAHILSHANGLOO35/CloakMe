@@ -8,37 +8,38 @@ export async function POST(request: Request) {
 
         if (!user) {
             return NextResponse.json(
-                {
-                    error: "Unauthorized",
-                },
-                {
-                    status: 401,
-                }
+                { error: "Unauthorized" },
+                { status: 401 }
             );
         }
 
-        const { image } = await request.json();
+        console.log("Upload rqst received")
 
-        if (!image) {
+        const body = await request.json();
+        
+        if (!body.image) {
             return NextResponse.json(
-                {
-                    error: "No image provided",
-                },
-                {
-                    status: 400,
-                }
+                { error: "No image provided" },
+                { status: 400 }
             );
         }
 
-        const imageUrl = await uploadImage(image);
-
-        return NextResponse.json({
-            url: imageUrl,
-        });
+        try {
+            const imageUrl = await uploadImage(body.image);
+            return NextResponse.json({ url: imageUrl });
+        } catch (uploadError) {
+            console.error("Cloudinary upload error:", uploadError);
+            return NextResponse.json(
+                // @ts-ignore
+                { error: "Image upload failed", details: uploadError.message },
+                { status: 500 }
+            );
+        }
     } catch (error) {
         console.error("Error in upload route:", error);
         return NextResponse.json(
-            { error: "Internal server error" },
+            // @ts-ignore
+            { error: "Internal server error", details: error.message },
             { status: 500 }
         );
     }

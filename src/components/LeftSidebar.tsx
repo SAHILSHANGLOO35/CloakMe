@@ -87,6 +87,7 @@ function LeftSidebar() {
           {/* Username */}
           <p
             className="text-white leading-none"
+            onClick={() => router.push(`/profile`)}
             style={{ fontFamily: '"BR Firma", sans-serif', fontSize: "15px" }}
           >
             {username}

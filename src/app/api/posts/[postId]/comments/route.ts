@@ -44,7 +44,7 @@ export async function POST(
         }
 
         const { content } = await request.json();
-        const postId = await params.postId;
+        const postId = params.postId;
 
         const post = await db.post.findUnique({
             where: {
@@ -131,7 +131,7 @@ export async function GET(
     }
 ) {
     try {
-        const postId = await params.postId;
+        const { postId } = await params;
 
         const comments = await db.comment.findMany({
             where: {

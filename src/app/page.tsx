@@ -36,13 +36,13 @@ function App() {
     };
 
     return (
-        <main className="min-h-screen bg-black/50 text-white relative overflow-x-hidden">
+        <main className="min-h-screen bg-black/50 text-white relative overflow-x-hidden" style={{ fontFamily: '"BR Firma", sans-serif'}}>
             {/* Animated Background */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <div className="absolute w-[300px] md:w-[500px] h-[300px] md:h-[500px] top-48 md:top-96 -left-24 md:-left-48 bg-pink-800/20 rounded-full blur-3xl" />
             </div>
 
-            <div className="text-4xl md:text-8xl flex items-center justify-center font-bold pt-8 text-center bg-gradient-to-r from-white to-gray-400/90 text-transparent bg-clip-text">
+            <div className="text-4xl md:text-8xl flex items-center justify-center font-bold pt-8 text-center bg-gradient-to-r from-white to-gray-400/90 text-transparent bg-clip-text" style={{ fontFamily: '"BR Firma", sans-serif'}}>
                 CLOAK ME
             </div>
 
@@ -53,11 +53,11 @@ function App() {
                         {/* Left Column - Text Content */}
                         <div className="flex flex-col text-center md:text-left">
                             <h1 className="text-4xl md:text-7xl font-bold tracking-tight text-transparent bg-clip-text">
-                                <span className="text-white">Express Yourself</span>
+                                <span className="text-white" style={{ fontFamily: '"BR Firma", sans-serif'}}>Express Yourself</span>
                                 <br />
-                                <span className="block bg-gradient-to-r from-[#39c5bb] to-pink-400 text-transparent bg-clip-text pt-4">Without Boundaries</span>
+                                <span className="block bg-gradient-to-r from-[#39c5bb] to-pink-400 text-transparent bg-clip-text pt-4" style={{ fontFamily: '"BR Firma", sans-serif'}}>Without Boundaries</span>
                             </h1>
-                            <p className="text-base md:text-xl pt-4 text-gray-300 mb-8 md:mb-12 leading-relaxed">
+                            <p className="text-base md:text-xl pt-4 text-gray-300 mb-8 md:mb-12 leading-relaxed" style={{ fontFamily: '"BR Firma", sans-serif'}}>
                                 Share your thoughts, images, and stories with
                                 complete anonymity. Your voice matters, your
                                 identity stays hidden.
@@ -68,10 +68,10 @@ function App() {
                                     onClick={handleNavigation}
                                     disabled={isLoading}
                                 >
-                                    <span className="flex-1 text-center flex items-center justify-center">
+                                    <span className="flex-1 text-center flex items-center justify-center" style={{ fontFamily: '"BR Firma", sans-serif'}}>
                                         {isLoading ? (
                                             <>
-                                                <Loader2 className="animate-spin mr-2" size={20} />
+                                                <Loader2 className="animate-spin mr-2" size={20} style={{ fontFamily: '"BR Firma", sans-serif'}} />
                                                 Loading...
                                             </>
                                         ) : (
@@ -109,11 +109,11 @@ function App() {
 
             {/* Features Grid */}
             <div className="relative">
-                <div className="max-w-7xl mx-auto pt-16 px-6">
-                    <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-white bg-clip-text leading-[1.5]">
+                <div className="max-w-7xl mx-auto pt-16 px-6" style={{ fontFamily: '"BR Firma", sans-serif'}}>
+                    <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-white bg-clip-text leading-[1.5]" style={{ fontFamily: '"BR Firma", sans-serif'}}>
                         Why Choose Cloak Me?
                     </h2>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8" style={{ fontFamily: '"BR Firma", sans-serif'}}>
                         {[
                             {
                                 icon: Shield,
@@ -147,7 +147,7 @@ function App() {
                                 <h3 className="text-lg md:text-xl font-bold text-white mb-2 md:mb-4">
                                     {feature.title}
                                 </h3>
-                                <p className="text-sm md:text-base text-gray-400">
+                                <p className="text-sm md:text-base text-gray-400" style={{ fontFamily: '"BR Firma", sans-serif'}}>
                                     {feature.description}
                                 </p>
                             </div>
@@ -157,12 +157,12 @@ function App() {
             </div>
 
             {/* Content Types Section */}
-            <div className="pt-16 pb-24 bg-gradient-to-b from-black to-gray-900">
+            <div className="pt-16 pb-24 bg-gradient-to-b from-black to-gray-900" style={{ fontFamily: '"BR Firma", sans-serif'}}>
                 <div className="max-w-7xl mx-auto px-4">
-                    <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-white bg-clip-text">
+                    <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-white bg-clip-text" style={{ fontFamily: '"BR Firma", sans-serif'}}>
                         Share What Matters
                     </h2>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8" style={{ fontFamily: '"BR Firma", sans-serif'}}>
                         {[
                             {
                                 icon: Imageicon,
@@ -190,10 +190,10 @@ function App() {
                                 <item.icon
                                     className={`w-10 h-10 md:w-12 md:h-12 ${item.color} mb-2 md:mb-4 group-hover:scale-110 transition-transform`}
                                 />
-                                <span className="text-base md:text-lg font-semibold text-gray-200 mb-1 md:mb-2">
+                                <span className="text-base md:text-lg font-semibold text-gray-200 mb-1 md:mb-2" style={{ fontFamily: '"BR Firma", sans-serif'}}>
                                     {item.text}
                                 </span>
-                                <span className="text-xs md:text-sm text-gray-400">
+                                <span className="text-xs md:text-sm text-gray-400" style={{ fontFamily: '"BR Firma", sans-serif'}}>
                                     {item.desc}
                                 </span>
                             </div>
@@ -221,13 +221,13 @@ function App() {
                         </div>
 
                         {/* Right - How It Works Section */}
-                        <div className="flex-1 w-full max-w-lg">
-                            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-8 text-center md:text-left">
+                        <div className="flex-1 w-full max-w-lg" style={{ fontFamily: '"BR Firma", sans-serif'}}>
+                            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-8 text-center md:text-left" style={{ fontFamily: '"BR Firma", sans-serif'}}>
                                 How It Works
                             </h2>
 
                             {/* Steps Grid */}
-                            <div className="grid grid-cols-1 gap-6">
+                            <div className="grid grid-cols-1 gap-6" style={{ fontFamily: '"BR Firma", sans-serif'}}>
                                 {[
                                     {
                                         icon: Eye,
@@ -247,7 +247,7 @@ function App() {
                                 ].map((step, index) => (
                                     <div
                                         key={index}
-                                        className="flex items-center space-x-6 p-4 bg-black/20 rounded-xl hover:bg-black/30 transition-all"
+                                        className="flex items-center space-x-6 p-4 bg-black/20 rounded-xl hover:bg-black/30 transition-all" style={{ fontFamily: '"BR Firma", sans-serif'}}
                                     >
                                         <div className="w-16 h-16 rounded-full bg-gradient-to-r from-purple-600/20 to-pink-600/20 flex items-center justify-center flex-shrink-0">
                                             <step.icon className="w-8 h-8 text-white" />
@@ -256,7 +256,7 @@ function App() {
                                             <h3 className="text-xl font-bold text-white mb-2">
                                                 {step.title}
                                             </h3>
-                                            <p className="text-base text-gray-400">
+                                            <p className="text-base text-gray-400" style={{ fontFamily: '"BR Firma", sans-serif'}}>
                                                 {step.description}
                                             </p>
                                         </div>
@@ -271,21 +271,21 @@ function App() {
 
             {/* Footer */}
             <footer className="relative border-t border-gray-800">
-                <div className="max-w-7xl mx-auto px-6 md:px-12 py-8 md:py-12 flex flex-col md:flex-row items-center justify-between relative space-y-4 md:space-y-0">
+                <div className="max-w-7xl mx-auto px-6 md:px-12 py-8 md:py-12 flex flex-col md:flex-row items-center justify-between relative space-y-4 md:space-y-0" style={{ fontFamily: '"BR Firma", sans-serif'}}>
                     {/* Logo / Brand Name */}
-                    <div className="text-xl md:text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-300 text-transparent bg-clip-text text-center w-full md:w-auto">
+                    <div className="text-xl md:text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-300 text-transparent bg-clip-text text-center w-full md:w-auto" style={{ fontFamily: '"BR Firma", sans-serif'}}>
                         Cloak Me
                     </div>
 
                     {/* Navigation Links */}
-                    <div className="flex items-center space-x-4 md:space-x-6 text-gray-300 text-center w-full md:w-auto md:absolute md:left-1/2 md:transform md:-translate-x-1/2">
-                        <a href="#" className="hover:text-white transition-colors">Terms</a>
-                        <a href="#" className="hover:text-white transition-colors">Privacy</a>
-                        <a href="#" className="hover:text-white transition-colors">Contact</a>
+                    <div className="flex items-center space-x-4 md:space-x-6 text-gray-300 text-center w-full md:w-auto md:absolute md:left-1/2 md:transform md:-translate-x-1/2" style={{ fontFamily: '"BR Firma", sans-serif'}}>
+                        <a href="#" className="hover:text-white transition-colors" style={{ fontFamily: '"BR Firma", sans-serif'}}>Terms</a>
+                        <a href="#" className="hover:text-white transition-colors" style={{ fontFamily: '"BR Firma", sans-serif'}}>Privacy</a>
+                        <a href="#" className="hover:text-white transition-colors" style={{ fontFamily: '"BR Firma", sans-serif'}}>Contact</a>
                     </div>
 
                     {/* Copyright Text */}
-                    <p className="text-gray-300 text-center w-full md:w-auto">
+                    <p className="text-gray-300 text-center w-full md:w-auto" style={{ fontFamily: '"BR Firma", sans-serif'}}>
                         © 2025 Cloak Me. All rights reserved.
                     </p>
                 </div>

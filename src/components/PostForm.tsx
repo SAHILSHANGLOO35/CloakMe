@@ -8,7 +8,11 @@ import { Image as ImageIcon, Loader2, X } from "lucide-react";
 import giphyIcon from "../../public/giphy-svgrepo-com.svg";
 import Image from "next/image";
 
-export function PostForm() {
+type PostFormProps = {
+    onPostsCreated: () => void;
+};
+
+export function PostForm({ onPostsCreated }: PostFormProps) {
     const [content, setContent] = useState("");
     const [imageUrl, setImageUrl] = useState("");
     const [gifUrl, setGifUrl] = useState("");
@@ -19,7 +23,6 @@ export function PostForm() {
     const [gifs, setGifs] = useState<GiphyImage[]>([]);
     const [isSearchingGifs, setIsSearchingGifs] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
-    const router = useRouter();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -40,7 +43,8 @@ export function PostForm() {
             setImageUrl("");
             setGifUrl("");
             setIsGifPickerOpen(false);
-            router.refresh();
+
+            onPostsCreated();
         } catch (error) {
             console.error("Error creating post:", error);
         } finally {

@@ -8,7 +8,7 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
-                firma: ['"BR Firma"', 'sans-serif'],
+                firma: ['"BR Firma"', "sans-serif"],
             },
         },
     },

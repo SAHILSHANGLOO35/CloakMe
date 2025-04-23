@@ -20,12 +20,15 @@ type Post = {
     comments?: number;
 };
 
-export function PostFeed() {
-    const [posts, setPosts] = useState<Post[]>([]);
+type PostFeedProps = {
+    posts: Post[];
+    loading: boolean;
+}
+
+export function PostFeed({ posts, loading }: PostFeedProps) {
     const [likedPosts, setLikedPosts] = useState<string[]>([]);
     const [likesMap, setLikesMap] = useState<{ [postId: string]: number }>({});
     const [commentsMap, setCommentsMap] = useState<{ [postId: string]: number }>({});
-    const [loading, setLoading] = useState(true);
 
     // const toggleLike = async (postId: string) => {
     //     const alreadyLiked = likedPosts.includes(postId);
@@ -48,35 +51,50 @@ export function PostFeed() {
     //     }
     // };
 
+    // useEffect(() => {
+    //     const fetchPosts = async () => {
+    //         try {
+    //             const response = await axios.get("/api/posts");
+    //             setPosts(response.data.posts);
+
+    //             const initialLikes = response.data.posts.reduce((acc: { [postId: string]: number }, post: Post) => {
+    //                 acc[post.id] = post.likes;
+    //                 return acc;
+    //             }, {});
+
+    //             const initialComments = response.data.posts.reduce((acc: { [postId: string]: number }, post: Post) => {
+    //                 // @ts-ignore
+    //                 acc[post.id] = post._count?.comments || 0;
+    //                 return acc;
+    //             }, {});
+
+    //             setLikesMap(initialLikes);
+    //             setCommentsMap(initialComments);
+    //         } catch (error) {
+    //             console.error("Error fetching posts:", error);
+    //         } finally {
+    //             setLoading(false);
+    //         }
+    //     };
+
+    //     fetchPosts();
+    // }, [refreshTrigger]);
+
     useEffect(() => {
-        const fetchPosts = async () => {
-            try {
-                const response = await axios.get("/api/posts");
-                setPosts(response.data.posts);
+        const initialLikes = posts.reduce((acc: { [postId: string]: number }, post: Post) => {
+            acc[post.id] = post.likes;
+            return acc;
+        }, {});
 
-                const initialLikes = response.data.posts.reduce((acc: { [postId: string]: number }, post: Post) => {
-                    acc[post.id] = post.likes;
-                    return acc;
-                }, {});
+        const initialComments = posts.reduce((acc: { [postId: string]: number }, post: Post) => {
+            // @ts-ignore
+            acc[post.id] = post._count?.comments || 0;
+            return acc;
+        }, {});
 
-                const initialComments = response.data.posts.reduce((acc: { [postId: string]: number }, post: Post) => {
-                    // @ts-ignore
-                    acc[post.id] = post._count?.comments || 0;
-                    return acc;
-                }, {});
-
-                setLikesMap(initialLikes);
-                setCommentsMap(initialComments);
-                fetchPosts();
-            } catch (error) {
-                console.error("Error fetching posts:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchPosts();
-    }, []);
+        setLikesMap(initialLikes);
+        setCommentsMap(initialComments);
+    }, [posts]);
 
     const containerClass = "max-w-3xl mx-auto border-l h-screen border-r border-white/25 flex top-0 overflow-y-auto scrollbar-hide";
 
@@ -126,7 +144,7 @@ export function PostFeed() {
                             <img
                                 src={post.imageUrl}
                                 alt="Post image"
-                                className="w-96 h-96 rounded-md mb-3 mx-auto"
+                                className="w-auto h-auto rounded-md mb-3 mx-auto"
                             />
                         )}
 

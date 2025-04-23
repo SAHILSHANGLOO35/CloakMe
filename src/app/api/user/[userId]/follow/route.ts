@@ -43,7 +43,7 @@ export async function POST(
             );
         }
 
-        const followingUserId = await params.userId;
+        const followingUserId = params.userId;
 
         const followingUser = await db.user.findUnique({
             where: {
@@ -133,7 +133,7 @@ export async function GET(
 ) {
     try {
         const user = await currentUser();
-        const targetUserId = await params.userId;
+        const targetUserId = params.userId;
 
         if (!user) {
             return NextResponse.json(

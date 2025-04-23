@@ -23,7 +23,7 @@ export async function GET(
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    const postId = await params.postId;
+    const postId = params.postId;
 
     const post = await db.post.findUnique({
       where: {

@@ -56,11 +56,11 @@ export default async function ProfilePage() {
             </div>
             <div className="flex flex-row gap-1 justify-center items-center">
               <p className="text-base font-bold" style={{ fontFamily: '"BR Firma", sans-serif' }}>0</p>
-              <p className="text-gray-400" style={{ fontFamily: '"BR Firma", sans-serif' }}>Followers</p>
+              <p className="text-gray-400" style={{ fontFamily: '"BR Firma", sans-serif' }}>Likes</p>
             </div>
             <div className="flex flex-row gap-1 justify-center items-center">
               <p className="textbase font-bold" style={{ fontFamily: '"BR Firma", sans-serif' }}>0</p>
-              <p className="text-gray-400" style={{ fontFamily: '"BR Firma", sans-serif' }}>Following</p>
+              <p className="text-gray-400" style={{ fontFamily: '"BR Firma", sans-serif' }}>Comments</p>
             </div>
           </div>
         </div>

@@ -64,7 +64,7 @@ function App() {
                             </p>
                             <div className="flex justify-center md:justify-start">
                                 <button
-                                    className="w-full md:w-80 px-4 flex items-center justify-center py-3 md:py-4 text-base md:text-lg font-semibold bg-gradient-to-r from-purple-600 to-pink-600 rounded-full shadow-lg hover:bg-gradient-to-l hover:from-purple-400 hover:to-pink-600 transition-all duration-300 shadow-purple-500/10 cursor-pointer hover:opacity-80 disabled:opacity-70 disabled:cursor-not-allowed"
+                                    className="w-full md:w-80 px-4 flex items-center justify-center py-3 md:py-4 text-base md:text-lg font-semibold bg-neutral-900 rounded-full shadow-lg hover:bg-neutral-600 border border-white/25 transition-all duration-300 cursor-pointer hover:opacity-80 disabled:opacity-70 disabled:cursor-not-allowed"
                                     onClick={handleNavigation}
                                     disabled={isLoading}
                                 >
@@ -75,7 +75,7 @@ function App() {
                                                 Loading...
                                             </>
                                         ) : (
-                                            "Go to feed"
+                                            "Go to Feed"
                                         )}
                                     </span>
                                     {!isLoading && (

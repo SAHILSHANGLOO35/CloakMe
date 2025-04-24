@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { Home, User, PenSquare, Info, Bell } from 'lucide-react';
 import axios from 'axios';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { SignedIn, SignedOut } from '@clerk/nextjs';
 import CreatePostModal from './CreatePostModal';
 
@@ -11,6 +11,7 @@ function LeftSidebar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -33,23 +34,22 @@ function LeftSidebar() {
     fetchUser();
   }, []);
 
+  const getLabelFromPath = (path: string) => {
+    if (path === '/posts') return 'Home'
+    if (path === '/profile') return 'Profile'
+    if (path === '/about-us') return 'About Us'
+  }
+
   return (
     <div className="w-64 fixed inset-y-0 left-40 p-4 text-white flex flex-col">
 
       {/* Navigation Links */}
       <nav className="flex flex-col space-y-1 mt-12">
-        <div onClick={() => {
-          router.push('/posts');
-        }}>
-          <NavItem icon={<Home size={26} />} label="Home" />
-        </div>
-        <NavItem icon={<Bell size={26} />} label="Notifications" />
-        <div onClick={() => {
-          router.push('/profile')
-        }}>
-          <NavItem icon={<User size={26} />} label="Profile" />
-        </div>
-        <NavItem icon={<Info size={26} />} label="About Us" />
+        <NavItem icon={<Home size={26} />} label="Home" href='/posts' pathname={pathname} onClick={() => router.push('/posts')} />
+
+        <NavItem icon={<User size={26} />} label="Profile" href='/profile' pathname={pathname} onClick={() => router.push('/profile')} />
+
+        <NavItem icon={<Info size={26} />} label="About Us" href='/about-us' pathname={pathname} onClick={() => router.push('/about-us')} />
       </nav>
 
       <div className="border rounded-4xl cursor-pointer mt-4 flex items-center py-2 justify-center relative w-full hover:bg-[#374151] hover:text-white group" style={{ border: "1px solid #374151" }} onClick={() => {
@@ -61,9 +61,9 @@ function LeftSidebar() {
         </span>
       </div>
 
-      <CreatePostModal 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)}  
+      <CreatePostModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
       />
 
       {/* Some space before profile section */}
@@ -87,7 +87,6 @@ function LeftSidebar() {
           {/* Username */}
           <p
             className="text-white leading-none"
-            onClick={() => router.push(`/profile`)}
             style={{ fontFamily: '"BR Firma", sans-serif', fontSize: "15px" }}
           >
             {username}
@@ -99,9 +98,12 @@ function LeftSidebar() {
 }
 
 // Helper component for navigation items
-function NavItem({ icon, label }: any) {
+function NavItem({ icon, label, href, pathname, onClick }: any) {
+  const isSelected = pathname === href;
+
   return (
-    <button className="flex items-center p-3 w-fit rounded-full hover:bg-neutral-900 transition-colors cursor-pointer focus:bg-neutral-900">
+    <button onClick={onClick} className={`flex items-center p-3 rounded-full transition-colors cursor-pointer ${isSelected ? 'bg-neutral-900 text-white w-fit' : 'hover:bg-neutral-800 text-neutral-300'}`}
+    >
       <span className="mr-5">{icon}</span>
       <span style={{ fontFamily: '"BR Firma", sans-serif', fontSize: '20px' }}>{label}</span>
     </button>

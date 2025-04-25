@@ -125,7 +125,7 @@ export function PostForm({ onPostsCreated }: PostFormProps) {
                 Home
             </div>
             <div className="border-b border-l border-r border-white/25" />
-            <div className="bg-transparent outline-none">
+            <div className="bg-transparent outline-none z-40">
                 <form onSubmit={handleSubmit} className="relative">
                     {/* Fixed height container for content + media */}
                     <div className="min-h-[150px] flex flex-col">

@@ -125,7 +125,7 @@ export function PostFeed({ posts, loading }: PostFeedProps) {
         <div className={`${containerClass}`}>
             <div className="space-y-4 w-full flex flex-col">
                 {posts.map((post) => (
-                    <div key={post.id} className="bg-transparent py-3 px-4 border-b border-white/25 cursor-pointer" style={{ fontFamily: '"BR Firma", sans-serif'}} onClick={() => router.push(`/posts/${post.id}`)}>
+                    <div key={post.id} className="bg-transparent py-3 px-4 border-b border-white/25 cursor-pointer" style={{ fontFamily: '"BR Firma", sans-serif'}}>
                         <div className="flex items-center mb-2">
                             <div className="bg-primary border border-white/25 h-10 w-10 rounded-full flex items-center justify-center text-white font-bold">
                                 {post.user.username[0].toUpperCase()}

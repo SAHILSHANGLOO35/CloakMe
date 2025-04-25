@@ -35,7 +35,7 @@ function RightSidebar() {
           <SignedIn>
             <div className="flex flex-col bg-neutral-900 rounded-xl space-y-3">
               <h2 className="text-md text-gray-400" style={{ fontFamily: '"BR Firma", sans-serif' }}>
-                You're signed in
+                Godly! You're signed in
               </h2>
 
               <p className="text-xs" style={{ fontFamily: '"BR Firma", sans-serif' }}>
@@ -44,7 +44,7 @@ function RightSidebar() {
 
               <SignOutButton>
                 <button
-                  className="w-full border border-[#374151] hover:bg-[#374151] text-white text-sm py-2 rounded-lg flex items-center justify-center gap-2 transition-colors"
+                  className="w-full border border-[#374151] hover:bg-[#374151] text-white text-sm py-2 rounded-lg flex items-center justify-center gap-2 cursor-pointer transition-colors"
                   style={{ fontFamily: '"BR Firma", sans-serif' }}
                 >
                   <LogIn size={16} />

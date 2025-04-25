@@ -90,17 +90,6 @@ export async function POST(
             });
         }
 
-        if (post.userId !== dbUser.id) {
-            await db.notification.create({
-                data: {
-                    userId: post.userId,
-                    type: "like",
-                    fromUserId: dbUser.id,
-                    postId,
-                },
-            });
-        }
-
         return NextResponse.json({
             liked: true,
         });

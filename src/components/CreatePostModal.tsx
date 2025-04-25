@@ -11,7 +11,7 @@ interface PostModal {
     onClose: () => void
 }
 
-function CreatePostModal({ isOpen, onClose }: PostModal) {
+export function CreatePostModal({ isOpen, onClose }: PostModal) {
     const [content, setContent] = useState("");
     const [imageUrl, setImageUrl] = useState("");
     const [gifUrl, setGifUrl] = useState("");
@@ -185,7 +185,7 @@ function CreatePostModal({ isOpen, onClose }: PostModal) {
                     </h2>
                     <button 
                         onClick={handleClose}
-                        className="p-1 rounded-full hover:bg-gray-800"
+                        className="p-1 cursor-pointer rounded-full hover:bg-gray-800"
                     >
                         <X size={24} />
                     </button>
@@ -223,9 +223,9 @@ function CreatePostModal({ isOpen, onClose }: PostModal) {
                                 <button
                                     type="button"
                                     onClick={() => setImageUrl("")}
-                                    className="absolute top-2 right-2 bg-gray-900 p-1 rounded-full"
+                                    className="absolute cursor-pointer top-2 right-2 bg-gray-900 p-1 rounded-full"
                                 >
-                                    &times;
+                                    <X size={20} />
                                 </button>
                             </div>
                         )}
@@ -240,9 +240,9 @@ function CreatePostModal({ isOpen, onClose }: PostModal) {
                                 <button
                                     type="button"
                                     onClick={() => setGifUrl("")}
-                                    className="absolute top-2 right-2 bg-gray-900 p-1 rounded-full"
+                                    className="absolute cursor-pointer top-2 right-2 bg-gray-900 p-1 rounded-full"
                                 >
-                                    &times;
+                                    <X size={20} />
                                 </button>
                             </div>
                         )}
@@ -343,7 +343,7 @@ function CreatePostModal({ isOpen, onClose }: PostModal) {
                                     isUploading ||
                                     (!content && !imageUrl && !gifUrl)
                                 }
-                                className="px-6 py-2 rounded-full bg-gray-700 hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="px-6 cursor-pointer py-2 rounded-full bg-gray-700 hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
                                 style={{ fontFamily: '"BR Firma", sans-serif' }}
                             >
                                 {isLoading ? "Posting..." : "Post"}
@@ -355,5 +355,3 @@ function CreatePostModal({ isOpen, onClose }: PostModal) {
         </div>
     );
 }
-
-export default CreatePostModal;

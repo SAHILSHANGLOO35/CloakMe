@@ -93,17 +93,6 @@ export async function POST(
             },
         });
 
-        if (post.userId !== dbUser.id) {
-            await db.notification.create({
-                data: {
-                    userId: post.userId,
-                    type: "comment",
-                    fromUserId: dbUser.id,
-                    postId,
-                },
-            });
-        }
-
         return NextResponse.json({
             comment,
         });

@@ -4,10 +4,10 @@ import { Home, User, PenSquare, Info, Loader2 } from 'lucide-react';
 import axios from 'axios';
 import { usePathname, useRouter } from 'next/navigation';
 import { SignedIn, SignedOut } from '@clerk/nextjs';
-import CreatePostModal from './CreatePostModal';
+import { CreatePostModal } from './CreatePostModal';
 
 function LeftSidebar() {
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState("Anonymous");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const router = useRouter();
   const [usernameLoading, setUsernameLoading] = useState(false);
@@ -71,18 +71,18 @@ function LeftSidebar() {
       <div className="mt-4 px-2 py-2 w-full rounded-full hover:bg-neutral-900 cursor-pointer transition-colors">
         <div className="flex items-center gap-2">
           {/* Perfect circular icon */}
-          {!usernameLoading && (
-            <div className="flex-none w-9 h-9 bg-neutral-800 rounded-full flex items-center justify-center">
-              <SignedIn>
-                <div className='font-semibold' style={{ fontFamily: '"BR Firma", sans-serif', fontSize: "20px" }}>
-                  {username[0]?.toUpperCase()}
-                </div>
-              </SignedIn>
-              <SignedOut>
-                <User size={18} className="text-white" />
-              </SignedOut>
-            </div>
-          )}
+            { !usernameLoading && (
+              <div className="flex-none w-9 h-9 bg-neutral-800 rounded-full flex items-center justify-center">
+                <SignedIn>
+              <div className='font-semibold' style={{ fontFamily: '"BR Firma", sans-serif', fontSize: "20px" }}>
+                {username[0]?.toUpperCase()}
+              </div>
+            </SignedIn>
+            <SignedOut>
+              <User size={18} className="text-white" />
+            </SignedOut>
+          </div>
+            ) }
 
           {/* Username */}
           {usernameLoading ? (

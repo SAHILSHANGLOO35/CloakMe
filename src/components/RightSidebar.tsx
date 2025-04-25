@@ -4,6 +4,7 @@ import { Users, Search, Calendar, ExternalLink, Star, MoveUpRight, LogIn, HeartH
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import gpay from "../../public/GPAY.jpeg";
+import { SignedIn, SignedOut, SignOutButton } from '@clerk/nextjs';
 
 function RightSidebar() {
   const router = useRouter();
@@ -31,29 +32,52 @@ function RightSidebar() {
       <div className='flex-grow overflow-y-auto pr-1 scrollbar-hide'>
         {/* Sign up Section */}
         <div className="mb-6 bg-neutral-900 rounded-xl p-4">
-          <div className="flex items-center mb-1">
-            <h2 className="text-md text-gray-400" style={{ fontFamily: '"BR Firma", sans-serif' }}>Stay Signed in</h2>
-          </div>
+          <SignedIn>
+            <div className="flex flex-col bg-neutral-900 rounded-xl space-y-3">
+              <h2 className="text-md text-gray-400" style={{ fontFamily: '"BR Firma", sans-serif' }}>
+                You're signed in
+              </h2>
 
-          <div className="text-xs mb-6" style={{ fontFamily: '"BR Firma", sans-serif' }}>
-            Sign up to enjoy the anonymity
-          </div>
+              <p className="text-xs" style={{ fontFamily: '"BR Firma", sans-serif' }}>
+                Enjoy full features — create posts, comment anonymously, and more.
+              </p>
 
-          <button className="text-gray-400 flex flex-row items-center justify-center gap-1 mb-4 cursor-pointer hover:text-white text-sm mt-2 transition-colors" style={{ fontFamily: '"BR Firma", sans-serif' }} onClick={() => {
-            router.push('/sign-up')
-          }}>
-            <MoveUpRight size={18} />
-            Sign up
-          </button>
+              <SignOutButton>
+                <button
+                  className="w-full border border-[#374151] hover:bg-[#374151] text-white text-sm py-2 rounded-lg flex items-center justify-center gap-2 transition-colors"
+                  style={{ fontFamily: '"BR Firma", sans-serif' }}
+                >
+                  <LogIn size={16} />
+                  Sign Out
+                </button>
+              </SignOutButton>
+            </div>
+          </SignedIn>
+          <SignedOut>
+            <div className="flex items-center mb-1">
+              <h2 className="text-md text-gray-400" style={{ fontFamily: '"BR Firma", sans-serif' }}>Stay Signed in</h2>
+            </div>
 
-          <hr className='mb-4 text-gray-200' />
+            <div className="text-xs mb-6" style={{ fontFamily: '"BR Firma", sans-serif' }}>
+              Sign up to enjoy the anonymity
+            </div>
 
-          <button className="text-gray-400 flex flex-row items-center justify-center gap-1 cursor-pointer hover:text-white text-sm mt-2 transition-colors" style={{ fontFamily: '"BR Firma", sans-serif' }} onClick={() => {
-            router.push('/sign-in')
-          }}>
-            <LogIn size={18} />
-            Sign in
-          </button>
+            <button className="text-gray-400 flex flex-row items-center justify-center gap-1 mb-4 cursor-pointer hover:text-white text-sm mt-2 transition-colors" style={{ fontFamily: '"BR Firma", sans-serif' }} onClick={() => {
+              router.push('/sign-up')
+            }}>
+              <MoveUpRight size={18} />
+              Sign up
+            </button>
+
+            <hr className='mb-4 text-gray-200' />
+
+            <button className="text-gray-400 flex flex-row items-center justify-center gap-1 cursor-pointer hover:text-white text-sm mt-2 transition-colors" style={{ fontFamily: '"BR Firma", sans-serif' }} onClick={() => {
+              router.push('/sign-in')
+            }}>
+              <LogIn size={18} />
+              Sign in
+            </button>
+          </SignedOut>
         </div>
 
         {/* GPay lol */}

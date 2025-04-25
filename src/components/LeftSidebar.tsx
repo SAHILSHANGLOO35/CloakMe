@@ -1,20 +1,22 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-import { Home, User, PenSquare, Info, Bell } from 'lucide-react';
+import { Home, User, PenSquare, Info, Loader2 } from 'lucide-react';
 import axios from 'axios';
 import { usePathname, useRouter } from 'next/navigation';
 import { SignedIn, SignedOut } from '@clerk/nextjs';
 import CreatePostModal from './CreatePostModal';
 
 function LeftSidebar() {
-  const [username, setUsername] = useState("Anonymous");
+  const [username, setUsername] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const router = useRouter();
+  const [usernameLoading, setUsernameLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
     const fetchUser = async () => {
+      setUsernameLoading(true);
       try {
         const response = await axios.get(`/api/user`);
         if (response.data.user && response.data.user.username) {
@@ -28,17 +30,13 @@ function LeftSidebar() {
         console.log("User not authenticated:", error);
         setUsername("Anonymous");
         setIsLoggedIn(false);
+      } finally {
+        setUsernameLoading(false);
       }
     };
 
     fetchUser();
   }, []);
-
-  const getLabelFromPath = (path: string) => {
-    if (path === '/posts') return 'Home'
-    if (path === '/profile') return 'Profile'
-    if (path === '/about-us') return 'About Us'
-  }
 
   return (
     <div className="w-64 fixed inset-y-0 left-40 p-4 text-white flex flex-col">
@@ -73,24 +71,32 @@ function LeftSidebar() {
       <div className="mt-4 px-2 py-2 w-full rounded-full hover:bg-neutral-900 cursor-pointer transition-colors">
         <div className="flex items-center gap-2">
           {/* Perfect circular icon */}
-          <div className="flex-none w-9 h-9 bg-neutral-800 rounded-full flex items-center justify-center">
-            <SignedIn>
-              <div className='font-semibold' style={{ fontFamily: '"BR Firma", sans-serif', fontSize: "20px" }}>
-                {username[0]?.toUpperCase()}
-              </div>
-            </SignedIn>
-            <SignedOut>
-              <User size={18} className="text-white" />
-            </SignedOut>
-          </div>
+          {!usernameLoading && (
+            <div className="flex-none w-9 h-9 bg-neutral-800 rounded-full flex items-center justify-center">
+              <SignedIn>
+                <div className='font-semibold' style={{ fontFamily: '"BR Firma", sans-serif', fontSize: "20px" }}>
+                  {username[0]?.toUpperCase()}
+                </div>
+              </SignedIn>
+              <SignedOut>
+                <User size={18} className="text-white" />
+              </SignedOut>
+            </div>
+          )}
 
           {/* Username */}
-          <p
+          {usernameLoading ? (
+            <div className="flex items-center py-2 text-sm text-gray-400">
+              <Loader2 className="h-4 w-4 mr-2 animate-spin text-primary" />
+              <span>Fetching User...</span>
+            </div>
+          ) : (<p
             className="text-white leading-none"
             style={{ fontFamily: '"BR Firma", sans-serif', fontSize: "15px" }}
           >
             {username}
-          </p>
+          </p>)
+          }
         </div>
       </div>
     </div>

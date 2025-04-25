@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { formatDistanceToNow } from "date-fns";
 import { Heart, MessageCircle } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 type Post = {
     id: string;
@@ -29,6 +29,8 @@ export function PostFeed({ posts, loading }: PostFeedProps) {
     const [likedPosts, setLikedPosts] = useState<string[]>([]);
     const [likesMap, setLikesMap] = useState<{ [postId: string]: number }>({});
     const [commentsMap, setCommentsMap] = useState<{ [postId: string]: number }>({});
+
+    const router = useRouter();
 
     // const toggleLike = async (postId: string) => {
     //     const alreadyLiked = likedPosts.includes(postId);
@@ -123,7 +125,7 @@ export function PostFeed({ posts, loading }: PostFeedProps) {
         <div className={`${containerClass}`}>
             <div className="space-y-4 w-full flex flex-col">
                 {posts.map((post) => (
-                    <div key={post.id} className="bg-transparent py-3 px-4 border-b border-white/25" style={{ fontFamily: '"BR Firma", sans-serif'}}>
+                    <div key={post.id} className="bg-transparent py-3 px-4 border-b border-white/25 cursor-pointer" style={{ fontFamily: '"BR Firma", sans-serif'}} onClick={() => router.push(`/posts/${post.id}`)}>
                         <div className="flex items-center mb-2">
                             <div className="bg-primary border border-white/25 h-10 w-10 rounded-full flex items-center justify-center text-white font-bold">
                                 {post.user.username[0].toUpperCase()}

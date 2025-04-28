@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Home, User, PenSquare, Info, Loader2 } from 'lucide-react';
 import axios from 'axios';
 import { usePathname, useRouter } from 'next/navigation';
-import { SignedIn, SignedOut } from '@clerk/nextjs';
+import { SignedIn, SignedOut, useSession } from '@clerk/nextjs';
 import { CreatePostModal } from './CreatePostModal';
 
 function LeftSidebar({ posts, setPosts }: any) {
@@ -12,9 +12,9 @@ function LeftSidebar({ posts, setPosts }: any) {
   const router = useRouter();
   const [usernameLoading, setUsernameLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  // const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const pathname = usePathname();
+  const { session } = useSession();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -53,9 +53,13 @@ function LeftSidebar({ posts, setPosts }: any) {
     }
   };
 
-  useEffect(() => {
-    fetchPostsForModal();
-  }, []);
+  const handleClick = () => {
+    if(session?.user) {
+      setIsModalOpen(true);
+    } else {
+      router.push('/sign-in');
+    }
+  };
 
   return (
     <div className="w-64 fixed inset-y-0 left-40 p-4 text-white flex flex-col">
@@ -70,7 +74,7 @@ function LeftSidebar({ posts, setPosts }: any) {
       </nav>
 
       <div className="border rounded-4xl cursor-pointer mt-4 flex items-center py-2 justify-center relative w-full hover:bg-[#374151] hover:text-white group" style={{ border: "1px solid #374151" }} onClick={() => {
-        setIsModalOpen(true)
+        handleClick();
       }}>
         <PenSquare size={24} className="ml-2 absolute left-2 text-[#374151] group-hover:text-white" />
         <span className="flex-grow text-center text-lg font-semibold text-[#374151] group-hover:text-white group-hover:font-semibold" style={{ fontFamily: '"BR Firma", sans-serif', fontSize: "18px" }}>
@@ -99,7 +103,7 @@ function LeftSidebar({ posts, setPosts }: any) {
                 </div>
               </SignedIn>
               <SignedOut>
-                {/* <User size={18} className="text-white" /> */}
+                <User size={18} className="text-white" />
               </SignedOut>
             </div>
           )}

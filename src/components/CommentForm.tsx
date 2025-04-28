@@ -1,39 +1,46 @@
 "use client";
 
+import { useSession } from "@clerk/nextjs";
 import axios from "axios";
 import { Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 interface CommentFormProps {
   postId: string;
-//   onCommentAdded?: () => void;
   onPostComment?: () => void;
 }
 
 export function CommentForm({ postId, onPostComment }: CommentFormProps) {
   const [commentText, setCommentText] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter();
+  const { session } = useSession();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    
+    if (session?.user) {
+      if (!commentText.trim() || !postId) return;
 
-    if (!commentText.trim() || !postId) return;
+      setIsSubmitting(true);
 
-    setIsSubmitting(true);
+      try {
+        await axios.post(`/api/posts/${postId}/comments`, {
+          content: commentText.trim(),
+        });
 
-    try {
-      await axios.post(`/api/posts/${postId}/comments`, {
-        content: commentText.trim(),
-      });
+        setCommentText(""); // Clear the input box
 
-      setCommentText(""); // Clear the input box
-
-      // @ts-ignore
-      onPostComment();
-    } catch (error) {
-      console.error("Failed to add comment:", error);
-    } finally {
-      setIsSubmitting(false);
+        // @ts-ignore
+        onPostComment();
+      } catch (error) {
+        console.error("Failed to add comment:", error);
+      } finally {
+        setIsSubmitting(false);
+      }
+    } else {
+      router.push('/sign-in');
     }
   };
 

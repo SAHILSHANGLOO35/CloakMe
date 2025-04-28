@@ -2,7 +2,6 @@
 
 import { useState, useRef } from "react";
 import axios from "axios";
-import { useRouter } from "next/navigation";
 import { searchGifs, GiphyImage } from "@/lib/giphy";
 import { Image as ImageIcon, Loader2, X } from "lucide-react";
 import giphyIcon from "../../public/giphy-svgrepo-com.svg";

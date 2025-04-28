@@ -6,12 +6,14 @@ import { usePathname, useRouter } from 'next/navigation';
 import { SignedIn, SignedOut } from '@clerk/nextjs';
 import { CreatePostModal } from './CreatePostModal';
 
-function LeftSidebar() {
-  const [username, setUsername] = useState("Anonymous");
+function LeftSidebar({ posts, setPosts }: any) {
+  const [username, setUsername] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const router = useRouter();
   const [usernameLoading, setUsernameLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [posts, setPosts] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -38,6 +40,23 @@ function LeftSidebar() {
     fetchUser();
   }, []);
 
+
+  const fetchPostsForModal = async () => {
+    try {
+      setIsLoading(true);
+      const response = await axios.get(`/api/posts`);
+      setPosts(response.data.posts);
+    } catch (error) {
+      console.error("Failed to fetch posts", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchPostsForModal();
+  }, []);
+
   return (
     <div className="w-64 fixed inset-y-0 left-40 p-4 text-white flex flex-col">
 
@@ -62,6 +81,7 @@ function LeftSidebar() {
       <CreatePostModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
+        onPostCreated={fetchPostsForModal}
       />
 
       {/* Some space before profile section */}
@@ -71,18 +91,18 @@ function LeftSidebar() {
       <div className="mt-4 px-2 py-2 w-full rounded-full hover:bg-neutral-900 cursor-pointer transition-colors">
         <div className="flex items-center gap-2">
           {/* Perfect circular icon */}
-            { !usernameLoading && (
-              <div className="flex-none w-9 h-9 bg-neutral-800 rounded-full flex items-center justify-center">
-                <SignedIn>
-              <div className='font-semibold' style={{ fontFamily: '"BR Firma", sans-serif', fontSize: "20px" }}>
-                {username[0]?.toUpperCase()}
-              </div>
-            </SignedIn>
-            <SignedOut>
-              <User size={18} className="text-white" />
-            </SignedOut>
-          </div>
-            ) }
+          {!usernameLoading && (
+            <div className="flex-none w-9 h-9 bg-neutral-800 rounded-full flex items-center justify-center">
+              <SignedIn>
+                <div className='font-semibold' style={{ fontFamily: '"BR Firma", sans-serif', fontSize: "20px" }}>
+                  {username[0]?.toUpperCase()}
+                </div>
+              </SignedIn>
+              <SignedOut>
+                {/* <User size={18} className="text-white" /> */}
+              </SignedOut>
+            </div>
+          )}
 
           {/* Username */}
           {usernameLoading ? (

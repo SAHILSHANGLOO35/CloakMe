@@ -9,9 +9,10 @@ import Image from "next/image";
 interface PostModal {
     isOpen: boolean
     onClose: () => void
+    onPostCreated: () => void
 }
 
-export function CreatePostModal({ isOpen, onClose }: PostModal) {
+export function CreatePostModal({ isOpen, onClose, onPostCreated }: PostModal) {
     const [content, setContent] = useState("");
     const [imageUrl, setImageUrl] = useState("");
     const [gifUrl, setGifUrl] = useState("");
@@ -73,6 +74,7 @@ export function CreatePostModal({ isOpen, onClose }: PostModal) {
         };
     }, [isOpen]);
 
+
     const handleSubmit = async (e: any) => {
         e.preventDefault();
 
@@ -88,6 +90,7 @@ export function CreatePostModal({ isOpen, onClose }: PostModal) {
                 gifUrl,
             });
 
+            onPostCreated();
             setContent("");
             setImageUrl("");
             setGifUrl("");
@@ -174,8 +177,8 @@ export function CreatePostModal({ isOpen, onClose }: PostModal) {
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-800/70">
-            <div 
+        <div className="inset-0 z-50 flex items-end justify-center fixed bg-neutral-800/70 py-4">
+            <div
                 ref={modalRef}
                 className="bg-black rounded-lg w-full max-w-lg mx-4 relative border border-white/25 shadow-xl"
             >
@@ -183,14 +186,14 @@ export function CreatePostModal({ isOpen, onClose }: PostModal) {
                     <h2 className="text-xl font-medium" style={{ fontFamily: '"BR Firma", sans-serif' }}>
                         Create Post
                     </h2>
-                    <button 
+                    <button
                         onClick={handleClose}
                         className="p-1 cursor-pointer rounded-full hover:bg-gray-800"
                     >
                         <X size={24} />
                     </button>
                 </div>
-                
+
                 <div className="p-4">
                     <form onSubmit={handleSubmit}>
                         <textarea
@@ -204,7 +207,7 @@ export function CreatePostModal({ isOpen, onClose }: PostModal) {
                             onChange={(e) => setContent(e.target.value)}
                             rows={3}
                             autoFocus
-                        /> 
+                        />
 
                         {isUploading && (
                             <div className="flex justify-center items-center py-4">
@@ -218,7 +221,7 @@ export function CreatePostModal({ isOpen, onClose }: PostModal) {
                                 <img
                                     src={imageUrl}
                                     alt="Preview"
-                                    className="w-full max-h-60 object-contain rounded-md"
+                                    className="w-full max-h-36 object-contain rounded-md"
                                 />
                                 <button
                                     type="button"
@@ -235,7 +238,7 @@ export function CreatePostModal({ isOpen, onClose }: PostModal) {
                                 <img
                                     src={gifUrl}
                                     alt="GIF"
-                                    className="w-full max-h-60 object-contain rounded-md"
+                                    className="w-full max-h-36 object-contain rounded-md"
                                 />
                                 <button
                                     type="button"
@@ -256,58 +259,58 @@ export function CreatePostModal({ isOpen, onClose }: PostModal) {
                         />
 
                         {isGifPickerOpen && (
-                            <div className="mb-4 p-3 bg-gray-800 rounded-md">
-                                <div className="flex mb-2">
+                            <div className="max-h-40 overflow-hidden bg-gray-800 rounded-md flex flex-col p-3 space-y-3">
+                                {/* Search bar */}
+                                <div className="flex">
                                     <input
                                         type="text"
                                         placeholder="Search GIFs..."
-                                        className="flex-1 p-2 bg-gray-700 border border-gray-600 rounded-l-md"
+                                        className="flex-1 p-2 bg-gray-700 border border-gray-600 text-sm text-white rounded-l-md focus:outline-none focus:ring-1 focus:ring-primary"
                                         value={gifSearchQuery}
                                         onChange={(e) => setGifSearchQuery(e.target.value)}
-                                        onKeyPress={(e) =>
-                                            e.key === "Enter" && handleGifSearch()
-                                        }
+                                        onKeyDown={(e) => e.key === "Enter" && handleGifSearch()}
                                     />
                                     <button
+                                        type="button"
                                         onClick={handleGifSearch}
-                                        className="p-2 rounded-r-md hover:bg-gray-600 bg-gray-700"
+                                        className="p-2 bg-primary hover:bg-primary/80 rounded-r-md text-white text-sm"
                                         disabled={isSearchingGifs}
                                     >
                                         Search
                                     </button>
                                 </div>
 
+                                {/* GIF results */}
                                 {isSearchingGifs ? (
-                                    <div className="flex justify-center items-center py-4">
-                                        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+                                    <div className="flex justify-center items-center flex-1">
+                                        <Loader2 className="h-6 w-6 animate-spin text-primary" />
                                     </div>
                                 ) : (
-                                    <div className="grid grid-cols-3 gap-2 max-h-60 overflow-y-auto">
-                                        {gifs.map((gif) => (
-                                            <img
-                                                // @ts-ignore
-                                                key={gif.id}
-                                                // @ts-ignore
-                                                src={gif.preview}
-                                                // @ts-ignore
-                                                alt={gif.title}
-                                                className="w-full h-20 object-cover rounded cursor-pointer"
-                                                // @ts-ignore
-                                                onClick={() => handleGifSelect(gif.url)}
-                                            />
-                                        ))}
-                                        {gifs.length === 0 && (
-                                            <div className="col-span-3 text-center py-4 text-gray-400">
-                                                No GIFs found. Try another search term.
+                                    <div className="grid grid-cols-3 gap-2 overflow-y-auto flex-1">
+                                        {gifs.length > 0 ? (
+                                            gifs.map((gif) => (
+                                                <img
+                                                    // @ts-ignore
+                                                    key={gif.id}
+                                                    // @ts-ignore
+                                                    src={gif.preview}
+                                                    // @ts-ignore
+                                                    alt={gif.title}
+                                                    className="w-full h-20 object-cover rounded-md cursor-pointer hover:opacity-80 transition"
+                                                    // @ts-ignore
+                                                    onClick={() => handleGifSelect(gif.url)}
+                                                />
+                                            ))
+                                        ) : (
+                                            <div className="col-span-3 text-center text-gray-400 text-xs py-4">
+                                                No GIFs found.
                                             </div>
                                         )}
                                     </div>
                                 )}
-                                <div className="text-xs text-gray-400 text-right mt-2">
-                                    Powered by GIPHY
-                                </div>
                             </div>
                         )}
+
 
                         <div className="flex justify-between items-center">
                             <div className="flex gap-2">

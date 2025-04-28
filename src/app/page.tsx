@@ -3,7 +3,6 @@
 import Image from "next/image";
 import harryPotterImage from "../../public/harrypotter.png";
 import harryPotterImage2 from "../../public/Dumbledore.png";
-
 import React, { useState } from "react";
 import {
 	Shield,
@@ -20,12 +19,14 @@ import {
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
+import HarryPotterImage from "@/components/HarryPotterImage";
 
 function App() {
 	const router = useRouter();
 	const [isLoading, setIsLoading] = useState(false);
 
 	const { isSignedIn } = useUser();
+	const harryPotterImage = '/harrypotter.png';
 
 	// Handle navigation with loading state
 	const handleNavigation = () => {
@@ -88,16 +89,15 @@ function App() {
 
 						{/* Right Column - Image with enhanced effects */}
 						<div className="relative w-full flex justify-center md:block">
-							<div className="relative w-[300px] h-[300px] md:w-[600px] md:h-[600px] group">
-								{harryPotterImage && (
+							{/* {harryPotterImage && (
 									<Image
-										src={harryPotterImage}
+										src={HarryPotterImage}
 										alt="Harry Potter"
 										fill
 										className="object-contain relative drop-shadow-[0_0_25px_rgba(128,0,128,0.4)]"
 									/>
-								)}
-							</div>
+								)} */}
+							<HarryPotterImage harrypotter={harryPotterImage} />
 						</div>
 					</div>
 				</div>

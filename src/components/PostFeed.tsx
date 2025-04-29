@@ -100,7 +100,6 @@ export function PostFeed({ posts, loading }: PostFeedProps) {
 
     const containerClass = "max-w-3xl mx-auto border-l h-screen border-r border-white/25 flex top-0 overflow-y-auto scrollbar-hide";
 
-
     if (loading) {
         return (
             <div className={containerClass}>

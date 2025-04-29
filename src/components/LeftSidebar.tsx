@@ -54,7 +54,7 @@ function LeftSidebar({ posts, setPosts }: any) {
   };
 
   const handleClick = () => {
-    if(session?.user) {
+    if (session?.user) {
       setIsModalOpen(true);
     } else {
       router.push('/sign-in');
@@ -68,7 +68,11 @@ function LeftSidebar({ posts, setPosts }: any) {
       <nav className="flex flex-col space-y-1 mt-12">
         <NavItem icon={<Home size={26} />} label="Home" href='/posts' pathname={pathname} onClick={() => router.push('/posts')} />
 
-        <NavItem icon={<User size={26} />} label="Profile" href='/profile' pathname={pathname} onClick={() => router.push('/profile')} />
+        <NavItem icon={<User size={26} />} label="Profile" href='/profile' pathname={pathname} onClick={
+          () => {
+            router.push('/profile');
+          }}
+        />
 
         <NavItem icon={<Info size={26} />} label="About Us" href='/about-us' pathname={pathname} onClick={() => router.push('/about-us')} />
       </nav>
@@ -132,12 +136,16 @@ function NavItem({ icon, label, href, pathname, onClick }: any) {
   const isSelected = pathname === href;
 
   return (
-    <button onClick={onClick} className={`flex items-center p-3 rounded-full transition-colors cursor-pointer ${isSelected ? 'bg-neutral-900 text-white w-fit' : 'hover:bg-neutral-800 text-neutral-300'}`}
+    <button
+      onClick={onClick}
+      className={`flex items-center p-3 rounded-full transition-colors cursor-pointer ${isSelected ? 'bg-neutral-900 text-white w-fit' : 'hover:bg-neutral-800 text-neutral-300'
+      }`}
     >
       <span className="mr-5">{icon}</span>
       <span style={{ fontFamily: '"BR Firma", sans-serif', fontSize: '20px' }}>{label}</span>
     </button>
   );
 }
+
 
 export default LeftSidebar;

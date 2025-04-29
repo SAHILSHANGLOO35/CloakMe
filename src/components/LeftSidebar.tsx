@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-import { Home, User, PenSquare, Info, Loader2 } from 'lucide-react';
+import { Home, User, PenSquare, Info, Loader2, Search } from 'lucide-react';
 import axios from 'axios';
 import { usePathname, useRouter } from 'next/navigation';
 import { SignedIn, SignedOut, useSession } from '@clerk/nextjs';
@@ -57,24 +57,41 @@ function LeftSidebar({ posts, setPosts }: any) {
     if (session?.user) {
       setIsModalOpen(true);
     } else {
-      router.push('/sign-in');
+      router.replace('/sign-in');
     }
   };
 
   return (
-    <div className="w-64 fixed inset-y-0 left-40 p-4 text-white flex flex-col">
+    <div className="w-64 fixed inset-y-0 left-40 px-4 text-white flex flex-col">
 
       {/* Navigation Links */}
       <nav className="flex flex-col space-y-1 mt-12">
-        <NavItem icon={<Home size={26} />} label="Home" href='/posts' pathname={pathname} onClick={() => router.push('/posts')} />
+        <NavItem icon={<Home size={26} />} label="Home" href='/posts' pathname={pathname} onClick={() => router.replace('/posts')} />
 
         <NavItem icon={<User size={26} />} label="Profile" href='/profile' pathname={pathname} onClick={
           () => {
-            router.push('/profile');
+            router.replace('/profile');
           }}
         />
 
-        <NavItem icon={<Info size={26} />} label="About Us" href='/about-us' pathname={pathname} onClick={() => router.push('/about-us')} />
+        <NavItem icon={<Search size={26} />} label="Search" pathname={pathname} onClick={() => {
+          const el = document.getElementById('search-input');
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth' });
+            el.focus();
+
+            // Add subtle neutral highlight
+            el.classList.add('ring-2', 'ring-neutral-100', 'bg-neutral-800');
+
+            setTimeout(() => {
+              el.classList.remove('ring-2', 'ring-neutral-100', 'bg-neutral-800');
+            }, 1500);
+          }
+        }}
+        />
+
+        <NavItem icon={<Info size={26} />} label="About Us" href='/about-us' pathname={pathname} onClick={() => router.replace('/about-us')} />
+
       </nav>
 
       <div className="border rounded-4xl cursor-pointer mt-4 flex items-center py-2 justify-center relative w-full hover:bg-[#374151] hover:text-white group" style={{ border: "1px solid #374151" }} onClick={() => {
@@ -139,7 +156,7 @@ function NavItem({ icon, label, href, pathname, onClick }: any) {
     <button
       onClick={onClick}
       className={`flex items-center p-3 rounded-full transition-colors cursor-pointer ${isSelected ? 'bg-neutral-900 text-white w-fit' : 'hover:bg-neutral-800 text-neutral-300'
-      }`}
+        }`}
     >
       <span className="mr-5">{icon}</span>
       <span style={{ fontFamily: '"BR Firma", sans-serif', fontSize: '20px' }}>{label}</span>

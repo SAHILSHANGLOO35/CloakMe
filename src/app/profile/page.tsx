@@ -37,9 +37,10 @@ export default async function ProfilePage() {
         <LeftSidebar />
       </div>
       <div className="w-2/4 mt-0 top-0 border-l border-r border-white/25 mx-8">
-        <div className="bg-transparent px-6 pt-6 rounded-lg mb-4">
-          <h1 className="text-2xl font-bold mb-4" style={{ fontFamily: '"BR Firma", sans-serif' }}>Your Profile</h1>
-          <div className="flex items-center gap-4 mb-4">
+        <div className="bg-transparent pt-6 rounded-lg mb-4">
+          <h1 className="mb-4 px-6" style={{ fontFamily: '"BR Firma", sans-serif', fontSize: '20px' }}>Your Profile</h1>
+          <div className="border-b border-white/25 mb-4" />
+          <div className="flex items-center gap-4 mb-4 px-6">
             <div className="bg-primary h-12 w-12 border border-white/25 rounded-full flex items-center justify-center text-white text-2xl font-bold" style={{ fontFamily: '"BR Firma", sans-serif' }}>
               {dbUser.username[0].toUpperCase()}
             </div>
@@ -49,7 +50,7 @@ export default async function ProfilePage() {
             </div>
           </div>
 
-          <div className="flex justify-between text-center">
+          <div className="flex justify-between text-center px-6">
             <div className="flex flex-row gap-1 justify-center items-center">
               <p className="text-base font-bold" style={{ fontFamily: '"BR Firma", sans-serif' }}>{dbUser.posts.length}</p>
               <p className="text-gray-400" style={{ fontFamily: '"BR Firma", sans-serif' }}>Posts</p>
@@ -67,7 +68,7 @@ export default async function ProfilePage() {
 
         <div className="border-b border-white/25 mb-4" />
 
-        <h2 className="text-xl px-6 font-bold mb-4" style={{ fontFamily: '"BR Firma", sans-serif' }}>Your Posts</h2>
+        <h2 className="px-6 mb-4" style={{ fontFamily: '"BR Firma", sans-serif,', fontSize: '20px' }}>Your Posts</h2>
 
         <div className="border-b border-white/25 mb-4" />
 

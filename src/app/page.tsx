@@ -31,7 +31,7 @@ function App() {
 	// Handle navigation with loading state
 	const handleNavigation = () => {
 		setIsLoading(true);
-		router.push('/posts');
+		router.replace('/posts');
 	};
 
 	return (
@@ -327,7 +327,7 @@ function App() {
 							</p>
 							<div className="flex flex-col md:flex-row gap-4 justify-center">
 								{!isSignedIn ? (
-									<button className="px-8 py-4 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-medium transition-all duration-300 shadow-lg shadow-purple-900/30 cursor-pointer flex items-center justify-center space-x-2" onClick={() => { router.push(`/sign-in`) }}>
+									<button className="px-8 py-4 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-medium transition-all duration-300 shadow-lg shadow-purple-900/30 cursor-pointer flex items-center justify-center space-x-2" onClick={() => { router.replace(`/sign-in`) }}>
 										<span>Get Started Now</span>
 										<ArrowRight size={18} />
 									</button>

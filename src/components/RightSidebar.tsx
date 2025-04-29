@@ -10,14 +10,15 @@ function RightSidebar() {
   const router = useRouter();
 
   return (
-    <div className="w-80 fixed right-0 h-screen p-4 text-white flex flex-col mr-40">
+    <div className="w-80 fixed right-0 h-screen px-4 text-white flex flex-col mr-40">
       {/* Search Bar */}
       <div className="mb-6 mt-8">
         <div className="relative">
           <input
+            id="search-input"
             type="text"
             placeholder="Search here..."
-            className="w-full bg-neutral-800 rounded-full py-2 px-4 pl-10 text-white border border-transparent focus:outline-none focus:border-[#374151] peer"
+            className="w-full rounded-full py-2 px-4 pl-10 text-white border bg-transparent border-[#374151] focus:outline-none focus:border-[#374151] peer"
             style={{ fontFamily: '"BR Firma", sans-serif', fontSize: '14px' }}
           />
           <Search
@@ -25,7 +26,6 @@ function RightSidebar() {
             size={16}
           />
         </div>
-
       </div>
 
       {/* Content container with scrolling */}
@@ -63,7 +63,7 @@ function RightSidebar() {
             </div>
 
             <button className="text-gray-400 flex flex-row items-center justify-center gap-1 mb-4 cursor-pointer hover:text-white text-sm mt-2 transition-colors" style={{ fontFamily: '"BR Firma", sans-serif' }} onClick={() => {
-              router.push('/sign-up')
+              router.replace('/sign-up')
             }}>
               <MoveUpRight size={18} />
               Sign up
@@ -72,7 +72,7 @@ function RightSidebar() {
             <hr className='mb-4 text-gray-200' />
 
             <button className="text-gray-400 flex flex-row items-center justify-center gap-1 cursor-pointer hover:text-white text-sm mt-2 transition-colors" style={{ fontFamily: '"BR Firma", sans-serif' }} onClick={() => {
-              router.push('/sign-in')
+              router.replace('/sign-in')
             }}>
               <LogIn size={18} />
               Sign in

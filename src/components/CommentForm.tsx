@@ -40,7 +40,7 @@ export function CommentForm({ postId, onPostComment }: CommentFormProps) {
         setIsSubmitting(false);
       }
     } else {
-      router.push('/sign-in');
+      router.replace('/sign-in');
     }
   };
 

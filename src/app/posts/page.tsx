@@ -29,7 +29,7 @@ export default function Post() {
     return (
         <div className="flex flex-row h-screen">
             <div className="w-1/3 -ml-12">
-                <LeftSidebar posts={posts} setPosts={setPosts} />
+                <LeftSidebar posts={posts} setPosts={setPosts}/>
             </div>
             <div className="w-2/4 px-4 mt-0 top-0">
                 <PostForm onPostsCreated={fetchPosts} />

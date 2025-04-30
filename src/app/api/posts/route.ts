@@ -68,7 +68,30 @@ export async function POST(request: Request) {
 
 export async function GET(request: Request) {
     try {
+        const { searchParams } = new URL(request.url);
+        const search = searchParams.get("search");
+
         const posts = await db.post.findMany({
+            where: search
+                ? {
+                      OR: [
+                          {
+                              content: {
+                                  contains: search,
+                                  mode: "insensitive",
+                              },
+                          },
+                          {
+                              user: {
+                                  username: {
+                                      contains: search,
+                                      mode: "insensitive",
+                                  },
+                              },
+                          },
+                      ],
+                  }
+                : undefined,
             include: {
                 user: {
                     select: {
@@ -80,7 +103,7 @@ export async function GET(request: Request) {
                     select: {
                         comments: true,
                         likes: true,
-                    }
+                    },
                 },
             },
             orderBy: {
@@ -93,7 +116,7 @@ export async function GET(request: Request) {
         console.error("Error fetching posts", error);
         return NextResponse.json(
             {
-                error: "Internalserver error",
+                error: "Internal server error",
             },
             {
                 status: 500,

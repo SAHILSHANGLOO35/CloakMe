@@ -6,6 +6,7 @@ import Image from 'next/image';
 import gpay from "../../public/GPAY.jpeg";
 import { SignedIn, SignedOut, SignOutButton } from '@clerk/nextjs';
 import axios from 'axios';
+import { SearchBar } from './SearchBar';
 
 function RightSidebar() {
   const router = useRouter();
@@ -45,31 +46,21 @@ function RightSidebar() {
       )}
 
       {/* Desktop search icon in top right corner on mobile */}
-      <div className="fixed top-4 right-4 md:hidden z-40">
+      {/* <div className="fixed top-4 right-4 md:hidden z-40">
         <button 
           onClick={() => setIsMobileSearchVisible(true)}
           className="p-2 rounded-full bg-neutral-800 text-white cursor-pointer"
         >
           <Search size={20} />
         </button>
-      </div>
+      </div> */}
 
       {/* Main Sidebar Content - Hidden on mobile, visible on medium screens and up */}
       <aside className="hidden md:flex flex-col fixed right-0 h-screen w-64 lg:w-80 px-4 text-white mr-0 lg:mr-40 bg-black bg-opacity-50 backdrop-blur-sm border-l border-white/25">
         {/* Search Bar */}
-        <div className="mb-6 mt-8">
+        <div className="">
           <div className="relative">
-            <input
-              id="search-input"
-              type="text"
-              placeholder="Search here..."
-              className="w-full rounded-full py-2 px-4 pl-10 text-white border bg-transparent border-[#374151] focus:outline-none focus:border-[#374151] peer"
-              style={{ fontFamily: '"BR Firma", sans-serif', fontSize: '14px' }}
-            />
-            <Search
-              className="absolute left-3 top-2.5 text-gray-400 focus:text-[#374151]"
-              size={16}
-            />
+            <SearchBar />
           </div>
         </div>
 

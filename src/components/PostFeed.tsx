@@ -18,28 +18,40 @@ type Post = {
     };
     likes: number;
     comments?: number;
+    _count?: {
+        comments: number,
+        likes: number
+    };
 };
 
 type PostFeedProps = {
-    posts: Post[];
+    initialPosts: Post[];
     loading: boolean;
 }
 
-export function PostFeed({ posts, loading }: PostFeedProps) {
+export function PostFeed({ initialPosts, loading }: PostFeedProps) {
     const [likedPosts, setLikedPosts] = useState<string[]>([]);
     const [likesMap, setLikesMap] = useState<{ [postId: string]: number }>({});
     const [commentsMap, setCommentsMap] = useState<{ [postId: string]: number }>({});
-
+    const [posts, setPosts] = useState<Post[]>([]);
+    
     const router = useRouter();
 
+    // Update local posts state when initialPosts changes
     useEffect(() => {
+        console.log("Initial posts updated:", initialPosts);
+        setPosts(initialPosts || []);
+    }, [initialPosts]);
+
+    useEffect(() => {
+        if (!posts || posts.length === 0) return;
+        
         const initialLikes = posts.reduce((acc: { [postId: string]: number }, post: Post) => {
-            acc[post.id] = post.likes;
+            acc[post.id] = post.likes || 0;
             return acc;
         }, {});
 
         const initialComments = posts.reduce((acc: { [postId: string]: number }, post: Post) => {
-            // @ts-ignore
             acc[post.id] = post._count?.comments || 0;
             return acc;
         }, {});
@@ -49,7 +61,7 @@ export function PostFeed({ posts, loading }: PostFeedProps) {
     }, [posts]);
 
     // Responsive container classes based on screen size
-    const containerClass = "w-full md:max-w-3xl mx-auto border-l border-r border-white/25 flex top-0 overflow-y-auto scrollbar-hide";
+    const containerClass = "w-full h-screen md:max-w-3xl mx-auto border-l border-r border-white/25 flex top-0 overflow-y-auto scrollbar-hide";
     const loaderContainerClass = "h-screen flex justify-center items-center w-full";
     const emptyContainerClass = "h-screen flex justify-center items-center text-center w-full text-gray-400";
 
@@ -63,11 +75,11 @@ export function PostFeed({ posts, loading }: PostFeedProps) {
         );
     }
 
-    if (posts.length === 0) {
+    if (!posts || posts.length === 0) {
         return (
             <div className={containerClass}>
                 <div className={emptyContainerClass} style={{ fontFamily: '"BR Firma", sans-serif', fontSize: "18px" }}>
-                    Fetching Posts...
+                    No posts found
                 </div>
             </div>
         );

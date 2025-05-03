@@ -1,6 +1,6 @@
 // app/profile/page.tsx
 import { currentUser } from "@clerk/nextjs/server";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { db } from "@/lib/db";
 import LeftSidebar from "@/components/LeftSidebar";
 import RightSidebar from "@/components/RightSidebar";
@@ -9,7 +9,7 @@ export default async function ProfilePage() {
   const user = await currentUser();
 
   if (!user) {
-    redirect("/sign-in");
+    redirect(`/sign-in`);
   }
 
   const dbUser = await db.user.findUnique({
@@ -20,6 +20,8 @@ export default async function ProfilePage() {
           createdAt: "desc",
         },
       },
+      likes: true,
+      comments: true
     },
   });
 
@@ -56,11 +58,11 @@ export default async function ProfilePage() {
               <p className="text-gray-400" style={{ fontFamily: '"BR Firma", sans-serif' }}>Posts</p>
             </div>
             <div className="flex flex-row gap-1 justify-center items-center">
-              <p className="text-base font-bold" style={{ fontFamily: '"BR Firma", sans-serif' }}>0</p>
+              <p className="text-base font-bold" style={{ fontFamily: '"BR Firma", sans-serif' }}>{dbUser.likes.length}</p>
               <p className="text-gray-400" style={{ fontFamily: '"BR Firma", sans-serif' }}>Likes</p>
             </div>
             <div className="flex flex-row gap-1 justify-center items-center">
-              <p className="textbase font-bold" style={{ fontFamily: '"BR Firma", sans-serif' }}>0</p>
+              <p className="textbase font-bold" style={{ fontFamily: '"BR Firma", sans-serif' }}>{dbUser.comments.length}</p>
               <p className="text-gray-400" style={{ fontFamily: '"BR Firma", sans-serif' }}>Comments</p>
             </div>
           </div>

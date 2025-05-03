@@ -1,4 +1,5 @@
 "use client"
+
 import React, { useEffect, useState } from 'react';
 import { Home, User, PenSquare, Info, Loader2, Search, Menu, X } from 'lucide-react';
 import axios from 'axios';
@@ -15,7 +16,7 @@ function LeftSidebar({ posts, setPosts }: any) {
   const [isLoading, setIsLoading] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
-  const { session } = useSession();
+  const { session, isLoaded } = useSession();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -55,6 +56,8 @@ function LeftSidebar({ posts, setPosts }: any) {
   };
 
   const handleClick = () => {
+    if (!isLoaded) return;
+
     if (session?.user) {
       setIsModalOpen(true);
     } else {
@@ -90,7 +93,7 @@ function LeftSidebar({ posts, setPosts }: any) {
         <div className="flex flex-col h-full px-4 text-white">
           {/* Top padding for mobile */}
           <div className="pt-16"></div>
-          
+
           {/* Navigation Links */}
           <nav className="flex flex-col space-y-1 mt-4">
             <NavItem icon={<Home size={26} />} label="Home" href='/posts' pathname={pathname} onClick={() => handleNavItemClick(() => router.replace('/posts'))} />

@@ -5,6 +5,7 @@ import { formatDistanceToNow } from "date-fns";
 import { Heart, MessageCircle } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useSession } from "@clerk/nextjs";
 
 type Post = {
     id: string;
@@ -34,8 +35,20 @@ export function PostFeed({ initialPosts, loading }: PostFeedProps) {
     const [likesMap, setLikesMap] = useState<{ [postId: string]: number }>({});
     const [commentsMap, setCommentsMap] = useState<{ [postId: string]: number }>({});
     const [posts, setPosts] = useState<Post[]>([]);
-    
+
     const router = useRouter();
+
+    const { session, isLoaded } = useSession();
+
+    const handleCommentAuth = (postId: string) => {
+        if (!isLoaded) return;
+
+        if (session?.user) {
+            router.replace(`/posts/${postId}`)
+        } else {
+            router.replace(`/sign-in`)
+        }
+    }
 
     // Update local posts state when initialPosts changes
     useEffect(() => {
@@ -45,7 +58,7 @@ export function PostFeed({ initialPosts, loading }: PostFeedProps) {
 
     useEffect(() => {
         if (!posts || posts.length === 0) return;
-        
+
         const initialLikes = posts.reduce((acc: { [postId: string]: number }, post: Post) => {
             acc[post.id] = post.likes || 0;
             return acc;
@@ -89,7 +102,7 @@ export function PostFeed({ initialPosts, loading }: PostFeedProps) {
         <div className={containerClass}>
             <div className="space-y-4 w-full flex flex-col pb-16 md:pb-0"> {/* Added padding at the bottom for mobile to avoid content being hidden by the bottom nav bar */}
                 {posts.map((post) => (
-                    <div key={post.id} className="bg-transparent py-3 px-4 border-b border-white/25 cursor-pointer" style={{ fontFamily: '"BR Firma", sans-serif'}}>
+                    <div key={post.id} className="bg-transparent py-3 px-4 border-b border-white/25 cursor-pointer" style={{ fontFamily: '"BR Firma", sans-serif' }}>
                         <div className="flex items-center mb-2">
                             <div className="bg-primary border border-white/25 h-10 w-10 rounded-full flex items-center justify-center text-white font-bold">
                                 {post.user.username[0].toUpperCase()}
@@ -140,15 +153,13 @@ export function PostFeed({ initialPosts, loading }: PostFeedProps) {
                                     </span>
                                 </div>
                             </button>
-                            <button className="flex items-center gap-1 hover:text-gray-200">
-                                <Link href={`/posts/${post.id}`}>
-                                    <div className="flex flex-row cursor-pointer items-center justify-center border w-12 h-6 gap-1 rounded-3xl">
-                                        <MessageCircle size={12} />
-                                        <span className="text-xs">
-                                            {commentsMap[post.id] || 0}
-                                        </span>
-                                    </div>
-                                </Link>
+                            <button className="flex items-center gap-1 hover:text-gray-200" onClick={() => handleCommentAuth(post.id)}>
+                                <div className="flex flex-row cursor-pointer items-center justify-center border w-12 h-6 gap-1 rounded-3xl">
+                                    <MessageCircle size={12} />
+                                    <span className="text-xs">
+                                        {commentsMap[post.id] || 0}
+                                    </span>
+                                </div>
                             </button>
                         </div>
                     </div>

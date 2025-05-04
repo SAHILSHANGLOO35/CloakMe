@@ -263,7 +263,7 @@ function NavItem({ icon, label, href, pathname, onClick }: any) {
     <button
       onClick={onClick}
       className={`flex items-center p-3 rounded-full transition-colors cursor-pointer ${isSelected ? 'bg-neutral-900 text-white w-fit' : 'hover:bg-neutral-800 text-neutral-300'
-        }`}
+      }`}
     >
       <span className="mr-5">{icon}</span>
       <span style={{ fontFamily: '"BR Firma", sans-serif', fontSize: '20px' }}>{label}</span>

@@ -6,6 +6,7 @@ import RightSidebar from "@/components/RightSidebar";
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
+import PostFeedSkeleton from "@/components/PostFeedSkeleton";
 
 export default function Post() {
     const [posts, setPosts] = useState([]);
@@ -52,9 +53,7 @@ export default function Post() {
             <div className="w-2/4 mt-0 top-0 border-l border-r border-white/25 mx-8">
                 <div className="bg-transparent rounded-lg mb-4">
                     {loading ? (
-                        <div className="h-screen flex justify-center items-center w-full">
-                            <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-primary" />
-                        </div>
+                        <PostFeedSkeleton />
                     ) : (
                         <PostFeed
                             initialPosts={posts}

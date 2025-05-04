@@ -16,22 +16,22 @@ export default function Loading() {
         <div className="bg-transparent pt-4 rounded-lg mb-4 animate-pulse">
           {/* Section Heading */}
           <div className="pl-4">
-            <div className="h-7 w-40 bg-gray-700/50 rounded mb-4 px-4"></div>
+            <div className="h-7 w-40 bg-neutral-700/50 rounded mb-4 px-4"></div>
           </div>
           <div className="border-b border-white/25 mb-4" />
 
           {/* User Info Row */}
           <div className="flex items-center gap-4 mb-4 px-4">
-            <div className="bg-gray-700/50 h-12 w-12 border border-white/25 rounded-full"></div>
+            <div className="bg-neutral-700/50 h-12 w-12 border border-white/25 rounded-full"></div>
             <div>
-              <div className="h-6 w-32 bg-gray-700/50 rounded mb-1"></div>
-              <div className="h-4 w-24 bg-gray-700/50 rounded"></div>
+              <div className="h-6 w-32 bg-neutral-700/50 rounded mb-1"></div>
+              <div className="h-4 w-24 bg-neutral-700/50 rounded"></div>
             </div>
           </div>
 
           {/* Post Content */}
           <div className="pl-4">
-            <div className="h-6 w-3/4 bg-gray-700/50 rounded mb-4 px-4"></div>
+            <div className="h-6 w-3/4 bg-neutral-700/50 rounded mb-4 px-4"></div>
           </div>
           
 
@@ -42,8 +42,8 @@ export default function Loading() {
                 key={i}
                 className="flex flex-row gap-1 justify-center items-center"
               >
-                <div className="h-5 w-5 bg-gray-700/50 rounded" />
-                <div className="h-5 w-12 bg-gray-700/50 rounded" />
+                <div className="h-5 w-5 bg-neutral-700/50 rounded" />
+                <div className="h-5 w-12 bg-neutral-700/50 rounded" />
               </div>
             ))}
           </div>
@@ -53,7 +53,7 @@ export default function Loading() {
 
         {/* Add Comment Heading */}
         <div className="pl-4">
-          <div className="h-7 w-32 bg-gray-700/50 rounded px-4 mb-4"></div>
+          <div className="h-7 w-32 bg-neutral-700/50 rounded px-4 mb-4"></div>
         </div>
 
         <div className="border-b border-white/25 mb-4" />
@@ -67,16 +67,16 @@ export default function Loading() {
             >
               {/* Comment header */}
               <div className="flex items-center gap-3 mb-2">
-                <div className="h-10 w-10 bg-gray-700/50 border border-white/25 rounded-full" />
+                <div className="h-10 w-10 bg-neutral-700/50 border border-white/25 rounded-full" />
                 <div>
-                  <div className="h-4 w-28 bg-gray-700/50 rounded mb-1" />
-                  <div className="h-3 w-20 bg-gray-700/50 rounded" />
+                  <div className="h-4 w-28 bg-neutral-700/50 rounded mb-1" />
+                  <div className="h-3 w-20 bg-neutral-700/50 rounded" />
                 </div>
               </div>
 
               {/* Comment body */}
-              <div className="h-4 w-full bg-gray-700/50 rounded mb-1" />
-              <div className="h-4 w-3/4 bg-gray-700/50 rounded" />
+              <div className="h-4 w-full bg-neutral-700/50 rounded mb-1" />
+              <div className="h-4 w-3/4 bg-neutral-700/50 rounded" />
             </div>
           ))}
         </div>

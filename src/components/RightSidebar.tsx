@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import gpay from "../../public/GPAY.jpeg";
 import { SignedIn, SignedOut, SignOutButton } from '@clerk/nextjs';
-import axios from 'axios';
 import { SearchBar } from './SearchBar';
 
 function RightSidebar() {

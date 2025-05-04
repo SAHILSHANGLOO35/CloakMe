@@ -11,8 +11,8 @@ export default function About() {
       </div>
 
       <div className="w-2/4 mt-0 top-0 border-l border-r border-white/25 mx-8">
-        <div className="bg-transparent pt-6 rounded-lg mb-4">
-          <div className="px-6 mb-6" style={{ fontFamily: '"BR Firma", sans-serif', fontSize: '20px' }}>
+        <div className="bg-transparent pt-4 rounded-lg mb-4">
+          <div className="px-4 mb-4" style={{ fontFamily: '"BR Firma", sans-serif', fontSize: '20px' }}>
             About Cloak Me
           </div>
 
@@ -20,24 +20,24 @@ export default function About() {
 
           <div className="space-y-6">
             <section>
-              <h2 className="text-2xl font-semibold mb-3 px-6" style={{ fontFamily: '"BR Firma", sans-serif' }}>
+              <h2 className="text-2xl font-semibold mb-3 px-4" style={{ fontFamily: '"BR Firma", sans-serif' }}>
                 What is Cloak Me?
               </h2>
-              <p className="text-gray-300 mb-4 px-6" style={{ fontFamily: '"BR Firma", sans-serif' }}>
+              <p className="text-gray-300 mb-4 px-4" style={{ fontFamily: '"BR Firma", sans-serif' }}>
                 Cloak Me is a modern platform for anonymous self-expression. Post thoughts, images, or GIFs freely—without the pressure of building a digital identity. Everything you share reaches a global audience, without revealing who you are.
               </p>
             </section>
 
             <div className="border-b border-white/25 my-6" />
 
-            <section className="px-6">
+            <section className="px-4">
               <h2 className="text-2xl font-semibold mb-3" style={{ fontFamily: '"BR Firma", sans-serif' }}>
                 Privacy First
               </h2>
               <p className="text-gray-300 mb-4" style={{ fontFamily: '"BR Firma", sans-serif' }}>
                 Privacy is not just a feature—it’s the foundation of Cloak Me. Your identity stays completely hidden. No sign-up with personal details. No trackers. No profiling.
               </p>
-              <ul className="list-disc pl-6 space-y-2 text-gray-300 px-6" style={{ fontFamily: '"BR Firma", sans-serif' }}>
+              <ul className="list-disc pl-6 space-y-2 text-gray-300 px-4" style={{ fontFamily: '"BR Firma", sans-serif' }}>
                 <li>Anonymous posting with zero identifiers</li>
                 <li>End-to-end encryption for sensitive data</li>
                 <li>No tracking or targeted ads</li>
@@ -47,7 +47,7 @@ export default function About() {
 
             <div className="border-b border-white/25 my-6" />
 
-            <section className="px-6">
+            <section className="px-4">
               <h2 className="text-2xl font-semibold mb-3" style={{ fontFamily: '"BR Firma", sans-serif' }}>
                 Media Safety & Storage
               </h2>
@@ -58,7 +58,7 @@ export default function About() {
 
             <div className="border-b border-white/25 my-6" />
 
-            <section className="px-6">
+            <section className="px-4">
               <h2 className="text-2xl font-semibold mb-3" style={{ fontFamily: '"BR Firma", sans-serif' }}>
                 Dashboard for You
               </h2>
@@ -69,14 +69,14 @@ export default function About() {
 
             <div className="border-b border-white/25 my-6" />
 
-            <section className="px-6">
+            <section className="px-4">
               <h2 className="text-2xl font-semibold mb-3" style={{ fontFamily: '"BR Firma", sans-serif' }}>
                 Community Rules
               </h2>
               <p className="text-gray-300 mb-4" style={{ fontFamily: '"BR Firma", sans-serif' }}>
                 Anonymity isn’t a free pass for toxicity. We keep Cloak Me respectful for everyone:
               </p>
-              <ul className="list-disc pl-6 space-y-2 text-gray-300 px-6" style={{ fontFamily: '"BR Firma", sans-serif' }}>
+              <ul className="list-disc pl-6 space-y-2 text-gray-300 px-4" style={{ fontFamily: '"BR Firma", sans-serif' }}>
                 <li>No hate speech or harassment</li>
                 <li>No illegal content or doxxing</li>
                 <li>No commercial spam or scams</li>
@@ -85,7 +85,7 @@ export default function About() {
 
             <div className="border-b border-white/25 my-6" />
 
-            <section className="px-6">
+            <section className="px-4">
               <h2 className="text-2xl font-semibold mb-3" style={{ fontFamily: '"BR Firma", sans-serif' }}>
                 Built for Today
               </h2>
@@ -96,7 +96,7 @@ export default function About() {
 
             <div className="border-b border-white/25 my-6" />
 
-            <section className="pb-12 px-6">
+            <section className="pb-12 px-4">
               <h2 className="text-2xl font-semibold mb-3" style={{ fontFamily: '"BR Firma", sans-serif' }}>
                 Be Part of the Movement
               </h2>

@@ -117,9 +117,9 @@ export function PostForm({ onPostsCreated }: PostFormProps) {
             loadTrendingGifs();
         }
     };
-    
+
     return (
-        <div className="border-l border-r border-white/25">
+        <div>
             <div style={{ fontFamily: '"BR Firma", sans-serif', fontSize: '20px' }} className="pt-4 pl-4 mb-4">
                 Home
             </div>
@@ -138,7 +138,7 @@ export function PostForm({ onPostsCreated }: PostFormProps) {
                             value={content}
                             onChange={(e) => setContent(e.target.value)}
                             rows={3}
-                        /> 
+                        />
 
                         {/* Media preview container with fixed positioning */}
                         <div className="relative px-4 mb-2">
@@ -234,11 +234,11 @@ export function PostForm({ onPostsCreated }: PostFormProps) {
                                 isUploading ||
                                 (!content && !imageUrl && !gifUrl)
                             }
-                            className="px-4 mr-2 py-1 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed rounded-full text-white"
-                            style={{ 
-                                fontFamily: '"BR Firma", sans-serif', 
-                                fontSize: "16px", 
-                                backgroundColor: "#374151" 
+                            className="px-4 mr-4 py-1 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed rounded-full text-white"
+                            style={{
+                                fontFamily: '"BR Firma", sans-serif',
+                                fontSize: "16px",
+                                backgroundColor: "#374151"
                             }}
                         >
                             {isLoading ? "Posting..." : "Post"}
@@ -299,7 +299,6 @@ export function PostForm({ onPostsCreated }: PostFormProps) {
                     </div>
                 )}
             </div>
-            <div className="border-b border-white/25" /> 
         </div>
     );
 }

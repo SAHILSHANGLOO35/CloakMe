@@ -1,46 +1,22 @@
 "use client"
 
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Home, User, PenSquare, Info, Loader2, Search, Menu, X } from 'lucide-react';
 import axios from 'axios';
 import { usePathname, useRouter } from 'next/navigation';
 import { SignedIn, SignedOut, useSession } from '@clerk/nextjs';
 import { CreatePostModal } from './CreatePostModal';
+import { UserContext, useUser } from '@/context/UserContext';
 
 function LeftSidebar({ posts, setPosts }: any) {
-  const [username, setUsername] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const router = useRouter();
-  const [usernameLoading, setUsernameLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
   const { session, isLoaded } = useSession();
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      setUsernameLoading(true);
-      try {
-        const response = await axios.get(`/api/user`);
-        if (response.data.user && response.data.user.username) {
-          setUsername(response.data.user.username);
-          setIsLoggedIn(true);
-        } else {
-          setUsername("Anonymous");
-          setIsLoggedIn(false);
-        }
-      } catch (error) {
-        console.log("User not authenticated:", error);
-        setUsername("Anonymous");
-        setIsLoggedIn(false);
-      } finally {
-        setUsernameLoading(false);
-      }
-    };
-
-    fetchUser();
-  }, []);
+  const { user, loading: usernameLoading } = useUser();
 
 
   const fetchPostsForModal = async () => {
@@ -140,7 +116,7 @@ function LeftSidebar({ posts, setPosts }: any) {
                       className="font-semibold text-white"
                       style={{ fontFamily: '"BR Firma", sans-serif', fontSize: "20px" }}
                     >
-                      {username[0]?.toUpperCase()}
+                      {user.username[0]?.toUpperCase()}
                     </div>
                   </SignedIn>
                   <SignedOut>
@@ -159,7 +135,7 @@ function LeftSidebar({ posts, setPosts }: any) {
                   className="text-white"
                   style={{ fontFamily: '"BR Firma", sans-serif', fontSize: "15px" }}
                 >
-                  {username}
+                  {user.username}
                 </p>
               )}
             </div>
@@ -226,7 +202,7 @@ function LeftSidebar({ posts, setPosts }: any) {
               <div className="flex-none w-9 h-9 bg-neutral-800 rounded-full flex items-center justify-center">
                 <SignedIn>
                   <div className='font-semibold text-white' style={{ fontFamily: '"BR Firma", sans-serif', fontSize: "20px" }}>
-                    {username[0]?.toUpperCase()}
+                    {user.username[0]?.toUpperCase()}
                   </div>
                 </SignedIn>
                 <SignedOut>
@@ -245,7 +221,7 @@ function LeftSidebar({ posts, setPosts }: any) {
               className="text-white leading-none"
               style={{ fontFamily: '"BR Firma", sans-serif', fontSize: "15px" }}
             >
-              {username}
+              {user.username}
             </p>)
             }
           </div>
@@ -263,7 +239,7 @@ function NavItem({ icon, label, href, pathname, onClick }: any) {
     <button
       onClick={onClick}
       className={`flex items-center p-3 rounded-full transition-colors cursor-pointer ${isSelected ? 'bg-neutral-900 text-white w-fit' : 'hover:bg-neutral-800 text-neutral-300'
-      }`}
+        }`}
     >
       <span className="mr-5">{icon}</span>
       <span style={{ fontFamily: '"BR Firma", sans-serif', fontSize: '20px' }}>{label}</span>

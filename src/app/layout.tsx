@@ -9,6 +9,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import './globals.css';
 import { AuthSync } from "../components/AuthSync";
 import { dark } from "@clerk/themes";
+import { UserProvider } from "@/context/UserContext";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -45,7 +46,9 @@ export default function RootLayout({
                 >
                     <header className="flex justify-end items-center p-4 gap-4 h-16 right-0 fixed">
                     </header>
-                    <AuthSync>{children}</AuthSync>
+                    <UserProvider>
+                        <AuthSync>{children}</AuthSync>
+                    </UserProvider>
                 </body>
             </html>
         </ClerkProvider>

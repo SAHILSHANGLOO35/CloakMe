@@ -7,10 +7,12 @@ import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
 import PostFeedSkeleton from "@/components/PostFeedSkeleton";
+import { CreatePostModal } from "@/components/CreatePostModal";
 
 export default function Post() {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const searchParams = useSearchParams();
     const searchQuery = searchParams.get("search");
@@ -47,7 +49,7 @@ export default function Post() {
     return (
         <div className="flex flex-row min-h-screen">
             <div className="w-1/3 -ml-12">
-                <LeftSidebar posts={posts} setPosts={setPosts} />
+                <LeftSidebar openModal={() => setIsModalOpen(true)} />
             </div>
 
             <div className="w-2/4 mt-0 top-0 border-l border-r border-white/25 mx-8">
@@ -68,6 +70,8 @@ export default function Post() {
             <div className="w-1/3 mr-4">
                 <RightSidebar />
             </div>
+
+            <CreatePostModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onPostCreated={() => fetchPosts()} />
         </div>
     )
 }

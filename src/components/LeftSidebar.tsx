@@ -1,41 +1,24 @@
 "use client"
 
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Home, User, PenSquare, Info, Loader2, Search, Menu, X } from 'lucide-react';
-import axios from 'axios';
 import { usePathname, useRouter } from 'next/navigation';
 import { SignedIn, SignedOut, useSession } from '@clerk/nextjs';
-import { CreatePostModal } from './CreatePostModal';
-import { UserContext, useUser } from '@/context/UserContext';
+import { useUser } from '@/context/UserContext';
 
-function LeftSidebar({ posts, setPosts }: any) {
+function LeftSidebar({ openModal }: any) {
   const router = useRouter();
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
   const { session, isLoaded } = useSession();
 
   const { user, loading: usernameLoading } = useUser();
 
-
-  const fetchPostsForModal = async () => {
-    try {
-      setIsLoading(true);
-      const response = await axios.get(`/api/posts`);
-      setPosts(response.data.posts);
-    } catch (error) {
-      console.error("Failed to fetch posts", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   const handleClick = () => {
     if (!isLoaded) return;
 
     if (session?.user) {
-      setIsModalOpen(true);
+      openModal();
     } else {
       router.replace('/sign-in');
     }
@@ -184,11 +167,11 @@ function LeftSidebar({ posts, setPosts }: any) {
             </span>
           </div>
 
-          <CreatePostModal
+          {/* <CreatePostModal
             isOpen={isModalOpen}
             onClose={() => setIsModalOpen(false)}
             onPostCreated={fetchPostsForModal}
-          />
+          /> */}
         </div>
 
         {/* This empty div will push the user profile to the bottom */}

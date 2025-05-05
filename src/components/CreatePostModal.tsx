@@ -177,7 +177,7 @@ export function CreatePostModal({ isOpen, onClose, onPostCreated }: PostModal) {
     if (!isOpen) return null;
 
     return (
-        <div className="inset-0 z-50 flex items-end justify-center fixed bg-neutral-800/70 py-4">
+        <div className="fixed inset-0 z-50 bg-neutral-900/70 flex items-center justify-center">
             <div
                 ref={modalRef}
                 className="bg-black rounded-lg w-full max-w-lg mx-4 relative border border-white/25 shadow-xl"
@@ -217,11 +217,11 @@ export function CreatePostModal({ isOpen, onClose, onPostCreated }: PostModal) {
                         )}
 
                         {imageUrl && (
-                            <div className="relative mb-4">
+                            <div className="relative mb-4 flex items-center justify-center">
                                 <img
                                     src={imageUrl}
                                     alt="Preview"
-                                    className="w-full max-h-36 object-contain rounded-md"
+                                    className="w-full max-h-40 object-contain rounded-md"
                                 />
                                 <button
                                     type="button"
@@ -234,11 +234,11 @@ export function CreatePostModal({ isOpen, onClose, onPostCreated }: PostModal) {
                         )}
 
                         {gifUrl && (
-                            <div className="relative mb-4">
+                            <div className="relative mb-4 flex items-center justify-center">
                                 <img
                                     src={gifUrl}
                                     alt="GIF"
-                                    className="w-full max-h-36 object-contain rounded-md"
+                                    className="max-h-40 object-contain rounded-md"
                                 />
                                 <button
                                     type="button"
@@ -259,13 +259,13 @@ export function CreatePostModal({ isOpen, onClose, onPostCreated }: PostModal) {
                         />
 
                         {isGifPickerOpen && (
-                            <div className="max-h-40 overflow-hidden bg-gray-800 rounded-md flex flex-col p-3 space-y-3">
+                            <div className="max-h-64 overflow-hidden bg-gray-800 rounded-md flex flex-col p-3 space-y-3">
                                 {/* Search bar */}
                                 <div className="flex">
                                     <input
                                         type="text"
                                         placeholder="Search GIFs..."
-                                        className="flex-1 p-2 bg-gray-700 border border-gray-600 text-sm text-white rounded-l-md focus:outline-none focus:ring-1 focus:ring-primary"
+                                        className="flex-1 p-2 bg-gray-700 border border-gray-600 text-sm text-white rounded-l-md focus:outline-none focus:ring-primary"
                                         value={gifSearchQuery}
                                         onChange={(e) => setGifSearchQuery(e.target.value)}
                                         onKeyDown={(e) => e.key === "Enter" && handleGifSearch()}
@@ -273,7 +273,8 @@ export function CreatePostModal({ isOpen, onClose, onPostCreated }: PostModal) {
                                     <button
                                         type="button"
                                         onClick={handleGifSearch}
-                                        className="p-2 bg-primary hover:bg-primary/80 rounded-r-md text-white text-sm"
+                                        className="p-2 bg-primary hover:bg-primary/80 rounded-r-md cursor-pointer
+                                        bg-gray-500 hover:bg-neutral-900 text-white text-sm"
                                         disabled={isSearchingGifs}
                                     >
                                         Search

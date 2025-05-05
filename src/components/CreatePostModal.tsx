@@ -268,7 +268,8 @@ export function CreatePostModal({ isOpen, onClose, onPostCreated }: PostModal) {
                                         className="flex-1 p-2 bg-gray-700 border border-gray-600 text-sm text-white rounded-l-md focus:outline-none focus:ring-primary"
                                         value={gifSearchQuery}
                                         onChange={(e) => setGifSearchQuery(e.target.value)}
-                                        onKeyDown={(e) => e.key === "Enter" && handleGifSearch()}
+                                        onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); handleGifSearch() } }}
+
                                     />
                                     <button
                                         type="button"

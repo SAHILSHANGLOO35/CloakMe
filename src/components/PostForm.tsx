@@ -6,6 +6,8 @@ import { searchGifs, GiphyImage } from "@/lib/giphy";
 import { Image as ImageIcon, Loader2, X } from "lucide-react";
 import giphyIcon from "../../public/giphy-svgrepo-com.svg";
 import Image from "next/image";
+import { useSession } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 
 type PostFormProps = {
     onPostsCreated: () => void;
@@ -22,32 +24,41 @@ export function PostForm({ onPostsCreated }: PostFormProps) {
     const [gifs, setGifs] = useState<GiphyImage[]>([]);
     const [isSearchingGifs, setIsSearchingGifs] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const { session, isLoaded } = useSession();
+    const router = useRouter();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        if (!content && !imageUrl && !gifUrl) {
-            return;
-        }
+        if (!isLoaded) return;
 
-        try {
-            setIsLoading(true);
-            await axios.post("/api/posts", {
-                content,
-                imageUrl,
-                gifUrl,
-            });
+        if (session?.user) {
 
-            setContent("");
-            setImageUrl("");
-            setGifUrl("");
-            setIsGifPickerOpen(false);
+            if (!content && !imageUrl && !gifUrl) {
+                return;
+            }
 
-            onPostsCreated();
-        } catch (error) {
-            console.error("Error creating post:", error);
-        } finally {
-            setIsLoading(false);
+            try {
+                setIsLoading(true);
+                await axios.post("/api/posts", {
+                    content,
+                    imageUrl,
+                    gifUrl,
+                });
+
+                setContent("");
+                setImageUrl("");
+                setGifUrl("");
+                setIsGifPickerOpen(false);
+
+                onPostsCreated();
+            } catch (error) {
+                console.error("Error creating post:", error);
+            } finally {
+                setIsLoading(false);
+            }
+        } else {
+            router.replace(`/sign-in`);   
         }
     };
 

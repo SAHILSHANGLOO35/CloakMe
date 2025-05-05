@@ -33,10 +33,6 @@ export default function Loading() {
               <div className="h-5 w-5 bg-neutral-700/50 rounded"></div>
               <div className="h-5 w-12 bg-neutral-700/50 rounded"></div>
             </div>
-            <div className="flex flex-row gap-1 justify-center items-center">
-              <div className="h-5 w-5 bg-neutral-700/50 rounded"></div>
-              <div className="h-5 w-12 bg-neutral-700/50 rounded"></div>
-            </div>
           </div>
         </div>
 

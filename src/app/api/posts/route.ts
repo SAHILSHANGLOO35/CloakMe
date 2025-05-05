@@ -102,7 +102,6 @@ export async function GET(request: Request) {
                 _count: {
                     select: {
                         comments: true,
-                        likes: true,
                     },
                 },
             },

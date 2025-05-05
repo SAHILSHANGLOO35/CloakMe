@@ -20,7 +20,6 @@ export default async function ProfilePage() {
           createdAt: "desc",
         },
       },
-      likes: true,
       comments: true
     },
   });
@@ -56,10 +55,6 @@ export default async function ProfilePage() {
             <div className="flex flex-row gap-1 justify-center items-center">
               <p className="text-base font-bold" style={{ fontFamily: '"BR Firma", sans-serif' }}>{dbUser.posts.length}</p>
               <p className="text-gray-400" style={{ fontFamily: '"BR Firma", sans-serif' }}>Posts</p>
-            </div>
-            <div className="flex flex-row gap-1 justify-center items-center">
-              <p className="text-base font-bold" style={{ fontFamily: '"BR Firma", sans-serif' }}>{dbUser.likes.length}</p>
-              <p className="text-gray-400" style={{ fontFamily: '"BR Firma", sans-serif' }}>Likes</p>
             </div>
             <div className="flex flex-row gap-1 justify-center items-center">
               <p className="textbase font-bold" style={{ fontFamily: '"BR Firma", sans-serif' }}>{dbUser.comments.length}</p>

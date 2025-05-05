@@ -5,10 +5,12 @@ import { Home, User, PenSquare, Info, Loader2, Search, Menu, X } from 'lucide-re
 import { usePathname, useRouter } from 'next/navigation';
 import { SignedIn, SignedOut, useSession } from '@clerk/nextjs';
 import { useUser } from '@/context/UserContext';
+import { CreatePostModal } from '@/components/CreatePostModal';
 
-function LeftSidebar({ openModal }: any) {
+function LeftSidebar() {
   const router = useRouter();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const pathname = usePathname();
   const { session, isLoaded } = useSession();
 
@@ -18,7 +20,7 @@ function LeftSidebar({ openModal }: any) {
     if (!isLoaded) return;
 
     if (session?.user) {
-      openModal();
+      setIsModalOpen(true);
     } else {
       router.replace('/sign-in');
     }
@@ -28,10 +30,22 @@ function LeftSidebar({ openModal }: any) {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  const handleNavItemClick = (action: () => void) => {
+  const handleNavItemClick = (action: any) => {
     action();
     if (isMobileMenuOpen) {
       setIsMobileMenuOpen(false);
+    }
+  };
+
+  // Use custom event to notify parent components about post creation
+  const handlePostCreated = () => {
+    // Dispatch a custom event that can be listened to by any parent component
+    const event = new CustomEvent('postCreated');
+    window.dispatchEvent(event);
+    
+    // Also refresh the router to update the URL params if needed
+    if (pathname === '/posts') {
+      router.refresh();
     }
   };
 
@@ -166,12 +180,6 @@ function LeftSidebar({ openModal }: any) {
               Create Post
             </span>
           </div>
-
-          {/* <CreatePostModal
-            isOpen={isModalOpen}
-            onClose={() => setIsModalOpen(false)}
-            onPostCreated={fetchPostsForModal}
-          /> */}
         </div>
 
         {/* This empty div will push the user profile to the bottom */}
@@ -210,6 +218,13 @@ function LeftSidebar({ openModal }: any) {
           </div>
         </div>
       </div>
+
+      {/* Modal component directly included in the sidebar */}
+      <CreatePostModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+        onPostCreated={handlePostCreated}
+      />
     </>
   );
 }
@@ -223,12 +238,11 @@ function NavItem({ icon, label, href, pathname, onClick }: any) {
       onClick={onClick}
       className={`flex items-center p-3 rounded-full transition-colors cursor-pointer ${isSelected ? 'bg-neutral-900 text-white w-fit' : 'hover:bg-neutral-800 text-neutral-300'
         }`}
-    >
+    > 
       <span className="mr-5">{icon}</span>
-      <span style={{ fontFamily: '"BR Firma", sans-serif', fontSize: '20px' }}>{label}</span>
+      <span style={{ fontFamily: '"BR Firma", sans-serif', fontSize: '20px' }}>{label}</span> 
     </button>
   );
 }
-
 
 export default LeftSidebar;

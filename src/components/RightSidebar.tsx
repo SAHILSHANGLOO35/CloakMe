@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from 'react';
-import { Users, Search, Calendar, ExternalLink, Star, MoveUpRight, LogIn, HeartHandshake, X } from 'lucide-react';
+import { Search, Star, MoveUpRight, LogIn, HeartHandshake, X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import gpay from "../../public/GPAY.jpeg";

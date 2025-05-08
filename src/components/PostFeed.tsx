@@ -2,10 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { formatDistanceToNow } from "date-fns";
-import { MessageCircle } from "lucide-react";
+import { MessageCircle, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useSession } from "@clerk/nextjs";
 import { PostForm } from "./PostForm";
+import axios from "axios";
+import { AlertDialogDemo } from "./DeleteDialog";
 
 type Post = {
     id: string;
@@ -16,6 +18,7 @@ type Post = {
     user: {
         username: string;
         id: string;
+        clerkId: string;
     };
     comments?: number;
     _count?: {
@@ -67,62 +70,91 @@ export function PostFeed({ initialPosts, loading, onRefresh }: PostFeedProps) {
                 </div>
             </div>
         );
-    }
+    };
+
+    const handleDeletePost = async (postId: string) => {
+        try {
+            await axios.delete(`/api/posts/${postId}`);
+            await onRefresh(); // Refresh posts after deletion
+        } catch (error) {
+            console.error("Error deleting post:", error);
+        }
+    };
+
+    if (!isLoaded) return null;
 
     return (
         <div>
             <PostForm onPostsCreated={() => onRefresh()} />
             <div className="w-full flex flex-col pb-16 md:pb-0">
-                {initialPosts.map((post) => (
-                    <div key={post.id} className="bg-transparent py-3 px-4 border-t border-white/25 cursor-pointer" style={{ fontFamily: '"BR Firma", sans-serif' }}>
-                        <div className="flex items-center mb-2">
-                            <div className="bg-primary border border-white/25 h-10 w-10 rounded-full flex items-center justify-center text-white font-bold">
-                                {post.user.username[0].toUpperCase()}
-                            </div>
-                            <div className="ml-3">
-                                <p className="font-medium">{post.user.username}</p>
-                                <p className="text-xs text-gray-400">
-                                    {formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })}
-                                </p>
-                            </div>
-                        </div>
-
-                        {post.content && <p className="mb-3 whitespace-pre-wrap">{post.content}</p>}
-
-                        {post.imageUrl && (
-                            <div className="max-h-[500px] overflow-hidden mb-3">
-                                <img
-                                    src={post.imageUrl}
-                                    alt="Post image"
-                                    className="w-full h-auto object-contain rounded-md mx-auto"
-                                    loading="lazy"
-                                />
-                            </div>
-                        )}
-
-                        {post.gifUrl && (
-                            <div className="max-h-[500px] overflow-hidden mb-3">
-                                <img
-                                    src={post.gifUrl}
-                                    alt="Post GIF"
-                                    className="w-full h-auto object-contain rounded-md mx-auto"
-                                    loading="lazy"
-                                />
-                            </div>
-                        )}
-
-                        <div className="flex flex-row items-center gap-4 text-gray-400 text-sm mt-2">
-                            <button className="flex items-center gap-1 hover:text-gray-200" onClick={() => handleCommentAuth(post.id)}>
-                                <div className="flex flex-row cursor-pointer items-center justify-center border w-12 h-6 gap-1 rounded-3xl">
-                                    <MessageCircle size={12} />
-                                    <span className="text-xs">
-                                        {commentsMap[post.id] || 0}
-                                    </span>
+                {initialPosts.map((post) => {
+                    console.log("Session User ID:", session?.user?.id);
+                    console.log("Post User ID:", post.user.id);
+                    console.log("Match:", session?.user?.id === post.user.id);
+                    
+                    return (
+                        <div key={post.id} className="bg-transparent py-3 px-4 border-t border-white/25 cursor-pointer" style={{ fontFamily: '"BR Firma", sans-serif' }}>
+                            <div className="flex flex-row items-center justify-between mb-2">
+                                <div className="flex items-center">
+                                    <div className="bg-primary border border-white/25 h-10 w-10 rounded-full flex items-center justify-center text-white font-bold">
+                                        {post.user.username[0].toUpperCase()}
+                                    </div>
+                                    <div className="ml-3">
+                                        <p className="font-medium">{post.user.username}</p>
+                                        <p className="text-xs text-gray-400">
+                                            {formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })}
+                                        </p>
+                                    </div>
                                 </div>
-                            </button>
+                                <div className="text-gray-400 cursor-pointer hover:text-red-500">
+                                    {isLoaded && session?.user?.id === post.user.clerkId && (
+                                        <AlertDialogDemo
+                                            postId={post.id}
+                                            onDelete={handleDeletePost}
+                                        />
+                                    )}
+
+                                </div>
+                            </div>
+
+
+                            {post.content && <p className="mb-3 whitespace-pre-wrap">{post.content}</p>}
+
+                            {post.imageUrl && (
+                                <div className="max-h-[500px] overflow-hidden mb-3">
+                                    <img
+                                        src={post.imageUrl}
+                                        alt="Post image"
+                                        className="w-full h-auto object-contain rounded-md mx-auto"
+                                        loading="lazy"
+                                    />
+                                </div>
+                            )}
+
+                            {post.gifUrl && (
+                                <div className="max-h-[500px] overflow-hidden mb-3">
+                                    <img
+                                        src={post.gifUrl}
+                                        alt="Post GIF"
+                                        className="w-full h-auto object-contain rounded-md mx-auto"
+                                        loading="lazy"
+                                    />
+                                </div>
+                            )}
+
+                            <div className="flex flex-row items-center gap-4 text-gray-400 text-sm mt-2">
+                                <button className="flex items-center gap-1 hover:text-gray-200" onClick={() => handleCommentAuth(post.id)}>
+                                    <div className="flex flex-row cursor-pointer items-center justify-center border w-12 h-6 gap-1 rounded-3xl">
+                                        <MessageCircle size={12} />
+                                        <span className="text-xs">
+                                            {commentsMap[post.id] || 0}
+                                        </span>
+                                    </div>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                ))}
+                    )
+                })}
             </div>
         </div>
     );

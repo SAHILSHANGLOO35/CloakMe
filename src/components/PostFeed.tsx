@@ -88,10 +88,6 @@ export function PostFeed({ initialPosts, loading, onRefresh }: PostFeedProps) {
             <PostForm onPostsCreated={() => onRefresh()} />
             <div className="w-full flex flex-col pb-16 md:pb-0">
                 {initialPosts.map((post) => {
-                    console.log("Session User ID:", session?.user?.id);
-                    console.log("Post User ID:", post.user.id);
-                    console.log("Match:", session?.user?.id === post.user.id);
-                    
                     return (
                         <div key={post.id} className="bg-transparent py-3 px-4 border-t border-white/25 cursor-pointer" style={{ fontFamily: '"BR Firma", sans-serif' }}>
                             <div className="flex flex-row items-center justify-between mb-2">

@@ -22,8 +22,6 @@ export function AlertDialogDemo({ postId, onDelete }: AlertDialogDemoProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  const { isLoaded, session } = useSession();
-
   const handleDelete = async () => {
     setIsDeleting(true);
     try {
@@ -47,7 +45,7 @@ export function AlertDialogDemo({ postId, onDelete }: AlertDialogDemoProps) {
 
         <AlertDialogContent className="bg-neutral-950">
           <AlertDialogHeader>
-            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+            <AlertDialogTitle>Are you damn sure?</AlertDialogTitle>
             <AlertDialogDescription>
               This action cannot be undone. This will permanently delete your post and remove your data from our servers.
             </AlertDialogDescription>

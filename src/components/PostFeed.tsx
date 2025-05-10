@@ -86,7 +86,7 @@ export function PostFeed({ initialPosts, loading, onRefresh }: PostFeedProps) {
     return (
         <div>
             <PostForm onPostsCreated={() => onRefresh()} />
-            <div className="w-full flex flex-col pb-16 md:pb-0">
+            <div className="w-full flex flex-col pb-0">
                 {initialPosts.map((post) => {
                     return (
                         <div key={post.id} className="bg-transparent py-3 px-2 sm:px-4 border-t border-white/25 cursor-pointer" style={{ fontFamily: '"BR Firma", sans-serif' }}>

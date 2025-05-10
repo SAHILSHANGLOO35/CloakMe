@@ -177,30 +177,32 @@ export function CreatePostModal({ isOpen, onClose, onPostCreated }: PostModal) {
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 z-50 bg-neutral-900/70 flex items-center justify-center">
+        <div className="fixed inset-0 z-50 bg-neutral-900/70 flex items-center justify-center p-4">
             <div
                 ref={modalRef}
                 className="bg-black rounded-lg w-full max-w-lg mx-4 relative border border-white/25 shadow-xl"
+                style={{ maxHeight: '90vh' }}
             >
-                <div className="flex justify-between items-center p-4 border-b border-white/25">
-                    <h2 className="text-xl font-medium" style={{ fontFamily: '"BR Firma", sans-serif' }}>
+                <div className="flex justify-between items-center p-4 border-b border-white/25 sticky top-0 bg-black z-10">
+                    <h2 className="text-lg sm:text-xl font-medium" style={{ fontFamily: '"BR Firma", sans-serif' }}>
                         Create Post
                     </h2>
                     <button
                         onClick={handleClose}
                         className="p-1 cursor-pointer rounded-full hover:bg-gray-800"
+                        aria-label="Close modal"
                     >
                         <X size={24} />
                     </button>
                 </div>
 
-                <div className="p-4">
+                <div className="p-3 sm:p-4 overflow-y-auto" style={{ maxHeight: 'calc(90vh - 60px)' }}>
                     <form onSubmit={handleSubmit}>
                         <textarea
-                            className="w-full h-24 p-4 bg-transparent focus:outline-none focus:ring-primary text-white placeholder:text-gray-400 rounded-md border border-white/25 resize-none mb-4"
+                            className="w-full h-24 p-3 sm:p-4 bg-transparent focus:outline-none focus:ring-primary text-white placeholder:text-gray-400 rounded-md border border-white/25 resize-none mb-4"
                             style={{
                                 fontFamily: '"BR Firma", sans-serif',
-                                fontSize: content.length > 0 ? '16px' : '18px',
+                                fontSize: content.length > 0 ? '16px' : '16px',
                             }}
                             placeholder="Express anonymously..."
                             value={content}
@@ -210,9 +212,9 @@ export function CreatePostModal({ isOpen, onClose, onPostCreated }: PostModal) {
                         />
 
                         {isUploading && (
-                            <div className="flex justify-center items-center py-4">
-                                <Loader2 className="h-8 w-8 animate-spin text-primary" />
-                                <span className="ml-2">Uploading image...</span>
+                            <div className="flex justify-center items-center py-3 sm:py-4">
+                                <Loader2 className="h-6 w-6 sm:h-8 sm:w-8 animate-spin text-primary" />
+                                <span className="ml-2 text-sm sm:text-base">Uploading image...</span>
                             </div>
                         )}
 
@@ -227,6 +229,7 @@ export function CreatePostModal({ isOpen, onClose, onPostCreated }: PostModal) {
                                     type="button"
                                     onClick={() => setImageUrl("")}
                                     className="absolute cursor-pointer top-2 right-2 bg-gray-900 p-1 rounded-full"
+                                    aria-label="Remove image"
                                 >
                                     <X size={20} />
                                 </button>
@@ -244,6 +247,7 @@ export function CreatePostModal({ isOpen, onClose, onPostCreated }: PostModal) {
                                     type="button"
                                     onClick={() => setGifUrl("")}
                                     className="absolute cursor-pointer top-2 right-2 bg-gray-900 p-1 rounded-full"
+                                    aria-label="Remove GIF"
                                 >
                                     <X size={20} />
                                 </button>
@@ -259,23 +263,21 @@ export function CreatePostModal({ isOpen, onClose, onPostCreated }: PostModal) {
                         />
 
                         {isGifPickerOpen && (
-                            <div className="max-h-64 overflow-hidden bg-gray-800 rounded-md flex flex-col p-3 space-y-3">
+                            <div className="max-h-60 sm:max-h-64 overflow-hidden bg-gray-800 rounded-md flex flex-col p-2 sm:p-3 space-y-2 sm:space-y-3 mb-3">
                                 {/* Search bar */}
                                 <div className="flex">
                                     <input
                                         type="text"
                                         placeholder="Search GIFs..."
-                                        className="flex-1 p-2 bg-gray-700 border border-gray-600 text-sm text-white rounded-l-md focus:outline-none focus:ring-primary"
+                                        className="flex-1 p-1.5 sm:p-2 bg-gray-700 border border-gray-600 text-sm text-white rounded-l-md focus:outline-none focus:ring-primary"
                                         value={gifSearchQuery}
                                         onChange={(e) => setGifSearchQuery(e.target.value)}
                                         onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); handleGifSearch() } }}
-
                                     />
                                     <button
                                         type="button"
                                         onClick={handleGifSearch}
-                                        className="p-2 bg-primary hover:bg-primary/80 rounded-r-md cursor-pointer
-                                        bg-gray-500 hover:bg-neutral-900 text-white text-sm"
+                                        className="p-1.5 sm:p-2 bg-gray-500 hover:bg-neutral-900 text-white text-xs sm:text-sm rounded-r-md cursor-pointer transition-colors"
                                         disabled={isSearchingGifs}
                                     >
                                         Search
@@ -284,11 +286,11 @@ export function CreatePostModal({ isOpen, onClose, onPostCreated }: PostModal) {
 
                                 {/* GIF results */}
                                 {isSearchingGifs ? (
-                                    <div className="flex justify-center items-center flex-1">
-                                        <Loader2 className="h-6 w-6 animate-spin text-primary" />
+                                    <div className="flex justify-center items-center flex-1 py-4">
+                                        <Loader2 className="h-5 w-5 sm:h-6 sm:w-6 animate-spin text-primary" />
                                     </div>
                                 ) : (
-                                    <div className="grid grid-cols-3 gap-2 overflow-y-auto flex-1">
+                                    <div className="grid grid-cols-3 gap-1 sm:gap-2 overflow-y-auto flex-1" style={{ maxHeight: '150px' }}>
                                         {gifs.length > 0 ? (
                                             gifs.map((gif) => (
                                                 <img
@@ -298,7 +300,7 @@ export function CreatePostModal({ isOpen, onClose, onPostCreated }: PostModal) {
                                                     src={gif.preview}
                                                     // @ts-ignore
                                                     alt={gif.title}
-                                                    className="w-full h-20 object-cover rounded-md cursor-pointer hover:opacity-80 transition"
+                                                    className="w-full h-16 sm:h-20 object-cover rounded-md cursor-pointer hover:opacity-80 transition"
                                                     // @ts-ignore
                                                     onClick={() => handleGifSelect(gif.url)}
                                                 />
@@ -313,29 +315,30 @@ export function CreatePostModal({ isOpen, onClose, onPostCreated }: PostModal) {
                             </div>
                         )}
 
-
                         <div className="flex justify-between items-center">
-                            <div className="flex gap-2">
+                            <div className="flex gap-1 sm:gap-2">
                                 <button
                                     type="button"
                                     // @ts-ignore
                                     onClick={() => fileInputRef.current?.click()}
-                                    className="w-10 h-10 flex items-center justify-center hover:bg-gray-800 rounded-full cursor-pointer"
+                                    className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center hover:bg-gray-800 rounded-full cursor-pointer"
                                     disabled={isUploading}
+                                    aria-label="Add image"
                                 >
-                                    <ImageIcon size={20} className="text-gray-400" />
+                                    <ImageIcon size={18} className="text-gray-400" />
                                 </button>
 
                                 <button
                                     type="button"
                                     onClick={handleGifPickerToggle}
-                                    className="w-10 h-10 flex items-center justify-center hover:bg-gray-800 rounded-full cursor-pointer"
+                                    className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center hover:bg-gray-800 rounded-full cursor-pointer"
+                                    aria-label="Add GIF"
                                 >
                                     <Image
                                         src={giphyIcon}
                                         alt="Giphy icon"
-                                        width={18}
-                                        height={18}
+                                        width={16}
+                                        height={16}
                                         className="filter brightness-0 invert opacity-50"
                                     />
                                 </button>
@@ -348,7 +351,7 @@ export function CreatePostModal({ isOpen, onClose, onPostCreated }: PostModal) {
                                     isUploading ||
                                     (!content && !imageUrl && !gifUrl)
                                 }
-                                className="px-6 cursor-pointer py-2 rounded-full bg-gray-700 hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="px-4 sm:px-6 py-1.5 sm:py-2 rounded-full bg-gray-700 hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
                                 style={{ fontFamily: '"BR Firma", sans-serif' }}
                             >
                                 {isLoading ? "Posting..." : "Post"}

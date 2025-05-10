@@ -11,12 +11,10 @@ import PostFeedSkeleton from "@/components/PostFeedSkeleton";
 export default function Post() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [showMobileSidebar, setShowMobileSidebar] = useState(false);
 
   const searchParams = useSearchParams();
   const searchQuery = searchParams.get("search");
 
-  // Centralize post fetching in the parent component
   const fetchPosts = useCallback(async (searchQuery: any) => {
     try {
       setLoading(true);
@@ -40,31 +38,28 @@ export default function Post() {
     }
   }, []);
 
-  // Initial data fetch and listen for post creation events
   useEffect(() => {
     fetchPosts(searchQuery);
     
-    // Add event listener for post creation
     const handlePostCreated = () => {
       fetchPosts(searchQuery);
     };
     
     window.addEventListener('postCreated', handlePostCreated);
     
-    // Clean up event listener on unmount
     return () => {
       window.removeEventListener('postCreated', handlePostCreated);
     };
   }, [searchQuery, fetchPosts]);
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen">
-      {/* Left sidebar - hidden on mobile */}
+    <div className="flex flex-col md:flex-row min-h-screen pb-16 md:pb-0">
+      {/* Desktop Left Sidebar */}
       <div className="hidden md:block md:w-1/4 lg:w-1/3 md:-ml-4 lg:-ml-12">
         <LeftSidebar />
       </div>
 
-      {/* Main content - full width on mobile, adjusted on larger screens */}
+      {/* Main Content */}
       <div className="w-full md:w-1/2 lg:w-2/4 border-white/25 md:mx-2 lg:mx-8 md:border-l md:border-r">
         <div className="bg-transparent rounded-lg mb-4">
           {loading ? (
@@ -80,9 +75,14 @@ export default function Post() {
         </div>
       </div>
 
-      {/* Right sidebar - hidden on mobile */}
+      {/* Right Sidebar */}
       <div className="hidden md:block md:w-1/4 lg:w-1/3 md:mr-2 lg:mr-4">
         <RightSidebar />
+      </div>
+
+      {/* Mobile Navigation Bar */}
+      <div className="fixed bottom-0 left-0 right-0 bg-black border-t border-white/15 md:hidden">
+        <LeftSidebar />
       </div>
     </div>
   );

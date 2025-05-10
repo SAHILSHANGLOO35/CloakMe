@@ -58,7 +58,7 @@ export function PostForm({ onPostsCreated }: PostFormProps) {
                 setIsLoading(false);
             }
         } else {
-            router.replace(`/sign-in`);   
+            router.replace(`/sign-in`);
         }
     };
 
@@ -131,19 +131,19 @@ export function PostForm({ onPostsCreated }: PostFormProps) {
 
     return (
         <div>
-            <div style={{ fontFamily: '"BR Firma", sans-serif', fontSize: '20px' }} className="pt-4 pl-4 mb-4">
+            <div style={{ fontFamily: '"BR Firma", sans-serif', fontSize: '18px' }} className="pt-3 sm:pt-4 pl-3 sm:pl-4 mb-3 sm:mb-4 text-base sm:text-lg md:text-xl">
                 Home
             </div>
             <div className="border-b border-l border-r border-white/25" />
             <div className="bg-transparent border-b border-white/25 outline-none z-40">
                 <form onSubmit={handleSubmit} className="relative">
                     {/* Fixed height container for content + media */}
-                    <div className="min-h-[150px] flex flex-col">
+                    <div className="min-h-[120px] sm:min-h-[150px] flex flex-col">
                         <textarea
-                            className="w-full pl-4 pt-4 bg-transparent focus:outline-none focus:ring-primary text-white placeholder:text-[20px] resize-none flex-grow whitespace-pre-wrap"
+                            className="w-full pl-3 sm:pl-4 pt-3 sm:pt-4 bg-transparent focus:outline-none focus:ring-primary text-white placeholder:text-base sm:placeholder:text-lg md:placeholder:text-xl resize-none flex-grow whitespace-pre-wrap"
                             style={{
                                 fontFamily: '"BR Firma", sans-serif',
-                                fontSize: content.length > 0 ? '16px' : '20px',
+                                fontSize: content.length > 0 ? '14px' : '16px',
                             }}
                             placeholder="Express anonymously..."
                             value={content}
@@ -152,11 +152,11 @@ export function PostForm({ onPostsCreated }: PostFormProps) {
                         />
 
                         {/* Media preview container with fixed positioning */}
-                        <div className="relative px-4 mb-2">
+                        <div className="relative px-3 sm:px-4 mb-2">
                             {/* Upload loading indicator */}
                             {isUploading && (
-                                <div className="flex items-center py-2 text-sm text-gray-400">
-                                    <Loader2 className="h-4 w-4 mr-2 animate-spin text-primary" />
+                                <div className="flex items-center py-2 text-xs sm:text-sm text-gray-400">
+                                    <Loader2 className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2 animate-spin text-primary" />
                                     <span>Uploading image...</span>
                                 </div>
                             )}
@@ -168,7 +168,7 @@ export function PostForm({ onPostsCreated }: PostFormProps) {
                                         <img
                                             src={imageUrl}
                                             alt="Preview"
-                                            className="w-full max-h-60 object-contain"
+                                            className="w-full max-h-40 sm:max-h-60 object-contain"
                                         />
                                         <button
                                             type="button"
@@ -188,7 +188,7 @@ export function PostForm({ onPostsCreated }: PostFormProps) {
                                         <img
                                             src={gifUrl}
                                             alt="GIF"
-                                            className="w-full max-h-60 object-contain"
+                                            className="w-full max-h-40 sm:max-h-60 object-contain"
                                         />
                                         <button
                                             type="button"
@@ -211,29 +211,32 @@ export function PostForm({ onPostsCreated }: PostFormProps) {
                         onChange={handleFileChange}
                     />
 
-                    <div className="flex justify-between items-center pl-3 mb-2">
+                    <div className="flex flex-wrap justify-between items-center gap-2 px-2 sm:px-3 mb-2">
                         <div className="flex gap-1">
                             <button
                                 type="button"
                                 onClick={() => fileInputRef.current?.click()}
-                                className="w-9 h-9 flex items-center justify-center hover:bg-neutral-800 rounded-full cursor-pointer"
+                                className="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center hover:bg-neutral-800 rounded-full cursor-pointer"
                                 disabled={isUploading}
                             >
-                                <ImageIcon size={18} className={`${isUploading ? 'text-gray-700' : 'text-gray-500'}`} />
+                                <ImageIcon
+                                    size={16}
+                                    className={`${isUploading ? 'text-gray-700' : 'text-gray-500'} sm:w-[16px] sm:h-[16px]`}
+                                />
                             </button>
 
                             <button
                                 type="button"
                                 onClick={handleGifPickerToggle}
-                                className="w-9 h-9 flex items-center justify-center hover:bg-neutral-800 rounded-full cursor-pointer z-40"
+                                className="w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center hover:bg-neutral-800 rounded-full cursor-pointer z-40"
                                 disabled={isUploading}
                             >
                                 <Image
                                     src={giphyIcon}
                                     alt="Giphy icon"
-                                    width={16}
-                                    height={16}
-                                    className={`filter brightness-0 invert ${isUploading ? 'opacity-30' : 'opacity-50'}`}
+                                    width={14}
+                                    height={14}
+                                    className={`filter brightness-0 invert ${isUploading ? 'opacity-30' : 'opacity-50'} sm:w-4 sm:h-4`}
                                 />
                             </button>
                         </div>
@@ -245,10 +248,9 @@ export function PostForm({ onPostsCreated }: PostFormProps) {
                                 isUploading ||
                                 (!content && !imageUrl && !gifUrl)
                             }
-                            className="px-4 mr-4 py-1 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed rounded-full text-white"
+                            className="px-3 sm:px-4 py-1 disabled:opacity-50 disabled:cursor-not-allowed rounded-full text-white text-sm sm:text-base"
                             style={{
                                 fontFamily: '"BR Firma", sans-serif',
-                                fontSize: "16px",
                                 backgroundColor: "#374151"
                             }}
                         >
@@ -257,14 +259,14 @@ export function PostForm({ onPostsCreated }: PostFormProps) {
                     </div>
                 </form>
 
-                {/* GIF picker positioned with fixed dimensions */}
+                {/* GIF picker positioned with fixed dimensions - made responsive */}
                 {isGifPickerOpen && (
-                    <div className="absolute z-50 mt-3 p-3 bg-gray-900 rounded-md shadow-lg border border-gray-700 w-72">
+                    <div className="absolute z-50 mt-3 p-2 sm:p-3 bg-gray-900 rounded-md shadow-lg border border-gray-700 w-80 sm:w-72 left-1/2 transform -translate-x-1/2">
                         <div className="flex mb-2">
                             <input
                                 type="text"
                                 placeholder="Search GIFs..."
-                                className="flex-1 outline-none p-2 bg-gray-800 border border-gray-700 rounded-l-md"
+                                className="flex-1 outline-none p-1 sm:p-2 text-xs sm:text-sm bg-gray-800 border border-gray-700 rounded-l-md"
                                 value={gifSearchQuery}
                                 onChange={(e) => setGifSearchQuery(e.target.value)}
                                 onKeyPress={(e) =>
@@ -273,38 +275,38 @@ export function PostForm({ onPostsCreated }: PostFormProps) {
                             />
                             <button
                                 onClick={handleGifSearch}
-                                className="p-2 bg-gray-700 rounded-r-md hover:bg-gray-600 cursor-pointer disabled:opacity-50"
+                                className="p-1 sm:p-2 text-xs sm:text-sm bg-gray-700 rounded-r-md hover:bg-gray-600 cursor-pointer disabled:opacity-50"
                                 disabled={isSearchingGifs || gifSearchQuery.trim() === ""}
                             >
                                 Search
                             </button>
                         </div>
 
-                        <div className="h-60 overflow-hidden">
+                        <div className="h-48 sm:h-60 overflow-hidden">
                             {isSearchingGifs ? (
                                 <div className="flex justify-center items-center h-full">
-                                    <Loader2 className="h-6 w-6 animate-spin text-primary" />
+                                    <Loader2 className="h-5 w-5 sm:h-6 sm:w-6 animate-spin text-primary" />
                                 </div>
                             ) : (
-                                <div className="grid grid-cols-3 gap-2 h-full overflow-y-auto">
+                                <div className="grid grid-cols-3 gap-1 sm:gap-2 h-full overflow-y-auto">
                                     {gifs.map((gif) => (
                                         <img
                                             key={gif.id}
                                             src={gif.preview}
                                             alt={gif.title}
-                                            className="w-full h-20 object-cover rounded cursor-pointer hover:opacity-80"
+                                            className="w-full h-16 sm:h-20 object-cover rounded cursor-pointer hover:opacity-80"
                                             onClick={() => handleGifSelect(gif.url)}
                                         />
                                     ))}
                                     {gifs.length === 0 && (
-                                        <div className="col-span-3 text-center py-4 text-gray-400">
+                                        <div className="col-span-3 text-center py-4 text-gray-400 text-xs sm:text-sm">
                                             No GIFs found. Try another search term.
                                         </div>
                                     )}
                                 </div>
                             )}
                         </div>
-                        <div className="text-xs text-gray-400 text-right mt-2">
+                        <div className="text-xs text-gray-400 text-right mt-1 sm:mt-2">
                             Powered by GIPHY
                         </div>
                     </div>

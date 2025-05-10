@@ -89,14 +89,14 @@ export function PostFeed({ initialPosts, loading, onRefresh }: PostFeedProps) {
             <div className="w-full flex flex-col pb-16 md:pb-0">
                 {initialPosts.map((post) => {
                     return (
-                        <div key={post.id} className="bg-transparent py-3 px-4 border-t border-white/25 cursor-pointer" style={{ fontFamily: '"BR Firma", sans-serif' }}>
+                        <div key={post.id} className="bg-transparent py-3 px-2 sm:px-4 border-t border-white/25 cursor-pointer" style={{ fontFamily: '"BR Firma", sans-serif' }}>
                             <div className="flex flex-row items-center justify-between mb-2">
                                 <div className="flex items-center">
-                                    <div className="bg-primary border border-white/25 h-10 w-10 rounded-full flex items-center justify-center text-white font-bold">
+                                    <div className="bg-primary border border-white/25 h-8 w-8 sm:h-10 sm:w-10 rounded-full flex items-center justify-center text-white font-bold">
                                         {post.user.username[0].toUpperCase()}
                                     </div>
-                                    <div className="ml-3">
-                                        <p className="font-medium">{post.user.username}</p>
+                                    <div className="ml-2 sm:ml-3">
+                                        <p className="font-medium text-sm sm:text-base">{post.user.username}</p>
                                         <p className="text-xs text-gray-400">
                                             {formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })}
                                         </p>
@@ -109,15 +109,13 @@ export function PostFeed({ initialPosts, loading, onRefresh }: PostFeedProps) {
                                             onDelete={handleDeletePost}
                                         />
                                     )}
-
                                 </div>
                             </div>
 
-
-                            {post.content && <p className="mb-3 whitespace-pre-wrap">{post.content}</p>}
+                            {post.content && <p className="mb-3 whitespace-pre-wrap text-sm sm:text-base">{post.content}</p>}
 
                             {post.imageUrl && (
-                                <div className="max-h-[500px] overflow-hidden mb-3">
+                                <div className="max-h-[300px] sm:max-h-[400px] md:max-h-[500px] overflow-hidden mb-3">
                                     <img
                                         src={post.imageUrl}
                                         alt="Post image"
@@ -128,7 +126,7 @@ export function PostFeed({ initialPosts, loading, onRefresh }: PostFeedProps) {
                             )}
 
                             {post.gifUrl && (
-                                <div className="max-h-[500px] overflow-hidden mb-3">
+                                <div className="max-h-[300px] sm:max-h-[400px] md:max-h-[500px] overflow-hidden mb-3 pr-1">
                                     <img
                                         src={post.gifUrl}
                                         alt="Post GIF"

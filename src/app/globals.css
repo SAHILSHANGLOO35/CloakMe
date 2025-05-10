@@ -8,6 +8,19 @@
   font-style: normal;
 }
 
+/* globals.css or any component styles */
+.radial-blur-aura {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, rgba(168, 85, 247, 0.25), rgba(236, 72, 153, 0.15), transparent);
+  filter: blur(40px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+
 @font-face {
   font-family: 'BR Firma';
   src: url('/fonts/BRFirma-Bold.woff2') format('woff2'),

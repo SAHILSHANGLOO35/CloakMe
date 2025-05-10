@@ -53,7 +53,7 @@ const HarryPotterImage = ({ harrypotter }: any) => {
   
   return (
     <div 
-      className="relative w-[300px] h-[300px] md:w-[600px] md:h-[600px] overflow-visible"
+      className="relative w-[400px] h-[400px] md:w-[600px] md:h-[600px] overflow-visible"
       style={{
         perspective: '1000px',
         perspectiveOrigin: 'center',

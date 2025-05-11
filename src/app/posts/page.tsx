@@ -53,9 +53,9 @@ export default function Post() {
   }, [searchQuery, fetchPosts]);
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen pb-16 md:pb-0">
-      {/* Desktop Left Sidebar */}
-      <div className="hidden md:block md:w-1/4 lg:w-1/3 md:-ml-4 lg:-ml-12">
+    <div className="flex flex-col md:flex-row min-h-screen pb-16 md:pb-0 max-w-screen-2xl mx-auto">
+      {/* Left Sidebar */}
+      <div className="md:w-1/4 lg:w-1/3 md:-ml-4 lg:-ml-12">
         <LeftSidebar />
       </div>
 
@@ -76,13 +76,8 @@ export default function Post() {
       </div>
 
       {/* Right Sidebar */}
-      <div className="hidden md:block md:w-1/4 lg:w-1/3 md:mr-2 lg:mr-4">
+      <div className="hidden md:block md:w-1/3 lg:w-1/3 md:mr-2 lg:mr-4">
         <RightSidebar />
-      </div>
-
-      {/* Mobile Navigation Bar */}
-      <div className="fixed bottom-0 left-0 right-0 bg-black border-t border-white/15 md:hidden">
-        <LeftSidebar />
       </div>
     </div>
   );

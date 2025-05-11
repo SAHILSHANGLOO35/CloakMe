@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState } from 'react';
-import { Search, Star, MoveUpRight, LogIn, HeartHandshake, X } from 'lucide-react';
+import { Search, Star, MoveUpRight, LogIn, HeartHandshake, X, Instagram, Twitter, Mail, Linkedin } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { SignedIn, SignedOut, SignOutButton } from '@clerk/nextjs';
@@ -11,7 +11,7 @@ function RightSidebar() {
   const router = useRouter();
 
   return (
-    <aside className="hidden md:flex flex-col fixed right-0 h-screen w-64 lg:w-80 px-4 text-white mr-0 lg:mr-40 bg-black bg-opacity-50 backdrop-blur-sm border-l border-white/25">
+    <aside className="hidden md:flex md:flex-col sticky top-0 h-screen w-64 lg:w-80 px-4 text-white mr-0 lg:mr-4 bg-black bg-opacity-50 backdrop-blur-sm">
       {/* Search Bar */}
       <div className="mt-4">
         <div className="relative">
@@ -53,9 +53,9 @@ function RightSidebar() {
               Sign up to enjoy the anonymity
             </div>
 
-            <button 
-              className="text-gray-400 flex flex-row items-center justify-center gap-1 mb-4 cursor-pointer hover:text-white text-sm mt-2 transition-colors" 
-              style={{ fontFamily: '"BR Firma", sans-serif' }} 
+            <button
+              className="text-gray-400 flex flex-row items-center justify-center gap-1 mb-4 cursor-pointer hover:text-white text-sm mt-2 transition-colors"
+              style={{ fontFamily: '"BR Firma", sans-serif' }}
               onClick={() => router.replace('/sign-up')}
             >
               <MoveUpRight size={18} />
@@ -64,9 +64,9 @@ function RightSidebar() {
 
             <hr className="mb-4 border-gray-800" />
 
-            <button 
-              className="text-gray-400 flex flex-row items-center justify-center gap-1 cursor-pointer hover:text-white text-sm mt-2 transition-colors" 
-              style={{ fontFamily: '"BR Firma", sans-serif' }} 
+            <button
+              className="text-gray-400 flex flex-row items-center justify-center gap-1 cursor-pointer hover:text-white text-sm mt-2 transition-colors"
+              style={{ fontFamily: '"BR Firma", sans-serif' }}
               onClick={() => router.replace('/sign-in')}
             >
               <LogIn size={18} />
@@ -75,19 +75,71 @@ function RightSidebar() {
           </SignedOut>
         </div>
 
-        {/* GPay donation */}
+        {/* Social Links */}
         <div className="mb-6 bg-neutral-900 rounded-xl p-4">
           <div className="flex items-center mb-1">
             <HeartHandshake size={20} className="mr-2 text-gray-300" />
-            <h2 className="text-md text-gray-400" style={{ fontFamily: '"BR Firma", sans-serif' }}>Want to help? Donate here</h2>
+            <h2 className="text-md text-gray-400" style={{ fontFamily: '"BR Firma", sans-serif' }}>Want to show your ADS? Contact me</h2>
           </div>
 
           <div className="text-xs mb-6" style={{ fontFamily: '"BR Firma", sans-serif' }}>
-            Just scan the QR and help
+            Just DM & get reply in 24 hours.
           </div>
 
-          <div className="h-[200px] lg:h-[250px] w-full max-w-[250px] flex items-center justify-center rounded-xl overflow-hidden border border-white/25">
-            {/* QR code image here */}
+          {/* Social Links */}
+          <div className="mt-4 bg-neutral-800 rounded-xl p-4">
+            {/* Social links grid layout */}
+            <div className="grid grid-cols-2 gap-4">
+              {/* LinkedIn */}
+              <a
+                href="https://www.linkedin.com/in/sahil-shangloo/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex flex-col items-center group"
+              >
+                <div className="w-10 h-10 flex items-center justify-center bg-neutral-900 rounded-lg mb-1 group-hover:bg-blue-900 transition-colors">
+                  <Linkedin size={20} />
+                </div>
+                <span className="text-xs text-gray-400 group-hover:text-gray-200" style={{ fontFamily: '"BR Firma", sans-serif' }}>LinkedIn</span>
+              </a>
+
+              {/* Email */}
+              <a
+                href="mailto:sahilshangloo35@gmail.com"
+                className="flex flex-col items-center group"
+              >
+                <div className="w-10 h-10 flex items-center justify-center bg-neutral-900 rounded-lg mb-1 group-hover:bg-red-900 transition-colors">
+                  <Mail size={20} />
+                </div>
+                <span className="text-xs text-gray-400 group-hover:text-gray-200" style={{ fontFamily: '"BR Firma", sans-serif' }}>Email</span>
+              </a>
+
+              {/* X (Twitter) */}
+              <a
+                href="https://x.com/doubleSdotdev"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex flex-col items-center group"
+              >
+                <div className="w-10 h-10 flex items-center justify-center bg-neutral-900 rounded-lg mb-1 group-hover:bg-neutral-700 transition-colors">
+                  <Twitter size={20} />
+                </div>
+                <span className="text-xs text-gray-400 group-hover:text-gray-200" style={{ fontFamily: '"BR Firma", sans-serif' }}>Twitter</span>
+              </a>
+
+              {/* Instagram */}
+              <a
+                href="https://instagram.com/sahilshangloo.35"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex flex-col items-center group"
+              >
+                <div className="w-10 h-10 flex items-center justify-center bg-neutral-900 rounded-lg mb-1 group-hover:bg-purple-900 transition-colors">
+                  <Instagram size={20} />
+                </div>
+                <span className="text-xs text-gray-400 group-hover:text-gray-200" style={{ fontFamily: '"BR Firma", sans-serif' }}>Instagram</span>
+              </a>
+            </div>
           </div>
         </div>
 
@@ -96,7 +148,7 @@ function RightSidebar() {
           <div className="flex items-center justify-between mb-1">
             <div className="flex items-center">
               <Star size={20} className="mr-2 text-gray-300" />
-              <h2 className="text-md text-gray-400 font-semibold" style={{ fontFamily: '"BR Firma", sans-serif' }}>Anonymous Tip</h2>
+              <div className="text-md text-gray-400" style={{ fontFamily: '"BR Firma", sans-serif' }}>Anonymous Tip</div>
             </div>
           </div>
 

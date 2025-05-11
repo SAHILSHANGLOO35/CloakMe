@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState } from 'react';
-import { Home, User, PenSquare, Info, Loader2, Search, Menu, X } from 'lucide-react';
+import { Home, User, PenSquare, Info, Loader2, Menu, X, Search } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 import { SignedIn, SignedOut, useSession } from '@clerk/nextjs';
 import { useUser } from '@/context/UserContext';
@@ -33,29 +33,18 @@ function LeftSidebar() {
     }
   };
 
-  // Mobile navigation items
+  // Mobile navigation items - now at bottom with only Home, Profile and About
   const mobileNav = (
-    <div className="flex justify-around items-center h-16 px-4">
+    <div className="fixed bottom-0 left-0 right-0 bg-neutral-950 border-t border-neutral-800 flex justify-around items-center h-16 px-4 z-50">
       <NavItem icon={<Home size={24} />} label="Home" href='/posts' pathname={pathname} onClick={() => router.replace('/posts')} isMobile />
       <NavItem icon={<User size={24} />} label="Profile" href='/profile' pathname={pathname} onClick={() => router.replace('/profile')} isMobile />
-      <NavItem icon={<Search size={24} />} label="Search" pathname={pathname} onClick={() => {
-        const el = document.getElementById('search-input');
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth' });
-          el.focus();
-          el.classList.add('ring-2', 'ring-neutral-100', 'bg-neutral-800');
-          setTimeout(() => {
-            el.classList.remove('ring-2', 'ring-neutral-100', 'bg-neutral-800');
-          }, 1500);
-        }
-      }} isMobile />
       <NavItem icon={<Info size={24} />} label="About" href='/about-us' pathname={pathname} onClick={() => router.replace('/about-us')} isMobile />
     </div>
   );
 
   // Desktop navigation
   const desktopNav = (
-    <div className="md:flex md:flex-col h-full w-64 fixed inset-y-0 left-0 lg:left-40 px-4 text-white">
+    <div className="hidden md:flex md:flex-col h-full w-64 fixed inset-y-0 left-0 lg:left-40 px-4 text-white">
       <div className="flex flex-col mt-12">
         <nav className="flex flex-col space-y-1">
           <NavItem icon={<Home size={22} />} label="Home" href='/posts' pathname={pathname} onClick={() => router.replace('/posts')} />
@@ -118,14 +107,27 @@ function LeftSidebar() {
     </div>
   );
 
+  // Floating create post button for mobile
+  const mobileCreateButton = (
+    <div className="md:hidden fixed right-4 bottom-20 z-50">
+      <button
+        onClick={handleClick}
+        className="bg-neutral-900 text-white p-3 rounded-full shadow-lg border border-neutral-700 hover:bg-neutral-800 transition-colors"
+      >
+        <PenSquare size={24} />
+      </button>
+    </div>
+  );
+
   return (
     <>
-      {/* Render mobile or desktop navigation based on screen size */}
+      {/* Render desktop navigation */}
+      {desktopNav}
+      
+      {/* Render mobile navigation at bottom */}
       <div className="md:hidden">
         {mobileNav}
-      </div>
-      <div className="hidden md:block">
-        {desktopNav}
+        {mobileCreateButton}
       </div>
 
       <CreatePostModal 

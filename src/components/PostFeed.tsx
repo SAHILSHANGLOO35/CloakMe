@@ -126,15 +126,16 @@ export function PostFeed({ initialPosts, loading, onRefresh }: PostFeedProps) {
                             )}
 
                             {post.gifUrl && (
-                                <div className="max-h-[300px] sm:max-h-[400px] md:max-h-[500px] overflow-hidden mb-3 pr-1">
+                                <div className="mb-3 rounded-md overflow-hidden">
                                     <img
                                         src={post.gifUrl}
                                         alt="Post GIF"
-                                        className="w-full h-auto object-contain rounded-md mx-auto"
+                                        className="w-full h-auto object-contain block"
                                         loading="lazy"
                                     />
                                 </div>
                             )}
+
 
                             <div className="flex flex-row items-center gap-4 text-gray-400 text-sm mt-2">
                                 <button className="flex items-center gap-1 hover:text-gray-200" onClick={() => handleCommentAuth(post.id)}>

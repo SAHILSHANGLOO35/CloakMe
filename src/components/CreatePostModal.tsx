@@ -351,7 +351,7 @@ export function CreatePostModal({ isOpen, onClose, onPostCreated }: PostModal) {
                                     isUploading ||
                                     (!content && !imageUrl && !gifUrl)
                                 }
-                                className="px-4 sm:px-6 py-1.5 sm:py-2 rounded-full bg-gray-700 hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
+                                className="px-4 sm:px-6 py-1.5 sm:py-2 rounded-full bg-gray-700 cursor-pointer hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
                                 style={{ fontFamily: '"BR Firma", sans-serif' }}
                             >
                                 {isLoading ? "Posting..." : "Post"}

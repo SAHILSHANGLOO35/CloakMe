@@ -79,7 +79,7 @@ function RightSidebar() {
         <div className="mb-6 bg-neutral-900 rounded-xl p-4">
           <div className="flex items-center mb-1">
             <HeartHandshake size={20} className="mr-2 text-gray-300" />
-            <h2 className="text-md text-gray-400" style={{ fontFamily: '"BR Firma", sans-serif' }}>Want to show your ADS? Contact me</h2>
+            <h2 className="text-md text-gray-400" style={{ fontFamily: '"BR Firma", sans-serif' }}>Want to show your ADS?</h2>
           </div>
 
           <div className="text-xs mb-6" style={{ fontFamily: '"BR Firma", sans-serif' }}>
@@ -124,7 +124,7 @@ function RightSidebar() {
                 <div className="w-10 h-10 flex items-center justify-center bg-neutral-900 rounded-lg mb-1 group-hover:bg-neutral-700 transition-colors">
                   <Twitter size={20} />
                 </div>
-                <span className="text-xs text-gray-400 group-hover:text-gray-200" style={{ fontFamily: '"BR Firma", sans-serif' }}>Twitter</span>
+                <span className="text-xs text-gray-400 group-hover:text-gray-200" style={{ fontFamily: '"BR Firma", sans-serif' }}>Twitter-X</span>
               </a>
 
               {/* Instagram */}

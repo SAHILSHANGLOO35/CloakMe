@@ -248,7 +248,7 @@ export function PostForm({ onPostsCreated }: PostFormProps) {
                                 isUploading ||
                                 (!content && !imageUrl && !gifUrl)
                             }
-                            className="px-3 sm:px-4 py-1 disabled:opacity-50 disabled:cursor-not-allowed rounded-full text-white text-sm sm:text-base"
+                            className="px-3 sm:px-4 py-1 disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed rounded-full text-white text-sm sm:text-base"
                             style={{
                                 fontFamily: '"BR Firma", sans-serif',
                                 backgroundColor: "#374151"

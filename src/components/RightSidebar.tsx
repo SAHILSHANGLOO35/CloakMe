@@ -170,7 +170,7 @@ function RightSidebar() {
           </div>
 
           <p className="text-xs mb-3" style={{ fontFamily: '"BR Firma", sans-serif' }}>
-            Scan the QR using GPay and tadaaa!
+            Scan the QR and tadaaa! 🎉
           </p>
 
           <div className="flex justify-center">

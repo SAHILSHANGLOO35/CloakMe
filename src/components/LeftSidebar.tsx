@@ -44,7 +44,7 @@ function LeftSidebar() {
 
   // Desktop navigation
   const desktopNav = (
-    <div className="hidden md:flex md:flex-col h-full w-64 fixed inset-y-0 left-0 lg:left-40 px-4 text-white">
+    <div className="hidden md:flex md:flex-col h-screen w-44 lg:w-64 sticky inset-y-0 left-0 lg:left-40 px-2 lg:px-4 ml-4 sm:ml-8 text-white">
       <div className="flex flex-col mt-12">
         <nav className="flex flex-col space-y-1">
           <NavItem icon={<Home size={22} />} label="Home" href='/posts' pathname={pathname} onClick={() => router.replace('/posts')} />

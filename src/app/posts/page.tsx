@@ -54,8 +54,8 @@ export default function Post() {
 
   return (
     <div className="flex flex-col md:flex-row min-h-screen pb-16 md:pb-0 max-w-screen-2xl mx-auto">
-      {/* Left Sidebar */}
-      <div className="md:w-1/4 lg:w-1/3 md:-ml-4 lg:-ml-12">
+      {/* Left Sidebar - now with a wrapper div that's position:sticky */}
+      <div className="md:w-1/4 lg:w-1/3 md:-ml-4 lg:-ml-12 relative">
         <LeftSidebar />
       </div>
 

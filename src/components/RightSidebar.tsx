@@ -1,9 +1,10 @@
 "use client"
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Search, Star, MoveUpRight, LogIn, HeartHandshake, X, Instagram, Twitter, Mail, Linkedin } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import gpay from "../../public/GPAY.jpeg";
 import { SignedIn, SignedOut, SignOutButton } from '@clerk/nextjs';
 import { SearchBar } from './SearchBar';
 
@@ -30,7 +31,7 @@ function RightSidebar() {
               </h2>
 
               <p className="text-xs" style={{ fontFamily: '"BR Firma", sans-serif' }}>
-                Enjoy full features — create posts, comment anonymously, and more.
+                Enjoy full features - create posts, comment anonymously, and more.
               </p>
 
               <SignOutButton>
@@ -83,7 +84,7 @@ function RightSidebar() {
           </div>
 
           <div className="text-xs mb-6" style={{ fontFamily: '"BR Firma", sans-serif' }}>
-            Just DM & get reply in 24 hours.
+            Just DM, will reach you within 24 hours.
           </div>
 
           {/* Social Links */}
@@ -156,6 +157,33 @@ function RightSidebar() {
             Please do not post disturbing or vulgar contents. It's a public platform. Keep it cool!
           </p>
         </div>
+
+        {/* Buy Me a Coffee Card */}
+        <div className="bg-neutral-900 rounded-xl p-4 mt-4">
+          <div className="flex items-center justify-between mb-1">
+            <div className="flex items-center">
+              <HeartHandshake size={20} className="mr-2 text-gray-300" />
+              <div className="text-md text-gray-400" style={{ fontFamily: '"BR Firma", sans-serif' }}>
+                Want to buy me a coffee?
+              </div>
+            </div>
+          </div>
+
+          <p className="text-xs mb-3" style={{ fontFamily: '"BR Firma", sans-serif' }}>
+            Scan the QR using GPay and tadaaa!
+          </p>
+
+          <div className="flex justify-center">
+            <Image
+              src={gpay}
+              alt="GPay QR Code"
+              width={250}
+              height={120}
+              className="rounded-lg border border-gray-700"
+            />
+          </div>
+        </div>
+
       </div>
 
       {/* Footer */}

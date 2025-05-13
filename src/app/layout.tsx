@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import {
     ClerkProvider,
-    SignedIn,
-    SignedOut,
-    UserButton,
 } from "@clerk/nextjs";
 import { Geist, Geist_Mono } from "next/font/google";
 import './globals.css';
@@ -41,6 +38,9 @@ export default function RootLayout({
             }}
         >
             <html lang="en">
+                <head>
+                    <link rel="icon" href="/CloakMe_ico.ico" sizes="any" />
+                </head>
                 <body
                     className={`${geistSans.variable} ${geistMono.variable} antialiased`}
                 >

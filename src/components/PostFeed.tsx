@@ -115,11 +115,11 @@ export function PostFeed({ initialPosts, loading, onRefresh }: PostFeedProps) {
                             {post.content && <p className="mb-3 whitespace-pre-wrap text-sm sm:text-base">{post.content}</p>}
 
                             {post.imageUrl && (
-                                <div className="max-h-[300px] sm:max-h-[400px] md:max-h-[500px] overflow-hidden mb-3">
+                                <div className="max-h-[300px] sm:max-h-[400px] md:max-h-[500px] overflow-hidden mb-3 rounded-md">
                                     <img
                                         src={post.imageUrl}
                                         alt="Post image"
-                                        className="w-full h-auto object-contain rounded-md mx-auto"
+                                        className="w-full h-auto object-contain mx-auto"
                                         loading="lazy"
                                     />
                                 </div>

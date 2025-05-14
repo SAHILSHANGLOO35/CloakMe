@@ -1,17 +1,19 @@
 import { db } from "@/lib/db";
 import { currentUser } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
-import { Post } from "@prisma/client";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { postId: string } }
+  context: { params: { postId: string } }
 ) {
   try {
     const user = await currentUser();
 
     if (!user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json(
+        { error: "Unauthorized" },
+        { status: 401 }
+      );
     }
 
     const dbUser = await db.user.findUnique({
@@ -21,10 +23,13 @@ export async function GET(
     });
 
     if (!dbUser) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
+      return NextResponse.json(
+        { error: "User not found" },
+        { status: 404 }
+      );
     }
 
-    const { postId } = params; // Correctly access params here
+    const { postId } = context.params;
 
     const post = await db.post.findUnique({
       where: {
@@ -33,25 +38,34 @@ export async function GET(
     });
 
     if (!post) {
-      return NextResponse.json({ error: "Post not found" }, { status: 404 });
+      return NextResponse.json(
+        { error: "Post not found" },
+        { status: 404 }
+      );
     }
 
     return NextResponse.json(post);
   } catch (error) {
     console.error("Error fetching post:", error);
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
   }
 }
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { postId: string } }
+  context: { params: { postId: string } }
 ) {
   try {
     const user = await currentUser();
 
     if (!user) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json(
+        { error: "Unauthorized" },
+        { status: 401 }
+      );
     }
 
     const dbUser = await db.user.findUnique({
@@ -59,13 +73,19 @@ export async function DELETE(
     });
 
     if (!dbUser) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
+      return NextResponse.json(
+        { error: "User not found" },
+        { status: 404 }
+      );
     }
 
-    const { postId } = params; // Correctly access params here
+    const { postId } = context.params;
 
     if (!postId) {
-      return NextResponse.json({ error: "Post ID required" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Post ID required" },
+        { status: 400 }
+      );
     }
 
     const post = await db.post.findUnique({
@@ -89,6 +109,9 @@ export async function DELETE(
     );
   } catch (error) {
     console.error("Error deleting post: ", error);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
   }
 }

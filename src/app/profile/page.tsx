@@ -85,7 +85,7 @@ export default async function ProfilePage() {
           </div>
         ) : (
           <div className="space-y-4">
-            {dbUser.posts.map((post) => (
+            {dbUser.posts.map((post: any) => (
               <div key={post.id} className="bg-transparent p-2 sm:p-4 border-b border-white/25">
                 {/* Post Header */}
                 <div className="flex items-center mb-2">

@@ -39,7 +39,7 @@ export default function RootLayout({
         >
             <html lang="en">
                 <head>
-                    <link rel="icon" href="/CloakMe_ico.ico" sizes="any" />
+                    <link rel="icon" href="/favicon.ico" sizes="any" />
                 </head>
                 <body
                     className={`${geistSans.variable} ${geistMono.variable} antialiased`}

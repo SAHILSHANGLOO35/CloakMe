@@ -3,11 +3,17 @@
 import { CommentForm } from "@/components/CommentForm";
 import LeftSidebar from "@/components/LeftSidebar";
 import RightSidebar from "@/components/RightSidebar";
+import { User } from "@clerk/nextjs/server";
+import { Post } from "@prisma/client";
 import axios from "axios";
 import { formatDistanceToNow } from "date-fns";
 import { useEffect, useState } from "react";
 
-export default function PostClientPage({ post }: { post: any }) {
+type FullPost = Post & {
+  user: User;
+};
+
+export default function PostClientPage({ post }: { post: FullPost }) {
   const [postComments, setPostComments] = useState([]);
 
   const fetchPostComments = async () => {
@@ -42,7 +48,7 @@ export default function PostClientPage({ post }: { post: any }) {
           <div className="bg-transparent py-2 rounded-lg mb-2">
             <div className="flex items-center px-4 mb-2">
               <div className="bg-primary h-10 w-10 rounded-full flex items-center justify-center text-white font-bold border border-white/25" style={{ fontFamily: '"BR Firma", sans-serif' }}>
-                {post.user.username[0].toUpperCase()}
+                {post.user.username?.[0]?.toUpperCase() ?? "?"}
               </div>
               <div className="ml-3">
                 <p className="font-medium" style={{ fontFamily: '"BR Firma", sans-serif' }}>{post.user.username}</p>

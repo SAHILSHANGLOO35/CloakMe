@@ -3,17 +3,11 @@
 import { CommentForm } from "@/components/CommentForm";
 import LeftSidebar from "@/components/LeftSidebar";
 import RightSidebar from "@/components/RightSidebar";
-import { User } from "@clerk/nextjs/server";
-import { Post } from "@prisma/client";
 import axios from "axios";
 import { formatDistanceToNow } from "date-fns";
 import { useEffect, useState } from "react";
 
-type FullPost = Post & {
-  user: User;
-};
-
-export default function PostClientPage({ post }: { post: FullPost }) {
+export default function PostClientPage({ post }: { post : any }) {
   const [postComments, setPostComments] = useState([]);
 
   const fetchPostComments = async () => {

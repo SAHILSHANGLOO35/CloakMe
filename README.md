@@ -27,7 +27,7 @@ No likes. No followers. No pressure. Just authentic expression.
 - Clean, modern dark UI
 - Real-time UX with instant feedback
 - Ability to delete your own posts
-- Image and GIF uploads via Supabase Storage
+- Image and GIF uploads via Cloudinary Storage
 - No metrics or judgment — just pure expression
 
 ---

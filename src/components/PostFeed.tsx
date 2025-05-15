@@ -43,9 +43,9 @@ export function PostFeed({ initialPosts, loading, onRefresh }: PostFeedProps) {
         if (!isLoaded) return;
 
         if (session?.user) {
-            router.replace(`/posts/${postId}`);
+            router.push(`/posts/${postId}`);
         } else {
-            router.replace(`/sign-in`);
+            router.push(`/sign-in`);
         }
     };
 

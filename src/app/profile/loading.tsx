@@ -2,13 +2,16 @@
 
 import LeftSidebar from "@/components/LeftSidebar";
 import RightSidebar from "@/components/RightSidebar";
+import { Suspense } from "react";
 
 export default function Loading() {
   return (
     <main className="flex flex-col md:flex-row min-h-screen pb-16 md:pb-0 max-w-screen-2xl mx-auto">
       {/* Left Sidebar */}
       <div className="md:w-1/4 lg:w-1/3 md:-ml-4 lg:-ml-12">
-        <LeftSidebar />
+        <Suspense fallback={null}>
+          <LeftSidebar />
+        </Suspense>
       </div>
 
       {/* Main Content */}
@@ -76,7 +79,9 @@ export default function Loading() {
       
       {/* Right Sidebar */}
       <div className="hidden md:block md:w-1/4 lg:w-1/3 md:mr-2 lg:mr-4">
-        <RightSidebar />
+        <Suspense fallback={null}>
+          <RightSidebar />
+        </Suspense>
       </div>
     </main>
   );

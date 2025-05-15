@@ -57,7 +57,7 @@ function RightSidebar() {
             <button
               className="text-gray-400 flex flex-row items-center justify-center gap-1 mb-4 cursor-pointer hover:text-white text-sm mt-2 transition-colors"
               style={{ fontFamily: '"BR Firma", sans-serif' }}
-              onClick={() => router.replace('/sign-up')}
+              onClick={() => router.push('/sign-up')}
             >
               <MoveUpRight size={18} />
               Sign up
@@ -68,7 +68,7 @@ function RightSidebar() {
             <button
               className="text-gray-400 flex flex-row items-center justify-center gap-1 cursor-pointer hover:text-white text-sm mt-2 transition-colors"
               style={{ fontFamily: '"BR Firma", sans-serif' }}
-              onClick={() => router.replace('/sign-in')}
+              onClick={() => router.push('/sign-in')}
             >
               <LogIn size={18} />
               Sign in

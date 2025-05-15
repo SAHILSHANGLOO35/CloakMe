@@ -58,7 +58,7 @@ export function PostForm({ onPostsCreated }: PostFormProps) {
                 setIsLoading(false);
             }
         } else {
-            router.replace(`/sign-in`);
+            router.push(`/sign-in`);
         }
     };
 

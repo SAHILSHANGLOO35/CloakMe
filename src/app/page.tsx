@@ -30,7 +30,7 @@ function App() {
 	// Handle navigation with loading state
 	const handleNavigation = () => {
 		setIsLoading(true);
-		router.replace('/posts');
+		router.push('/posts');
 	};
 
 	return (
@@ -324,7 +324,7 @@ function App() {
 									<button className="px-6 sm:px-8 py-3 sm:py-4 rounded-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-sm sm:text-base text-white font-medium transition-all duration-300 shadow-lg shadow-purple-900/30 cursor-pointer flex items-center justify-center space-x-2"
 										onClick={() => {
 											setSigningIn(true)
-											router.replace(`/sign-in`)
+											router.push(`/sign-in`)
 										}}
 										disabled={signingIn}
 									>

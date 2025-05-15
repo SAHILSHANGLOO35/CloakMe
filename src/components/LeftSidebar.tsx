@@ -20,7 +20,7 @@ function LeftSidebar() {
     if (session?.user) {
       setIsModalOpen(true);
     } else {
-      router.replace('/sign-in');
+      router.push('/sign-in');
     }
   };
 
@@ -36,9 +36,9 @@ function LeftSidebar() {
   // Mobile navigation items - now at bottom with only Home, Profile and About
   const mobileNav = (
     <div className="fixed bottom-0 left-0 right-0 bg-neutral-950 border-t border-neutral-800 flex justify-around items-center h-16 px-4 z-50">
-      <NavItem icon={<Home size={24} />} label="Home" href='/posts' pathname={pathname} onClick={() => router.replace('/posts')} isMobile />
-      <NavItem icon={<User size={24} />} label="Profile" href='/profile' pathname={pathname} onClick={() => router.replace('/profile')} isMobile />
-      <NavItem icon={<Info size={24} />} label="About" href='/about-us' pathname={pathname} onClick={() => router.replace('/about-us')} isMobile />
+      <NavItem icon={<Home size={24} />} label="Home" href='/posts' pathname={pathname} onClick={() => router.push('/posts')} isMobile />
+      <NavItem icon={<User size={24} />} label="Profile" href='/profile' pathname={pathname} onClick={() => router.push('/profile')} isMobile />
+      <NavItem icon={<Info size={24} />} label="About" href='/about-us' pathname={pathname} onClick={() => router.push('/about-us')} isMobile />
     </div>
   );
 
@@ -47,8 +47,8 @@ function LeftSidebar() {
     <div className="hidden md:flex md:flex-col h-screen w-44 lg:w-64 sticky inset-y-0 left-0 lg:left-40 px-2 lg:px-4 ml-4 sm:ml-8 text-white">
       <div className="flex flex-col mt-12">
         <nav className="flex flex-col space-y-1">
-          <NavItem icon={<Home size={22} />} label="Home" href='/posts' pathname={pathname} onClick={() => router.replace('/posts')} />
-          <NavItem icon={<User size={22} />} label="Profile" href='/profile' pathname={pathname} onClick={() => router.replace('/profile')} />
+          <NavItem icon={<Home size={22} />} label="Home" href='/posts' pathname={pathname} onClick={() => router.push('/posts')} />
+          <NavItem icon={<User size={22} />} label="Profile" href='/profile' pathname={pathname} onClick={() => router.push('/profile')} />
           <NavItem icon={<Search size={22} />} label="Search" pathname={pathname} onClick={() => {
             const el = document.getElementById('search-input');
             if (el) {
@@ -60,7 +60,7 @@ function LeftSidebar() {
               }, 1500);
             }
           }} />
-          <NavItem icon={<Info size={22} />} label="About Us" href='/about-us' pathname={pathname} onClick={() => router.replace('/about-us')} />
+          <NavItem icon={<Info size={22} />} label="About Us" href='/about-us' pathname={pathname} onClick={() => router.push('/about-us')} />
         </nav>
 
         <div 

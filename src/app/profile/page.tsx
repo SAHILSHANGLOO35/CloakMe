@@ -4,6 +4,8 @@ import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
 import LeftSidebar from "@/components/LeftSidebar";
 import RightSidebar from "@/components/RightSidebar";
+import { Suspense } from "react";
+import Loading from "./loading";
 
 export default async function ProfilePage() {
   const user = await currentUser();
@@ -36,7 +38,9 @@ export default async function ProfilePage() {
     <main className="flex flex-col md:flex-row min-h-screen pb-16 md:pb-0 max-w-screen-2xl mx-auto">
       {/* Left Sidebar */}
       <div className="md:w-1/4 lg:w-1/3 md:-ml-4 lg:-ml-12">
-        <LeftSidebar />
+        <Suspense fallback={<Loading />}>
+          <LeftSidebar />
+        </Suspense>
       </div>
       
       {/* Main Content */}
@@ -130,7 +134,9 @@ export default async function ProfilePage() {
       
       {/* Right Sidebar */}
       <div className="hidden md:block md:w-1/4 lg:w-1/3 md:mr-2 lg:mr-4">
-        <RightSidebar />
+        <Suspense fallback={<Loading />}>
+          <RightSidebar />
+        </Suspense>
       </div>
     </main>
   );

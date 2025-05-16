@@ -7,6 +7,7 @@ import './globals.css';
 import { AuthSync } from "../components/AuthSync";
 import { dark } from "@clerk/themes";
 import { UserProvider } from "@/context/UserContext";
+import { Analytics } from '@vercel/analytics/next';
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -48,6 +49,7 @@ export default function RootLayout({
                     </header>
                     <UserProvider>
                         <AuthSync>{children}</AuthSync>
+                        <Analytics />
                     </UserProvider>
                 </body>
             </html>

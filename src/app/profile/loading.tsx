@@ -16,7 +16,7 @@ export default function Loading() {
 
       {/* Main Content */}
       <div className="w-full md:w-1/2 lg:w-2/4 border-white/25 md:mx-2 lg:mx-8 md:border-l md:border-r overflow-y-auto scrollbar-hide">
-        <div className="bg-transparent pt-4 rounded-lg mb-4 animate-pulse">
+        <div className="bg-transparent pt-4 rounded-lg mb-4">
           {/* Header */}
           <div className="pl-4">
             <div className="h-7 w-40 bg-neutral-700/50 rounded mb-4"></div>

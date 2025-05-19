@@ -1,5 +1,7 @@
-import PostClientPage from "@/components/PostClientPage";
 import { db } from "@/lib/db";
+import { Suspense } from "react";
+import CustomLoading from "./loading";
+import PostClientPage from "@/components/PostClientPage";
 
 export const dynamic = "force-dynamic";
 
@@ -16,5 +18,9 @@ export default async function PostPage({ params }: { params: { postId: string } 
 
   if(!post) return <div>Post not found!</div>
 
-  return <PostClientPage post={post} />
+  return (
+    <Suspense fallback={<CustomLoading />}>
+      <PostClientPage post={post} />
+    </Suspense>
+  )
 }

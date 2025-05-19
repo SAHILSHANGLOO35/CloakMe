@@ -7,15 +7,19 @@ import axios from "axios";
 import { formatDistanceToNow } from "date-fns";
 import { useEffect, useState } from "react";
 
-export default function PostClientPage({ post }: { post : any }) {
+export default function PostClientPage({ post }: { post: any }) {
   const [postComments, setPostComments] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchPostComments = async () => {
+    setIsLoading(true);
     try {
       const response = await axios.get(`/api/posts/${post.id}/comments`);
       setPostComments(response.data.comments);
     } catch (error) {
       console.error("Failed to fetch comments: ", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -79,20 +83,28 @@ export default function PostClientPage({ post }: { post : any }) {
           <CommentForm postId={post.id} onPostComment={fetchPostComments} />
         </div>
 
-        {/* Comments */}
+        {/* Comments Section */}
         <div className="flex flex-col">
           <h3 className="text-lg font-medium mb-3 px-4" style={{ fontFamily: '"BR Firma", sans-serif' }}>
             Comments
           </h3>
 
-          {postComments.length === 0 ? (
+          <div className="border-b border-white/25" />
+
+          {isLoading ? (
+            <div className="flex flex-col items-center justify-center py-8 space-y-4">
+              {/* Animated loading spinner */}
+              <div className="w-8 h-8 border-4 border-t-blue-500 border-r-transparent border-b-blue-500 border-l-transparent rounded-full animate-spin"></div>
+              <p className="text-lg font-medium text-gray-700">Loading Comments...</p>
+            </div>
+          ) : postComments.length === 0 ? (
             <div className="text-center text-gray-400 py-4" style={{ fontFamily: '"BR Firma", sans-serif' }}>
               No comments yet. Be the first to comment!
             </div>
           ) : (
             <div className="space-y-3 mb-6 flex flex-col">
               {postComments.map((comment: any) => (
-                <div key={comment.id} className="bg-transparent p-3 border-t border-white/25 px-4">
+                <div key={comment.id} className="bg-transparent p-3 border-b border-white/25 px-4">
                   <div className="flex items-center mb-2">
                     <div className="bg-primary h-8 w-8 rounded-full border border-white/25 flex items-center justify-center text-white text-sm font-bold" style={{ fontFamily: '"BR Firma", sans-serif', fontSize: '20px' }}>
                       {comment.user.username[0].toUpperCase()}

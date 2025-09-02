@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     siteName: "Cloak Me",
     images: [
       {
-        url: "/og-image.png", // Add OG image in public folder
+        url: "https://cloakme.zodx.tech/og-image.png",
         width: 1200,
         height: 630,
         alt: "Cloak Me - Anonymous Sharing Platform",
@@ -56,9 +56,10 @@ export const metadata: Metadata = {
     title: "Cloak Me | Anonymous Sharing Platform",
     description:
       "Cloak Me is a secure anonymous sharing platform built by Sahil Shangloo AKA doubleSdotdev.",
-    creator: "@doubleSdotdev", // Your Twitter handle
-    images: ["/og-image.png"],
+    creator: "@doubleSdotdev",
+    images: ["https://cloakme.zodx.tech/og-image.png"],
   },
+
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon.ico",

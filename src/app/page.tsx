@@ -35,7 +35,6 @@ function App() {
 
 	return (
 		<main className="min-h-screen bg-black text-white relative overflow-x-hidden" style={{ fontFamily: '"BR Firma", sans-serif' }}>
-			{/* Enhanced Animated Background with multiple elements */}
 			<div className="absolute inset-0 overflow-hidden pointer-events-none">
 				<div className="absolute w-[200px] sm:w-[300px] md:w-[500px] h-[200px] sm:h-[300px] md:h-[500px] top-24 sm:top-48 md:top-96 -left-12 sm:-left-24 md:-left-48 bg-pink-800/20 rounded-full blur-3xl animate-pulse" />
 				<div className="absolute w-[150px] sm:w-[200px] md:w-[300px] h-[150px] sm:h-[200px] md:h-[300px] bottom-10 sm:bottom-20 left-1/2 bg-blue-800/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "2s" }} />

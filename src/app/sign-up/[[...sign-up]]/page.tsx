@@ -5,7 +5,7 @@ export default function SignUpPage() {
     <div className="flex justify-center items-center min-h-screen">
       <SignUp
         path="/sign-up" // tells Clerk this is the sign-up page
-        routing="path" // full-page routing, not modal
+        routing="path"
         signInUrl="/sign-in" // optional, link to your sign-in page
         fallbackRedirectUrl="/posts" // replaces deprecated afterSignUpUrl
       />
